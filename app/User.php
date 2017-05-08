@@ -9,13 +9,18 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const PERMISSION_ADMIN = 1;
+    const PERMISSION_USER = 0;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'display_name',
+        'email',
+        'password',
     ];
 
     /**
@@ -24,6 +29,28 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    public static function getPermissionOption()
+    {
+        return [
+            self::PERMISSION_USER => ['value' => self::PERMISSION_USER, 'title' => 'Normal User'],
+            self::PERMISSION_ADMIN => ['value' => self::PERMISSION_ADMIN, 'title' => 'Admin'],
+        ];
+    }
+
+    public function getAllComments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+    public function getAllMarkMedicines()
+    {
+        return $this->hasMany('App\MarkMedicine');
+    }
+    public function getAllPrescriptions()
+    {
+        return $this->hasMany('App\Prescription');
+    }
 }
