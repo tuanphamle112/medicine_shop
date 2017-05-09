@@ -6,7 +6,7 @@
     "Pham Le Tuan <tuanphamle112@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/tuanphamle112/medicine_shop",
   "ignore": [
     "**/.*",
     "node_modules",

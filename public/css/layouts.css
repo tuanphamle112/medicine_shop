@@ -1,0 +1,362 @@
+body {
+    font-family: "Ubuntu","sans-serif";
+    font-size: 16px;
+}
+a {
+    text-decoration: none !important;
+}
+li {
+    list-style-type: none;
+}
+ 
+/*HEADER CSS START~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`*/
+.search-form {
+    /*margin-top:15px;*/
+    width:85%;
+}
+#header:before {
+    border: 1px solid transition;
+    width: 100%;
+    background-color: #3399cc;
+    height: 20px;
+    margin:0;
+    padding:0;
+    border-radius: 0px 0px 5px 5px;
+}
+.container-fluid {
+    padding:0;
+}
+.page-header-container {
+    line-height: 35px;
+    margin-top: 30px;
+}
+.acc-btn {
+    font-size:15px;
+    color:#ccc;line-height: 30px;
+    margin-top:5px;  
+}
+
+.acc-btn:hover {
+    color: #2e8ab8 !important;
+    opacity: 0.7;
+    text-decoration: none;
+}
+.acc-btn:hover i{
+    color: #2e8ab8 !important;
+    opacity: 0.7;
+}
+.glyphicon {
+    margin-top: -2px;
+    border-left: 1px solid transparent;
+}
+.user-icon {
+    font-size:30px;
+    color:#ccc;
+    vertical-align: middle;
+}
+    
+/*nav bar~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
+.top-bar {
+    text-align: center;
+    background-color: #fff;
+    /*border-bottom: 1px dashed #cfcfcf;*/
+    color: #333;
+    font-weight: 400;
+    padding: 25px 0 14px 75px;
+    font-size: 14px;
+    border-bottom: none;
+}
+
+.top-bar .top-bar-wrapper {
+    padding-left: 15px;
+}
+
+.top-bar ul.main-nav {
+    list-style: none;
+    display: inline-block;
+    padding-left: 0px;
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+.top-bar ul.main-nav li {
+    padding: 5px 20px 0px 0px;
+    display: inline-block;
+    font-weight: 200;
+}
+.top-bar ul.main-nav li a {
+    text-transform: uppercase;
+    color: #333;
+    font-size: 16px;
+    padding-right: 40px;
+    border-right: 1px solid #DBD7D8;
+    font-weight: 400;
+}
+
+/*Submenu effection~~~~~~~~~~~~~~~~~~~*/
+.subm-2 .subm-2-page {
+    background: #39c;
+    margin-left: -15px;
+    width: calc(100% + 30px);
+    box-shadow: 5px 5px 2px #888888;
+}
+.subm-2 .subm-2-page .menulist {
+    padding-left: 0px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+.subm-2 .subm-2-page .menulist li {
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: top;
+}
+.subm-2 .subm-2-page .menulist li a {
+    color: #fff !important;
+    display: block;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+.subm-2 .subm-2-page .menulist li a:hover, .subm-2 .subm-2-page .menulist li a.active {
+    background: #ED6D12;
+    text-decoration: none;
+}
+.subm-2 .subm-2-page .menulist li a {
+    color: #fff !important;
+    display: block;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: bold;
+}
+/*Dropdown Account~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.account {
+    /*position: relative;*/
+
+    text-align: center;
+}
+
+#header-account {
+    /*display:none;*/
+    visibility:hidden;
+    top: 60px;
+    /*right: 225px;*/
+    padding: 9px 39px 0px 0px;
+    border:1px solid #ccc;
+    z-index: 2;
+    opacity:0;
+    background-color: #fff;
+    position: absolute;
+    transition: 0.5s;
+    
+}
+
+/*.skip-content {
+    display: block;
+    color: #636363;
+    font-size: 14px;
+    line-height: 1.5;
+}*/
+#header-account a {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    line-height: 33px;
+    text-align: center;
+    
+}
+#header-account a:hover {
+    color:#bfbfbf;
+    
+}
+/*///////*/
+.account a {
+    position: relative;
+}
+.account:hover > #header-account {
+    opacity:1;
+    top: 100%;
+    /*margin-top:0;*/
+    visibility:visible;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+    
+}
+/*HEADER CSS ENDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+/*FOOTER CSS START~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+.footer {
+    border-top: 1px solid #cfcfcf;
+    margin-top: 0px;
+    background-color: #fff;
+    clear: both;
+}
+.v-x2-padding {
+    padding: 50px 0;
+}
+footer .brand {
+    display: block;
+    float: left;
+}
+.footer .social {
+    margin-top: 20px;
+}
+.social {
+    float: left;
+    margin: 0;
+}
+footer ul {
+    clear: both;
+    float: left;
+    margin: 16px 0 0 0;
+    padding: 0;
+}
+.footer .social li {
+    border: 1px solid #333;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+}
+footer .social li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 16px 0 0;
+}
+footer li {
+    color: #ED6D12;
+    list-style: none;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+footer .social li a {
+    font-size: 22px;
+        color: #ED6D12;
+}
+.social li a {
+    border: 0;
+    color: #333;
+    font-size: 16px;
+    padding: 0;
+}
+/*End social*/
+.footer .sub-header {
+    font-weight: bold;
+}
+
+footer .sub-header {
+    display: block;
+    font-size: 19px;
+    text-align: left;
+}
+
+.sub-header {
+    color: #333;
+    display: block;
+    font-size: 2.5rem;
+    margin: 1.071em auto;
+    text-align: center;
+    text-transform: uppercase;
+}
+.no-margin {
+    margin: 0 !important;
+}
+
+footer ul {
+    clear: both;
+    float: left;
+    margin: 1.071em 0 0 0;
+    padding: 0;
+}
+.footer ul.navigation li {
+    text-transform: uppercase;
+    border-bottom: 1px solid #333;
+    width: 150px;
+    padding: 0 10px 10px 10px;
+    margin-bottom: 0px;
+}
+
+footer li {
+    color: #ED6D12;
+    list-style: none;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+.footer ul.navigation li:before {
+    content: "";
+    border-color: transparent #ED6D12;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -0.6em;
+    top: 1em;
+    position: relative;
+}
+/*End nav*/
+.footer .sub-header {
+    font-weight: bold;
+}
+
+footer .sub-header {
+    display: block;
+    font-size: 19px;
+    text-align: left;
+}
+
+.sub-header {
+    color: #333;
+    display: block;
+    font-size: 2.5rem;
+    margin: 1.071em auto;
+    text-align: center;
+    text-transform: uppercase;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+table {
+    background-color: transparent;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.footer .quick-contact-us .firstname {
+    border-right: none !important;
+}
+
+.footer .quick-contact-us input, .footer .quick-contact-us textarea {
+    padding: 10px;
+    border-color: #333;
+    border: 1px solid #333;
+}
+.footer .quick-contact-us .submit-button {
+    float: left;
+    background-color: white;
+    text-transform: uppercase;
+    border: 2px solid #ED6D12;
+    color: #ED6D12;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-right: -8px;
+}
+
+.footer .quick-contact-us input, .footer .quick-contact-us textarea {
+    padding: 10px;
+    border-color: #333;
+    border: 1px solid #333;
+}
+
+.footer .quick-contact-us textarea {
+    width: 100%;
+    border-top: none !important;
+    height: 100px;
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+/*End footer*/
+
+/*FOOTER CSS ENDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
