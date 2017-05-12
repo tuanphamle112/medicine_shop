@@ -21,6 +21,8 @@ class User extends Authenticatable
         'display_name',
         'email',
         'password',
+        'phone',
+        'address',
     ];
 
     /**
@@ -36,8 +38,8 @@ class User extends Authenticatable
     public static function getPermissionOption()
     {
         return [
-            self::PERMISSION_USER => ['value' => self::PERMISSION_USER, 'title' => 'Normal User'],
-            self::PERMISSION_ADMIN => ['value' => self::PERMISSION_ADMIN, 'title' => 'Admin'],
+            self::PERMISSION_USER => __('Normal User'),
+            self::PERMISSION_ADMIN => __('Admin'),
         ];
     }
 

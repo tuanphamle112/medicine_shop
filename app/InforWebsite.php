@@ -26,7 +26,7 @@ class InforWebsite extends Model
     public static function getPositionOption()
     {
         return [
-            self::POSITION_MAIN => ['value' => self::POSITION_MAIN, 'title' => 'Position Main'],
+            self::POSITION_MAIN => __('Position Main'),
         ];
     }
 }

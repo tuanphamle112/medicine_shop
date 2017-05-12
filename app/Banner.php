@@ -28,8 +28,8 @@ class Banner extends Model
     public static function getPossitionOption()
     {
         return [
-            self::POSITION_TOP => ['value' => self::POSITION_TOP, 'title' => 'Position Top'],
-            self::POSITION_BOTTOM => ['value' => self::POSITION_BOTTOM, 'title' => 'Position Bottom'],
+            self::POSITION_TOP => __('Position Top'),
+            self::POSITION_BOTTOM => __('Position Bottom'),
         ];
     }
 }

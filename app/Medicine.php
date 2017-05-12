@@ -28,7 +28,7 @@ class Medicine extends Model
     }
     public function getAllRateMedicines()
     {
-        return $this->hasMany('App\RateMedicine')
+        return $this->hasMany('App\RateMedicine');
     }
     public function getAllComments()
     {
