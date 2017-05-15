@@ -9,8 +9,19 @@
     "Login": "Login",
     "Remember Me": "Remember Me",
     "Forgot Your Password?": "Forgot Your Password?",
-    "Reset Password": "Reset Password",
     "Toggle Navigation": "Toggle Navigation",
     "Medicine Shop": "Medicine Shop",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Copyright": "Copyright",
+    "All rights reserved.": "All rights reserved.",
+    "Admin": "Admin",
+    "Dashboard": "Dashboard",
+    "Go Home Page": "Go Home Page",
+    "Profile": "Profile",
+    "Are you logout?": "Are you logout?",
+    "Main Navigation": "Main Navigation",
+    "Online": "Online",
+    "Position Main": "Position Main",
+    "Position Top": "Position Top",
+    "Position Bottom": "Position Bottom"
 }
