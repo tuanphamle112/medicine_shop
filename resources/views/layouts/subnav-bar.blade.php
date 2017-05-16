@@ -3,17 +3,19 @@
         <div class="subm-2-page">
             <div class="subm-cat-full">
                 <ul class="menulist">
-                    <li><a href="#">The first item</a></li>
-
-                    <li><a href="#">The second item</a></li>
-
-                    <li><a class="active" href="#">The third item</a></li>
-
-                    <li><a href="#">The fourth item</a></li>
-
-                    <li><a href="#">The fifth item</a></li>
-                    
-                    <li> <a href="#">The sixth item</a></li>
+                    @foreach ($sMedicines as $sMedicine)
+                        <li>
+                        @if ( isset($link) && $link == $sMedicine->link)
+                            <a href="/{{ $bar }}/{{ $sMedicine->link }}" class="active">
+                                {{ $sMedicine->name }}
+                            </a>
+                        @else
+                            <a href="/{{ $bar }}/{{ $sMedicine->link }}">
+                                {{ $sMedicine->name }}
+                            </a>
+                        @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

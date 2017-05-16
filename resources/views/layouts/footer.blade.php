@@ -1,8 +1,7 @@
 <div class="row v-x2-padding footer">
     <footer class="col-md-12">
         <div class="col-xs-12 col-sm-4 col-md-4">
-            <a href="/home.php" class="brand">
-                <!-- Start footer -->
+            <a href="/" class="brand">
                 {{ trans('label.logo') }}
             </a>
             <ul class="social">
@@ -28,20 +27,20 @@
             <h2 class="sub-header">{{ trans('label.nav') }}</h2>
             <ul class="no-margin navigation">
                 <li>
-                    <a href="/">{{ trans('label.home') }}</a>
+                    <a href="{{ route('welcome') }}">{{ trans('label.home') }}</a>
                 </li>
                 <li>
-                    <a href="#">{{ trans('label.store') }}</a>
+                    <a href="{{ route('nav', ['bar' => 'thuoc']) }}">{{ trans('label.store') }}</a>
                 </li>
                 <li>
-                    <a href="#">{{ trans('label.functional_foods') }}</a>
+                    <a href="{{ route('nav', ['bar' => 'tpchucnang']) }}">{{ trans('label.functional_foods') }}</a>
                 </li>
                 <li>
-                    <a href="#">{{ trans('label.tco_beauty') }}</a>
+                    <a href="{{ route('nav', ['bar' => 'lamdep']) }}">{{ trans('label.tco_beauty') }}</a>
                 </li>
 
                 <li>
-                    <a href="#">{{ trans('label.tips') }}</a>
+                    <a href="{{ route('nav', ['bar' => 'machnho']) }}">{{ trans('label.tips') }}</a>
                 </li>
             </ul>
         </div>

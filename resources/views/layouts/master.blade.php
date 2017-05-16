@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/layouts.css') }}" />
 </head>
 <body>
+
+{{-- {{ $medicines->name }} --}}
     <!-- Start header -->
     @include('layouts.header')
     <!-- Sub navigation bar -->
     @yield('subnav-bar')
-    @include('layouts.subnav-bar')
     <!-- End header -->
-
     <!-- Start content -->
     @yield('content')
     <h2>Page content</h2>

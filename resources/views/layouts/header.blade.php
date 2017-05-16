@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
                     <div class="logo">
-                        <a href="#">{{ trans('label.logo') }}</a>
+                        <a href="/">{{ trans('label.logo') }}</a>
                     </div> 
                 </div>
                 <!-- End logo -->
@@ -60,19 +60,19 @@
             <div class="top-bar-wrapper">
                 <ul class="main-nav">
                     <li class="has-subm">
-                        <a class="active" href="/">{{ trans('label.home') }}</a>
+                        <a href="{{ route('welcome') }}">{{ trans('label.home') }}</a>
                     </li>
                     <li>
-                        <a href="#">{{ trans('label.medical') }}</a>
+                        <a href="{{ route('nav', ['bar' => 'thuoc']) }}">{{ trans('label.medical') }}</a>
                     </li>
                     <li>
-                        <a href="#">{{ trans('label.functional_foods') }}</a>
+                        <a href="{{ route('nav', ['bar' => 'tpchucnang']) }}">{{ trans('label.functional_foods') }}</a>
                     </li>
                     <li>
-                        <a href="#">{{ trans('label.tco_beauty') }}</a>
+                        <a href="{{ route('nav', ['bar' => 'lamdep']) }}">{{ trans('label.tco_beauty') }}</a>
                     </li>
                     <li>
-                        <a href="#">{{ trans('label.tips') }}</a>
+                        <a href="{{ route('nav', ['bar' => 'machnho']) }}">{{ trans('label.tips') }}</a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>

@@ -16,3 +16,6 @@ Route::get('/', function () {
 })->name('welcome');
 
 Auth::routes();
+Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
+Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');
+

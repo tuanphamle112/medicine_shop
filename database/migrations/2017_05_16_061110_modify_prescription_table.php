@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class ModifyPrescriptionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 255);
-            $table->integer('parent_id')->unsigned();
-            $table->foreign('parent_id')->references('id')->on('categories');
+        Schema::table('users', function (Blueprint $table) {
+             $table->string('name_doctor')->nullable()->change();
         });
     }
 
@@ -28,6 +25,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::string('name_doctor')->change();
     }
 }
