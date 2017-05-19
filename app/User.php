@@ -12,6 +12,8 @@ class User extends Authenticatable
     const PERMISSION_ADMIN = 1;
     const PERMISSION_USER = 0;
 
+    const PATH_AVATAR = 'uploads/avatars/';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +25,8 @@ class User extends Authenticatable
         'password',
         'phone',
         'address',
+        'permission',
+        'avatar',
     ];
 
     /**
