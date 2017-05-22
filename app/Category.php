@@ -14,5 +14,24 @@ class Category extends Model
     protected $fillable = [
         'name',
         'parent_id',
+        'link',
     ];
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    public function getOptionParentCategories()
+    {
+    	$categories = $this->where('parent_id', null)->get();
+    	$result = [];
+    	foreach ($categories as $category) {
+    		$result[$category->id] = $category->name;
+    	}
+        
+    	return $result;
+    }
 }
