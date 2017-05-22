@@ -182,7 +182,116 @@ li {
     
 }
 /*HEADER CSS ENDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/*CONTENT CSS START*/
+.content {
+    background-color: #f0f5fb;
+}
+.wrap-cateitem {
+    float: left;
+    margin-top: 50px;
+    margin-bottom: 1.071em;
+    padding-bottom: 5px;
+    transition: all 0.4s ease;
+    background-color: #fff;
+    border: 1px solid #ebebeb;
+    width: 100%;
+    margin-left:20px;
+}
+.wrap-cateitem:hover {
+    transform: translate(0, -5px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+.overlay-container {
+    overflow: hidden;
+}
+.cateitem-image {
+    width:100%;
+    margin-bottom: 5px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    padding: 35% 0;
+    transition: all .5s ease;
+}
+.cateitem-image:hover{
+    transform: scale(1.2);
+}
+.zooming-img {
+    background-size: cover;
+    width: 100%;
+    transition: all .5s ease;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 35% 0;
+}
+.cateitem-labeling {
+    height: 40px;
+}
+.cateitem-labeling h2 {
+    font-size: 14px;
+    margin-left: 5px;
+}
+.cateitem-labeling h2 a {
+    text-transform: none;
+    color: #333;
+}
+.cateitem-labeling h2 a:hover {
+    color: #ED6D12;
+}
 
+.cateitem-price-container h2{
+    font-size: 14px;
+    text-align: right;
+    margin-right: 5px;
+}
+.cateitem-price-container h2 a {
+    text-transform: none;
+    color: #333;
+}
+.cateitem-buttons {
+    clear: both;
+    float: left;
+    height: 42px;
+    line-height: 40px;
+    overflow: hidden;
+    position: relative;
+    bottom: 0;
+    width: 97%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.detail-link {
+    background-color: #fff;
+    border: 1px solid #ED6D12;
+    box-sizing: border-box;
+    color: #ED6D12;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0 !important;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    text-transform: uppercase;
+    transition: width 0.2s ease-in-out;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
+.detail-link:hover {
+    background-color: #ED6D12;
+    color: #fff;
+    text-decoration: none;
+    
+}
+.add-to-links:hover {
+    color: #ED6D12;
+}
+.add-to-links {
+    margin-left:5px;
+}
+/*END CONTENT*/
 /*FOOTER CSS START~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 .footer {
     border-top: 1px solid #cfcfcf;

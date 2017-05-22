@@ -21,7 +21,10 @@ class Medicine extends Model
         'total_rate',
         'related_medicine',
     ];
-
+    public function getAllCategories()
+    {
+        return $this->belongsToMany('App\Category','medicine_id','category_id');
+    }
     public function getAllImages()
     {
         return $this->hasMany('App\Image');
