@@ -18,10 +18,13 @@
 
     @include('admin.layouts.library.sidebar')
 
-    <!-- Load Content -->
-    @yield('content')
-    <!-- End Load Content -->
+    <div class="content-wrapper">
+        @include('admin.layouts.library.session-message')
 
+        <!-- Load Content -->
+        @yield('content')
+        <!-- End Load Content -->
+    </div>
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
         </div>

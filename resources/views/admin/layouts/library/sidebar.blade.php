@@ -22,9 +22,9 @@
                 {{ __('Main Navigation') }}
             </li>
             <li class="treeview">
-                <a href="{!! url('#') !!}">
+                <a href="{{ route('users.index') }}">
                     <i class="fa fa-book"></i>
-                    <span> {{ __('Parent Menu 1') }}  </span>
+                    <span> {{ __('List Users') }}  </span>
                 </a>
             </li>
             <li class="treeview">
