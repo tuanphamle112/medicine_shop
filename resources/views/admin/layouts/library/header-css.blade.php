@@ -6,3 +6,4 @@
 <link rel="stylesheet" href="{!! url('bower_components/AdminLTE/dist/css/AdminLTE.min.css') !!}">
 <link rel="stylesheet" href="{!! url('bower_components/AdminLTE/dist/css/skins/_all-skins.min.css') !!}">
 <link rel="stylesheet" href="{!! url('bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.css') !!}"/>
+<link rel="stylesheet" href="{!! url('bower_components/AdminLTE/plugins/select2/select2.min.css') !!}"/>
