@@ -53,5 +53,20 @@
     "Edit User :name": "Edit User :name",
     "Edit user :name successfully!": "Edit user :name successfully!",
     "New Password": "New Password",
-    "Detail user :name": "Detail user :name"
+    "Detail user :name": "Detail user :name",
+    "Category": "Category",
+    "List Categories": "List Categories",
+    "Categories": "Categories",
+    "Add New Parent Category": "Add New Parent Category",
+    "No sub category": "No sub category",
+    "Link": "Link",
+    "Sorry, this link already exists!": "Sorry, this link already exists!",
+    "Add new parent category successfully!": "Add new parent category successfully!",
+    "Delete sub category :name successfully!": "Delete sub category :name successfully!",
+    "Delete category :name successfully!": "Delete category :name successfully!",
+    "Parent Category": "Parent Category",
+    "Add New Sub Category": "Add New Sub Category",
+    "Add new sub category successfully!": "Add new sub category successfully!",
+    "Edit category successfully!": "Edit category successfully!",
+    "Category not found!": "Category not found!"
 }

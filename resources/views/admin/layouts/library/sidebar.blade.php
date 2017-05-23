@@ -28,6 +28,12 @@
                 </a>
             </li>
             <li class="treeview">
+                <a href="{{ route('category.index') }}">
+                    <i class="fa fa-book"></i>
+                    <span> {{ __('Category') }}  </span>
+                </a>
+            </li>
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i>
                     <span>{{ __('Parent Menu 2') }}</span>
