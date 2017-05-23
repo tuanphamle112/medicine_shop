@@ -12,11 +12,11 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-	    'name',
-	    'parent_id',
+        'name',
+        'parent_id',
     ];
     public function getAllMedicines()
     {
-    	return $this->belongsToMany('App\Medicine','category_medicine_related','category_id','medicine_id');
+        return $this->belongsToMany('App\Medicine','category_medicine_related','category_id','medicine_id');
     }
 }

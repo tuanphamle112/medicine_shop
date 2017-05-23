@@ -25,7 +25,6 @@ class MedicinesList extends Controller
         $medicine = Category::where('link', $bar)-> first();  
         $subMedicine = Category::where('link', $link)-> first();
         $items = Category::find($subMedicine->id)->getAllMedicines;
-
         $sMedicines = Category::where('parent_id', $medicine->id)-> get();
         return view('subcate', [
             'sMedicines'=> $sMedicines,
