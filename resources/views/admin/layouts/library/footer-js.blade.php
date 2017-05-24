@@ -13,3 +13,5 @@
 <script src="{!! url('bower_components/AdminLTE/plugins/fastclick/fastclick.min.js') !!}"></script>
 <!-- SlimScroll 1.3.0 -->
 <script src="{!! url('bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js') !!}"></script>
+<script src="{!! url('bower_components/AdminLTE/plugins/select2/select2.min.js') !!}"></script>
+<script src="{!! url('bower_components/AdminLTE/plugins/ckeditor/ckeditor.js') !!}"></script>

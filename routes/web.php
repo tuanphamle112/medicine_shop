@@ -21,6 +21,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
 
     Route::resource('category', 'Admin\CategoryController');
     Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
+
+    Route::resource('medicine', 'Admin\MedicineController');
 });
 
 Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');

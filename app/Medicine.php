@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medicine extends Model
 {
+    
+    const PATH_MEDICINE = 'uploads/medicines/';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -33,5 +36,9 @@ class Medicine extends Model
     public function getAllComments()
     {
         return $this->hasMany('App\Comment');
+    }
+    public function getCreatedUser()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

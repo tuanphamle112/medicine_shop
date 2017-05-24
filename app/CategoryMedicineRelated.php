@@ -16,6 +16,15 @@ class CategoryMedicineRelated extends Model
         'medicine_id',
     ];
 
+    protected $table = 'category_medicine_related';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
     public function getAllMedicines()
     {
         return $this->belongsToMany('App\Medicine');
