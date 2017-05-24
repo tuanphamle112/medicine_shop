@@ -82,5 +82,13 @@
     "Add new medicine :name successfully!": "Add new medicine :name successfully!",
     "Medicine not found!": "Medicine not found!",
     "Delete medicine :name successfully!": "Delete medicine :name successfully!",
-    "Edit medicine :name successfully!": "Edit medicine :name successfully!"
+    "Edit medicine :name successfully!": "Edit medicine :name successfully!",
+    "Setup Website": "Setup Website",
+    "Website": "Website",
+    "Title": "Title",
+    "Slogan": "Slogan",
+    "Footer": "Footer",
+    "Add New Link": "Add New Link",
+    "Remove": "Remove",
+    "Save successfully!": "Save successfully!"
 }

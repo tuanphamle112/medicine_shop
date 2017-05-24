@@ -19,6 +19,8 @@
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.7.0",
     "AdminLTE": "admin-lte#^2.3.11",
-    "knockout": "knockoutjs#^3.4.2"
+    "knockout": "knockoutjs#^3.4.2",
+    "responsive-filemanager": "https://github.com/dinhvantai/responsive-filemanager.git",
+    "tinymce": "^4.6.2"
   }
 }
