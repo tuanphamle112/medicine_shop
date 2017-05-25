@@ -35,74 +35,69 @@
 
                         <div class="form-group">
                             <div class="col-sm-6">
-                                {!! Form::label('title', __('Title'), ['class' => 'col-sm-2 control-label']) !!}
-                                <div class="col-sm-10">
+                                {!! Form::label('title', __('Title'), ['class' => 'col-sm-4 control-label']) !!}
+                                <div class="col-sm-8">
                                     {!! Form::text('title', $setup->title, ['class' => 'form-control', 'placeholder' => __('Title')]) !!}
-                                    <span style="color:red">{!! $errors->first('title') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('title') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('slogan', __('Slogan'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
                                     {!! Form::text('slogan', $setup->slogan, ['class' => 'form-control', 'placeholder' => __('Slogan')]) !!}
-                                    <span style="color:red">{!! $errors->first('slogan') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('slogan') !!}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                {!! Form::label('logo', __('Logo'), ['class' => 'col-sm-1 control-label']) !!}
-                                @if ($setup->logo)
-                                    <div class="col-sm-3">
-                                        <img src="{{ url($setup->logo) }}" alt="{{ $setup->title }}" class="img-responsive">
+                            {!! Form::label('logo', __('Logo'), ['class' => 'col-sm-2 control-label']) !!}
+                            @if ($setup->logo)
+                                <div class="col-sm-3">
+                                    <img src="{{ url($setup->logo) }}" alt="{{ $setup->title }}" class="img-responsive">
+                                </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-5">
+                            @else
+                                <div class="col-sm-10">
+                            @endif
+                                {!! Form::file('logo', ['class' => 'form-control']) !!}
+                                <span class="text-danger">{!! $errors->first('logo') !!}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('title', __('Link Communication'), ['class' => 'col-sm-1 control-label']) !!}
+                            <div class="col-sm-1 control-label">
+                                <a href="#" data-toggle="tooltip" class="btn btn-primary" data-original-title="{{ __('Add New Link') }}" data-bind="click: addNewOption">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-10 control-label" data-bind="foreach: objectLinks">
+                                <div class="row form-group">
+                                    <div class="input-group col-sm-5 pull-left">
+                                        <span class="input-group-addon">{{ __('Keyword') }}</span>
+                                        {!! Form::text('keyword[]', '', ['data-bind' => 'value: key', 'class' => 'form-control']) !!}
+                                        <span class="text-danger">{!! $errors->first('keyword.*') !!}</span>
                                     </div>
-                                    <div class="col-sm-8">
-                                @else
-                                    <div class="col-sm-11">
-                                @endif
-                                    {!! Form::file('logo', ['class' => 'form-control']) !!}
-                                    <span style="color:red">{!! $errors->first('logo') !!}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                {!! Form::label('title', __('Link Communication'), ['class' => 'col-sm-1 control-label']) !!}
-                                <div class="col-sm-1 control-label">
-                                    <a href="#" data-toggle="tooltip" class="btn btn-primary" data-original-title="{{ __('Add New Link') }}" data-bind="click: addNewOption">
-                                        <i class="fa fa-plus"></i>
-                                    </a>
-                                </div>
-                                <div class="col-sm-10 control-label" data-bind="foreach: objectLinks">
-                                    <div class="row form-group">
-                                        <div class="input-group col-sm-5" style="float: left;">
-                                            <span class="input-group-addon">{{ __('Keyword') }}</span>
-                                            <input type="text" name="keyword[]" data-bind="value: key" class="form-control">
-                                            <span style="color:red">{!! $errors->first('keyword.*') !!}</span>
-                                        </div>
-                                        <div class="col-sm-1"></div>
-                                        <div class="input-group col-sm-5" style="float: left;">
-                                            <span class="input-group-addon">{{ __('Link') }}</span>
-                                            <input type="text" name="link[]" data-bind="value: link" class="form-control">
-                                            <span style="color:red">{!! $errors->first('link.*') !!}</span>
-                                        </div>
-                                        <div class="col-sm-1" style="float: left;">
-                                            <a href="#" data-toggle="tooltip" class="btn btn-danger" data-bind="click: $root.removeOption">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>
-                                        </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="input-group col-sm-5 pull-left">
+                                        <span class="input-group-addon">{{ __('Link') }}</span>
+                                        {!! Form::text('link[]', '', ['data-bind' => 'value: link', 'class' => 'form-control']) !!}
+                                        <span class="text-danger">{!! $errors->first('link.*') !!}</span>
+                                    </div>
+                                    <div class="col-sm-1 pull-left">
+                                        <a href="#" data-toggle="tooltip" class="btn btn-danger" data-bind="click: $root.removeOption">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                {!! Form::label('footer', __('Footer'), ['class' => 'col-sm-1 control-label']) !!}
-                                <div class="col-sm-11">
-                                    {!! Form::textarea('footer', $setup->footer, ['class' => 'form-control', 'placeholder' => __('Footer')]) !!}
-                                    <span style="color:red">{!! $errors->first('footer') !!}</span>
-                                </div>
+                            {!! Form::label('footer', __('Footer'), ['class' => 'col-sm-1 control-label']) !!}
+                            <div class="col-sm-11">
+                                {!! Form::textarea('footer', $setup->footer, ['class' => 'form-control', 'placeholder' => __('Footer')]) !!}
+                                <span class="text-danger">{!! $errors->first('footer') !!}</span>
                             </div>
                         </div>
                     {!! Form::close() !!}

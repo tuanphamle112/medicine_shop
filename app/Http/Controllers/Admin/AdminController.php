@@ -33,9 +33,7 @@ class AdminController extends Controller
                 'logo' => 'image',
             ]);
             if ($validator->fails()) {
-                return redirect()->route('admin.setup')
-                    ->withErrors($validator)
-                    ->withInput($request->input);
+                return redirect()->route('admin.setup')->withErrors($validator);
             }
 
             $setup->fill($request->except(['logo']));

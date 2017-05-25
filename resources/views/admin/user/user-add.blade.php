@@ -39,14 +39,14 @@
 
                                 <div class="col-sm-9">
                                     {!! Form::email('email', '', ['class' => 'form-control', 'placeholder' => __('Email')]) !!}
-                                    <span style="color:red">{!! $errors->first('email') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('email') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('display_name', __('Display Name'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('display_name', '', ['class' => 'form-control', 'placeholder' => __('Display Name')]) !!}
-                                    <span style="color:red">{!! $errors->first('display_name') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('display_name') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -55,14 +55,14 @@
                                 {!! Form::label('phone', __('Phone'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('phone', '', ['class' => 'form-control', 'placeholder' => __('Phone')]) !!}
-                                    <span style="color:red">{!! $errors->first('phone') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('phone') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('address', __('Address'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('address', '', ['class' => 'form-control', 'placeholder' => __('Address')]) !!}
-                                    <span style="color:red">{!! $errors->first('address') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('address') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -71,14 +71,14 @@
                                 {!! Form::label('password', __('Password'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('Password')]) !!}
-                                    <span style="color:red">{!! $errors->first('password') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('password') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('confirm_password', __('Confirm Password'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::password('confirm_password', ['class' => 'form-control', 'placeholder' => __('Confirm Password')]) !!}
-                                    <span style="color:red">{!! $errors->first('confirm_password') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('confirm_password') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -87,14 +87,14 @@
                                 {!! Form::label('avatar', __('Avatar'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::file('avatar', ['class' => 'form-control']) !!}
-                                    <span style="color:red">{!! $errors->first('avatar') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('avatar') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('permission', __('Permission'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::select('permission', App\User::getPermissionOption(), null, ['class' => 'form-control']) !!}
-                                    <span style="color:red">{!! $errors->first('permission') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('permission') !!}</span>
                                 </div>
                             </div>
                         </div>
