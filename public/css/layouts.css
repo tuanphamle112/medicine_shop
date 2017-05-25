@@ -116,11 +116,13 @@ li {
     display: block;
     padding: 10px;
     font-size: 13px;
+    transition:0.3s;
     font-weight: bold;
 }
 .subm-2 .subm-2-page .menulist li a:hover, .subm-2 .subm-2-page .menulist li a.active {
     background: #ED6D12;
     text-decoration: none;
+    transition:0.2s;
 }
 .subm-2 .subm-2-page .menulist li a {
     color: #fff !important;
@@ -184,7 +186,18 @@ li {
 /*HEADER CSS ENDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*CONTENT CSS START*/
 .content {
+    width: 100%;
+    height:100%;
     background-color: #f0f5fb;
+    padding-right:40px;
+    padding-left:40px;
+}
+.user-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
 }
 .wrap-cateitem {
     float: left;
@@ -195,7 +208,6 @@ li {
     background-color: #fff;
     border: 1px solid #ebebeb;
     width: 100%;
-    margin-left:20px;
 }
 .wrap-cateitem:hover {
     transform: translate(0, -5px);
@@ -210,11 +222,18 @@ li {
     overflow: hidden;
     position: relative;
     z-index: 0;
-    padding: 35% 0;
+    /*padding: 35% 0;*/
     transition: all .5s ease;
 }
-.cateitem-image:hover{
-    transform: scale(1.2);
+.cateitem-image img {
+    transform: scale(1,1);
+    transition: all .5s ease;
+    width: 100%;
+    height: auto;
+}
+.cateitem-image img:hover{
+    transform: scale(1.2,1.2);
+    transition: all .5s ease;
 }
 .zooming-img {
     background-size: cover;
@@ -228,6 +247,7 @@ li {
 }
 .cateitem-labeling {
     height: 40px;
+    margin-bottom:20px;
 }
 .cateitem-labeling h2 {
     font-size: 14px;
@@ -469,10 +489,4 @@ table {
 /*End footer*/
 
 /*FOOTER CSS ENDED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-.user-image {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-top: -2px;
-}
+

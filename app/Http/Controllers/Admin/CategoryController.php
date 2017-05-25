@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
         $data['categories'] = $categories;
         $data['categoryParents'] = $categoryParents; //Paginate
-        
+
         return view('admin.category.list', ['data' => $data]);
     }
 
@@ -74,7 +74,7 @@ class CategoryController extends Controller
         if ($validator->fails()) {
             if ($request->parent_id) $link = route('category.subCreate', ['id' => $request->parent_id]);
             else $link = route('category.create');
-            
+
             return redirect($link)
                         ->withErrors($validator)
                         ->withInput($request->input);

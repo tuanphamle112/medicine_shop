@@ -1,7 +1,7 @@
-<?php
+@php
     if(Auth::user())
     $permission = App\User::where('id',Auth::user()->id)->first();
-?>
+@endphp
 <header class="container-fluid"  id="header" >
     <div class=" page-header-container">
         <div class="container">
@@ -58,42 +58,42 @@
                                         @endif
                                         <li>
                                             {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
-                                            <button type="submit" data-toggle="tooltip" class="btn btn-success"
-                                            onclick="return confirm('{{ trans('Are you logout?') }}') ? $(this).parent().submit(): false;"
-                                            data-original-title="{{ trans('Logout') }}">
-                                            {{ trans('Logout') }}
-                                            </button>
-                                        {!! Form::close() !!}
+	                                            <button type="submit" data-toggle="tooltip" class="btn btn-success"
+	                                            onclick="return confirm('{{ trans('Are you logout?') }}') ? $(this).parent().submit(): false;"
+	                                            data-original-title="{{ trans('Logout') }}">
+	                                            {{ trans('Logout') }}
+	                                            </button>
+                                        	{!! Form::close() !!}
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         @else
-                        <a href="#" class=" acc-btn">
-                            <i class="fa fa-user-circle user-icon" aria-hidden="true"></i>
-                            {{trans('label.account')}}
-                        </a>
-                        <div id="header-account" class="skip-content skip-active">
-                            <div class="links">
-                                <ul>
-                                    <li>
-                                        <a href="#" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" title="{{ trans('label.notification') }}">{{ trans('label.notification') }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('register') }}" title="{{ trans('label.register') }}" class="top-link-blog">{{ trans('label.register') }}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('login') }}" title="{{ trans('label.login') }}">{{ trans('label.login') }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+	                        <a href="#" class=" acc-btn">
+	                            <i class="fa fa-user-circle user-icon" aria-hidden="true"></i>
+	                            {{trans('label.account')}}
+	                        </a>
+	                        <div id="header-account" class="skip-content skip-active">
+	                            <div class="links">
+	                                <ul>
+	                                    <li>
+	                                        <a href="#" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
+	                                    </li>
+	                                    <li>
+	                                        <a href="#" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
+	                                    </li>
+	                                    <li>
+	                                        <a href="#" title="{{ trans('label.notification') }}">{{ trans('label.notification') }}</a>
+	                                    </li>
+	                                    <li>
+	                                        <a href="{{ route('register') }}" title="{{ trans('label.register') }}" class="top-link-blog">{{ trans('label.register') }}</a>
+	                                    </li>
+	                                    <li>
+	                                        <a href="{{ route('login') }}" title="{{ trans('label.login') }}">{{ trans('label.login') }}</a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
                         @endif
                     </div>
                 </div>

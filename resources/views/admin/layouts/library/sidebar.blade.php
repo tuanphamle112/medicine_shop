@@ -34,16 +34,22 @@
                 </a>
             </li>
             <li class="treeview">
+                <a href="{{ route('medicine.index') }}">
+                    <i class="fa fa-book"></i>
+                    <span> {{ __('Medicine') }}  </span>
+                </a>
+            </li>
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-book"></i>
-                    <span>{{ __('Parent Menu 2') }}</span>
+                    <span>{{ __('Website') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="">
+                        <a href="{{ route('admin.setup') }}">
                             <i class="fa fa-play"></i>
-                            <span>{{ __('Submenu') }}</span>
+                            <span>{{ __('Setup Website') }}</span>
                         </a>
                     </li>
                 </ul>

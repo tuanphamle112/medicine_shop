@@ -27,9 +27,14 @@ class Category extends Model
      * @var bool
      */
     public $timestamps = false;
+
     public function getAllMedicines()
     {
         return $this->belongsToMany('App\Medicine','category_medicine_related','category_id','medicine_id');
+    }
+    public function getSubCategories()
+    {
+        return $this->hasOne('App\Category', 'parent_id');
     }
     public function getOptionParentCategories()
     {
@@ -38,8 +43,30 @@ class Category extends Model
     	foreach ($categories as $category) {
     		$result[$category->id] = $category->name;
     	}
-        
+
     	return $result;
 
+    }
+
+    public function getAllOptionCategories()
+    {
+        $parentCategories = $this->where('parent_id', null)
+            ->with('getSubCategories')
+            ->get()
+            ->map(function($category) {
+                $category->subCategories = $category->where('parent_id', $category->id)->get();
+                return $category;
+            });
+
+        $result = [];
+        foreach ($parentCategories as $parentCategory) {
+            $result[$parentCategory->id] =  $parentCategory->name;
+            
+            foreach ($parentCategory->subCategories as $subCategory) {
+                $result[$subCategory->id] = '-- '. $subCategory->name;
+            }
+        }
+
+        return $result;
     }
 }

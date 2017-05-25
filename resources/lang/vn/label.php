@@ -23,6 +23,6 @@ return [
     'search' => 'Xin mời nhập...',
     'detail' => 'Xem chi tiết',
     'add_to_box' => 'Thêm vào tủ',
-    'dong' => 'đ'
+    'dong' => 'đ',
+    'adminpage'=>'Tới trang admin'
 ];
-

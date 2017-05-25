@@ -17,4 +17,12 @@ class Image extends Model
         'path_thumb',
         'is_main',
     ];
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+    
 }
