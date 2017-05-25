@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
+
 {
     /**
      * The attributes that are mass assignable.
@@ -14,9 +15,31 @@ class Category extends Model
     protected $fillable = [
         'name',
         'parent_id',
+        'link',
     ];
+
+    
+
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
     public function getAllMedicines()
     {
         return $this->belongsToMany('App\Medicine','category_medicine_related','category_id','medicine_id');
+    }
+    public function getOptionParentCategories()
+    {
+    	$categories = $this->where('parent_id', null)->get();
+    	$result = [];
+    	foreach ($categories as $category) {
+    		$result[$category->id] = $category->name;
+    	}
+        
+    	return $result;
+
     }
 }

@@ -6,6 +6,8 @@
 @section('content')
     <div class= "row">
         @foreach($items as $item)
+        	<?php $image = App\Image::where('medicine_id', $item->id)->orderBy('is_main', 'desc')->first() ?>
+        	
             <div class= "col-sm-3">
                 @include('item')
             </div>

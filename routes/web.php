@@ -18,6 +18,9 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     Route::get('/', 'Admin\AdminController@index');
     Route::resource('users', 'Admin\UserController');
+
+    Route::resource('category', 'Admin\CategoryController');
+    Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
 });
 
 Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
