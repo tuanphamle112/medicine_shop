@@ -32,7 +32,7 @@ class CategoryController extends Controller
 
         $data['categories'] = $categories;
         $data['categoryParents'] = $categoryParents; //Paginate
-        
+
         return view('admin.category.list', ['data' => $data]);
     }
 

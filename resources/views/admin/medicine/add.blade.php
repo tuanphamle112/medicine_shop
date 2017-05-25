@@ -94,8 +94,9 @@
 @endsection
 
 @section('javascript')
+
 <script type="text/javascript">
     $('.categories').select2();
-    CKEDITOR.replace('detail');
+    showTinyWithFileManager('#detail');
 </script>
 @endsection
