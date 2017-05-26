@@ -8,14 +8,14 @@ var objectLinkViewModel = function() {
         return {key: paramKey, link: paramLink};
     }
 
-    self.initData = function (data, textConfirm) {
+    self.initData = function(data, textConfirm) {
         self.objectLinks(data);
         self.textConfirm = textConfirm;
         return self;
     }
 
     self.addNewOption = function() {
-        self.objectLinks.push(self.objectLinkCommunication('', ''));
+        self.objectLinks.push(self.objectLink('', ''));
     }
     self.removeOption = function(option) {
         var valueConfirm = confirm(self.textConfirm);

@@ -90,5 +90,16 @@
     "Footer": "Footer",
     "Add New Link": "Add New Link",
     "Remove": "Remove",
-    "Save successfully!": "Save successfully!"
+    "Save successfully!": "Save successfully!",
+    "Comment": "Comment",
+    "Comments": "Comments",
+    "Content": "Content",
+    "Created At": "Created At",
+    "Status": "Status",
+    "Disable": "Disable",
+    "Enable": "Enable",
+    "Comment not found!": "Comment not found!",
+    "Delete comment from :medicine of :user successfully!": "Delete comment from :medicine of :user successfully!",
+    "Rate Medicine": "Rate Medicine",
+    "Updated At": "Updated At"
 }

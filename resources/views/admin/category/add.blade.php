@@ -37,14 +37,14 @@
                                 {!! Form::label('name', __('Name'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => __('Name')]) !!}
-                                    <span style="color:red">{!! $errors->first('name') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('name') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('link', __('Link'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('link', '', ['class' => 'form-control', 'placeholder' => __('Link')]) !!}
-                                    <span style="color:red">{!! $errors->first('link') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('link') !!}</span>
                                 </div>
                             </div>
                         </div>

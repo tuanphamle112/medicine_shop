@@ -21,12 +21,21 @@ class Comment extends Model
         'status',
     ];
 
+    public static function getOptionStatus()
+    {
+        return [
+            self::STATUS_DISABLE => __('Disable'),
+            self::STATUS_ENABLE => __('Enable'),
+        ];
+    }
+
     public function getUser()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class, 'user_id');
     }
+
     public function getMedicine()
     {
-    	return $this->belongsTo('App\Medicine');
+    	return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 }

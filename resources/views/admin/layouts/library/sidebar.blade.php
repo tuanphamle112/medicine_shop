@@ -23,32 +23,44 @@
             </li>
             <li class="treeview">
                 <a href="{{ route('users.index') }}">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-users"></i>
                     <span> {{ __('List Users') }}  </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('category.index') }}">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-list-ul"></i>
                     <span> {{ __('Category') }}  </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('medicine.index') }}">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-medkit"></i>
                     <span> {{ __('Medicine') }}  </span>
                 </a>
             </li>
             <li class="treeview">
+                <a href="{{ route('comment.index') }}">
+                    <i class="fa fa-facebook-f"></i>
+                    <span> {{ __('Comment') }}  </span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ route('rate.index') }}">
+                    <i class="fa fa-star"></i>
+                    <span> {{ __('Rate Medicine') }}  </span>
+                </a>
+            </li>
+            <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-book"></i>
+                    <i class="fa fa-windows"></i>
                     <span>{{ __('Website') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li>
                         <a href="{{ route('admin.setup') }}">
-                            <i class="fa fa-play"></i>
+                            <i class="fa fa-cog"></i>
                             <span>{{ __('Setup Website') }}</span>
                         </a>
                     </li>
