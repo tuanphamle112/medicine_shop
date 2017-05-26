@@ -18,10 +18,10 @@ class MarkMedicine extends Model
 
     public function getUser()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
     public function getMedicine()
     {
-        return $this->belongsTo('App\Medicine');
+        return $this->belongsTo(Medicine::class);
     }
 }

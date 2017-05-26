@@ -25,14 +25,15 @@ class ItemPrescription extends Model
 
     public function getPrescription()
     {
-        return $this->hasOne('App\Prescription');
+    
+        return $this->hasOne(Prescription::class);
     }
     public function getMedicine()
     {
-        return $this->belongsTo('App\Medicine');
+        return $this->belongsTo(Medicine::class);
     }
     public function getRequestMedicine()
     {
-        return $this->hasOne('App\RequestMedicine');
+        return $this->hasOne(RequestMedicine::class);
     }
 }

@@ -22,10 +22,10 @@ class Prescription extends Model
 
     public function getAllItemPrescriptions()
     {
-        return $this->hasMany('App\ItemPrescription');
+        return $this->hasMany(ItemPrescription::class);
     }
     public function getUser()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

@@ -25,7 +25,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     Route::get('category/{id}/create', 'Admin\CategoryController@subCreate')->name('category.subCreate');
 
     Route::resource('medicine', 'Admin\MedicineController');
+
+    Route::resource('comment', 'Admin\CommentController');
+
+    Route::resource('rate', 'Admin\RateController');
 });
 
 Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
 Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');
+
+// Detail medicine
+Route::get('chitiet/{id}', 'DetailMedicines@index')->name('detail');

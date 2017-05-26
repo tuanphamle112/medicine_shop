@@ -16,4 +16,14 @@ class RateMedicine extends Model
         'medicine_id',
         'point_rate',
     ];
+
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getMedicine()
+    {
+        return $this->belongsTo(Medicine::class, 'medicine_id');
+    }
 }

@@ -37,14 +37,14 @@
                                 {!! Form::label('name', __('Name'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('name', $category->name, ['class' => 'form-control', 'placeholder' => __('Name')]) !!}
-                                    <span style="color:red">{!! $errors->first('name') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('name') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('link', __('Link'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
                                     {!! Form::text('link', $category->link, ['class' => 'form-control', 'placeholder' => __('Link')]) !!}
-                                    <span style="color:red">{!! $errors->first('link') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('link') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                     <div class="col-sm-9">
                                         <?php $categories = new App\Category; ?>
                                         {!! Form::select('parent_id', $categories->getOptionParentCategories(), $category->parent_id, ['class' => 'form-control']) !!}
-                                        <span style="color:red">{!! $errors->first('parent_id') !!}</span>
+                                        <span class="text-danger">{!! $errors->first('parent_id') !!}</span>
                                     </div>
                                 </div>
                             </div>

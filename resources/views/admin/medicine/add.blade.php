@@ -39,14 +39,14 @@
 
                                 <div class="col-sm-10">
                                     {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => __('Medicine Name')]) !!}
-                                    <span style="color:red">{!! $errors->first('name') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('name') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('symptom', __('Symptom'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
                                     {!! Form::text('symptom', '', ['class' => 'form-control', 'placeholder' => __('Symptom')]) !!}
-                                    <span style="color:red">{!! $errors->first('symptom') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('symptom') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 {!! Form::label('short_describer', __('Short Describer'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
                                     {!! Form::textarea('short_describer', '', ['class' => 'form-control', 'placeholder' => __('Short Describer'), 'rows' => '5']) !!}
-                                    <span style="color:red">{!! $errors->first('short_describer') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('short_describer') !!}</span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -63,7 +63,7 @@
                                 <div class="col-sm-10">
                                     <?php $allCategories = new App\Category; ?>
                                     {{ Form::select('categories[]', $allCategories->getAllOptionCategories(), null, ['multiple' => true, 'class' => 'form-control categories'])}}
-                                    <span style="color:red">{!! $errors->first('categories') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('categories') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 {!! Form::label('images', __('Images'), ['class' => 'col-sm-1 control-label']) !!}
                                 <div class="col-sm-11">
                                     {!! Form::file('images[]', ['class' => 'form-control', 'multiple' => true]) !!}
-                                    <span style="color:red">{!! $errors->first('images.*') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('images.*') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 {!! Form::label('detail', __('Detail'), ['class' => 'col-sm-1 control-label']) !!}
                                 <div class="col-sm-11">
                                     {!! Form::textarea('detail', '', ['class' => 'form-control', 'placeholder' => __('Detail')]) !!}
-                                    <span style="color:red">{!! $errors->first('detail') !!}</span>
+                                    <span class="text-danger">{!! $errors->first('detail') !!}</span>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,6 @@
 @endsection
 
 @section('javascript')
-
 <script type="text/javascript">
     $('.categories').select2();
     showTinyWithFileManager('#detail');
