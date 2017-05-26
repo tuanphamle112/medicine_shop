@@ -19,8 +19,8 @@ class RequestMedicine extends Model
         'status',
     ];
 
-	public function getItemPrescription()
-	{
-	    return $this->belongsTo('App\ItemPrescription');
-	}
+    public function getItemPrescription()
+    {
+        return $this->belongsTo(ItemPrescription::class);
+    }
 }

@@ -27,10 +27,10 @@ class CategoryMedicineRelated extends Model
 
     public function getAllMedicines()
     {
-        return $this->belongsToMany('App\Medicine');
+        return $this->belongsTo(Medicine::class);
     }
     public function getAllCategories()
     {
-        return $this->belongsToMany('App\Category');
+        return $this->belongsTo(Category::class);
     }
 }

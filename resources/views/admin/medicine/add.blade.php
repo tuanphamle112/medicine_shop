@@ -94,7 +94,6 @@
 @endsection
 
 @section('javascript')
-
 <script type="text/javascript">
     $('.categories').select2();
     showTinyWithFileManager('#detail');

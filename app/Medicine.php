@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\category;
 
 class Medicine extends Model
 {
@@ -24,21 +25,24 @@ class Medicine extends Model
         'total_rate',
         'related_medicine',
     ];
-
+    public function getAllCategories()
+    {
+        return $this->belongsToMany(Medicine::class, 'category_medicine_related', 'medicine_id', 'category_id');
+    }
     public function getAllImages()
     {
-        return $this->hasMany('App\Image');
+        return $this->hasMany(Image::class);
     }
     public function getAllRateMedicines()
     {
-        return $this->hasMany('App\RateMedicine');
+        return $this->hasMany(RateMedicine::class);
     }
     public function getAllComments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
     public function getCreatedUser()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

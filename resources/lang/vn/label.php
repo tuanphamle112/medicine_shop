@@ -20,6 +20,9 @@ return [
     'email' => 'Email *',
     'comment' => 'Nhận xét *',
     'submit' => 'Gửi',
-    'search' => 'Xin mời nhập...'
+    'search' => 'Xin mời nhập...',
+    'detail' => 'Xem chi tiết',
+    'add_to_box' => 'Thêm vào tủ',
+    'dong' => 'đ',
+    'adminpage'=>'Tới trang admin'
 ];
-

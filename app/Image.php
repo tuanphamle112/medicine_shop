@@ -24,5 +24,4 @@ class Image extends Model
      * @var bool
      */
     public $timestamps = false;
-    
 }

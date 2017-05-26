@@ -4,32 +4,39 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\CategoryMedicineRelated;
+use App\Medicine;
 
 class MedicinesList extends Controller
 {
-    public function showSubbar($bar) 
+    public function showSubbar($bar)
     {
-        $medicine = Category::where('link', $bar)-> first();  
-        $sMedicines = Category::where('parent_id', $medicine->id)-> get();
+
+        $medicine = Category::ShowBar($bar);
+        $sMedicines = Category::ShowSBar($medicine->id);
+        $items = Category::ShowItem($medicine->id);
+        
         return view('medicine', [
             'medicine'=> $medicine,
             'sMedicines'=> $sMedicines,
-            'bar'=> $bar
-        ]);
+            'bar'=> $bar,
+            'items'=> $items
+            ]);
     }
-
-    public function showLink($bar, $link) 
+    public function showLink($bar, $link)
     {
-        $medicine = Category::where('link', $bar)-> first();  
-        $title = Category::where('link', $link)-> first();
-        $sMedicines = Category::where('parent_id', $medicine->id)-> get();
+        $medicine = Category::ShowBar($bar);
+        $subMedicine = Category::ShowSub($link);
+        $items = Category::ShowItem($subMedicine->id);
+        $sMedicines = Category::ShowSBar($medicine->id);
+
         return view('subcate', [
             'sMedicines'=> $sMedicines,
             'link'=> $link,
-            'title'=> $title,
+            'subMedicine'=> $subMedicine,
             'bar'=> $bar,
-            'medicine'=> $medicine
-        ]);
+            'medicine'=> $medicine,
+            'items'=> $items
+            ]);
     }
-
 }

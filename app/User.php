@@ -49,14 +49,14 @@ class User extends Authenticatable
 
     public function getAllComments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
     public function getAllMarkMedicines()
     {
-        return $this->hasMany('App\MarkMedicine');
+        return $this->hasMany(MarkMedicine::class);
     }
     public function getAllPrescriptions()
     {
-        return $this->hasMany('App\Prescription');
+        return $this->hasMany(Prescription::class);
     }
 }
