@@ -101,5 +101,15 @@
     "Comment not found!": "Comment not found!",
     "Delete comment from :medicine of :user successfully!": "Delete comment from :medicine of :user successfully!",
     "Rate Medicine": "Rate Medicine",
-    "Updated At": "Updated At"
+    "Updated At": "Updated At",
+    "Prescription Name": "Prescription Name",
+    "Doctor Name": "Doctor Name",
+    "Frequency": "Frequency",
+    "No Prescription": "No Prescription",
+    "Detail Prescription": "Detail Prescription",
+    "Prescription List": "Prescription List",
+    "Items List": "Items List",
+    "No Item": "No Item",
+    "Amout": "Amout",
+    "Add New Prescription": "Add New Prescription"
 }

@@ -1,3 +1,3 @@
 @extends('layouts.master')
 
-@section('title', 'HOMEPAGE')
+@section('title', $frontendInfoWebsite->title)

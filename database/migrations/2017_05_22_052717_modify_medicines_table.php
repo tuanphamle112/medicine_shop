@@ -13,7 +13,7 @@ class ModifyMedicinesTable extends Migration
      */
     public function up()
     {
-        Schema::table('medicines', function ($table) {
+        Schema::table('medicines', function($table) {
             $table->string('price');
         });
     }
@@ -25,7 +25,7 @@ class ModifyMedicinesTable extends Migration
      */
     public function down()
     {
-        Schema::table('medicines', function ($table) {
+        Schema::table('medicines', function($table) {
             $table->dropColumn('price');
         });
     }

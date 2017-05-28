@@ -26,7 +26,9 @@ class ModifyCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropColumn('link');
-        Schema::integer('parent_id')->unsigned()->change();
+        Schema::table('categories', function(Blueprint $table) {
+            $table->dropColumn('link');
+            $table->integer('parent_id')->unsigned()->change();
+        }
     }
 }

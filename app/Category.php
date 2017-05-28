@@ -46,6 +46,12 @@ class Category extends Model
 
         return $subMedicine;
     }
+    
+    public function scopeAllParentCategories($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
     public function getAllMedicines()
     {
         return $this->belongsToMany(Medicine::class, 'category_medicine_related', 'category_id', 'medicine_id');
@@ -54,9 +60,10 @@ class Category extends Model
     {
         return $this->hasOne(Category::class, 'parent_id');
     }
+
     public function getOptionParentCategories()
     {
-        $categories = $this->where('parent_id', null)->get();
+        $categories = $this->whereNull('parent_id')->get();
         $result = [];
         foreach ($categories as $category) {
             $result[$category->id] = $category->name;
@@ -67,7 +74,7 @@ class Category extends Model
 
     public function getAllOptionCategories()
     {
-        $parentCategories = $this->where('parent_id', null)
+        $parentCategories = $this->whereNull('parent_id')
             ->with('getSubCategories')
             ->get()
             ->map(function ($category) {

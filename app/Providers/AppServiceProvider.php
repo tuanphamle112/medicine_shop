@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $infoWebsite = \App\InforWebsite::getInfoWebsite()->first();
+        if (!$infoWebsite) $infoWebsite = new \App\InforWebsite;
+        view()->share('frontendInfoWebsite', $infoWebsite);
     }
 
     /**
