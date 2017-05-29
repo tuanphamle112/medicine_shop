@@ -22,10 +22,16 @@ class Prescription extends Model
 
     public function getAllItemPrescriptions()
     {
-        return $this->hasMany(ItemPrescription::class);
+        return $this->hasMany(ItemPrescription::class, 'prescription_id');
     }
+
     public function getUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
+    public function scopeGetPrescriptionsByUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
     }
 }

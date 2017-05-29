@@ -30,6 +30,11 @@ class InforWebsite extends Model
      */
     public $timestamps = false;
 
+    public function scopeGetInfoWebsite($query)
+    {
+        return $query->where('position', self::POSITION_MAIN);
+    }
+
     public static function getPositionOption()
     {
         return [

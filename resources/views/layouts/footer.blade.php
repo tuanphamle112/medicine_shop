@@ -1,25 +1,34 @@
 <div class="row v-x2-padding footer">
     <footer class="col-md-12">
         <div class="col-xs-12 col-sm-4 col-md-4">
+            @php
+                $social = json_decode($frontendInfoWebsite->link_communications, true);
+            @endphp
             <a href="/" class="brand">
                 {{ trans('label.logo') }}
             </a>
             <ul class="social">
-                <li>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </li>               
-                <li>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                </li>                               
-                <li>
-                    <a href="#" target="_blank">
-                        <i class="fa fa-instagram"></i>
-                    </a>
-                </li>                           
+                @if (isset($social['facebook']))
+                    <li>
+                        <a href="{{ $social['facebook'] }}" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                @endif
+                @if (isset($social['twitter']))
+                    <li>
+                        <a href="{{ $social['twitter'] }}" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </li>
+                @endif
+                @if (isset($social['instagram']))
+                    <li>
+                        <a href="{{ $social['instagram'] }}" target="_blank">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
         <!-- End social -->
@@ -29,19 +38,17 @@
                 <li>
                     <a href="{{ route('welcome') }}">{{ trans('label.home') }}</a>
                 </li>
-                <li>
-                    <a href="{{ route('nav', ['bar' => 'thuoc']) }}">{{ trans('label.store') }}</a>
-                </li>
-                <li>
-                    <a href="{{ route('nav', ['bar' => 'tpchucnang']) }}">{{ trans('label.functional_foods') }}</a>
-                </li>
-                <li>
-                    <a href="{{ route('nav', ['bar' => 'lamdep']) }}">{{ trans('label.tco_beauty') }}</a>
-                </li>
 
+                @php
+                    $parentCategories = App\Category::allParentCategories()->get();
+                @endphp
+
+                @foreach ($parentCategories as $parentCategory)
                 <li>
-                    <a href="{{ route('nav', ['bar' => 'machnho']) }}">{{ trans('label.tips') }}</a>
+                    <a href="{{ route('nav', ['bar' => $parentCategory->link]) }}">{{ $parentCategory->name }}</a>
                 </li>
+                @endforeach
+
             </ul>
         </div>
         <!-- End nav -->

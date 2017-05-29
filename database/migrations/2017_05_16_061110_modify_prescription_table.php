@@ -13,7 +13,7 @@ class ModifyPrescriptionTable extends Migration
      */
     public function up()
     {
-        Schema::table('prescriptions', function (Blueprint $table) {
+        Schema::table('prescriptions', function(Blueprint $table) {
              $table->string('name_doctor')->nullable()->change();
         });
     }
@@ -25,6 +25,8 @@ class ModifyPrescriptionTable extends Migration
      */
     public function down()
     {
-        Schema::string('name_doctor')->change();
+        Schema::table('prescriptions', function(Blueprint $table) {
+             $table->string('name_doctor')->change();
+        });
     }
 }

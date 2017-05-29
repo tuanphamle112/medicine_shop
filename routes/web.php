@@ -31,8 +31,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
     Route::resource('rate', 'Admin\RateController');
 });
 
-Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
-Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');
+Route::group(['middleware' => 'isLogin'], function(){
+	Route::get('/prescription', 'Frontend\PrescriptionController@index')
+		->name('frontend.prescription.index');
+	Route::get('/prescription/json/getList', 'Frontend\PrescriptionController@getJsonList');
+	Route::get('/prescription/{id}/edit', 'Frontend\PrescriptionController@editPrescription');
+	Route::get('/prescription/addnew', 'Frontend\PrescriptionController@addNewPrescription')
+		->name('frontend.prescription.addnew');
+});
 
 // Detail medicine
 Route::get('chitiet/{id}', 'DetailMedicines@index')->name('detail');
+
+
+Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
+Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');

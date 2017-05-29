@@ -24,7 +24,10 @@
     <!-- Start footer -->
     @include('layouts.footer')
     <!-- End footer -->
+
+    @include('layouts.library.footer-js')
+
+    @yield('custom-javascript')
 </body>
-<script> </script>
 </html>
 
