@@ -21,6 +21,7 @@
     "AdminLTE": "admin-lte#^2.3.11",
     "knockout": "knockoutjs#^3.4.2",
     "responsive-filemanager": "https://github.com/dinhvantai/responsive-filemanager.git",
-    "tinymce": "^4.6.2"
+    "tinymce": "^4.6.2",
+    "slick-carousel": "^1.6.0"
   }
 }

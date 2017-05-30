@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () { return view('welcome'); })->name('welcome');
+Route::get('/', 'HomeController@index')->name('welcome');
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
 

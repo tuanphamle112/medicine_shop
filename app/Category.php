@@ -29,6 +29,12 @@ class Category extends Model
 
         return $medicine;
     }
+    public function scopeparentCate($query, $id)
+    {
+        $parent_category =$query->find($id)->first();
+
+        return $parent_category;
+    }
     public function scopeShowSBar($query, $id)
     {
         $sMedicines = $query->where('parent_id', $id)->get();
