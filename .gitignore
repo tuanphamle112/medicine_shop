@@ -7,6 +7,7 @@
 /.vagrant
 /public/bower_components
 /public/uploads
+/public/slide_images
 Homestead.json
 Homestead.yaml
 npm-debug.log
