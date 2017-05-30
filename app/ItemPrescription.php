@@ -23,6 +23,14 @@ class ItemPrescription extends Model
         'status',
     ];
 
+    public static function getOptionStatus()
+    {
+        return [
+            self::STATUS_OUT_STORE => __('Out Store'),
+            self::STATUS_IN_STORE => __('In Store'),
+        ];
+    }
+
     public function getPrescription()
     {
     
@@ -34,6 +42,6 @@ class ItemPrescription extends Model
     }
     public function getRequestMedicine()
     {
-        return $this->hasOne(RequestMedicine::class);
+        return $this->hasOne(RequestMedicine::class, 'item_prescription_id');
     }
 }

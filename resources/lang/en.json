@@ -111,5 +111,19 @@
     "Items List": "Items List",
     "No Item": "No Item",
     "Amout": "Amout",
-    "Add New Prescription": "Add New Prescription"
+    "Add New Prescription": "Add New Prescription",
+    "Add New Item": "Add New Item",
+    "Delete Item": "Delete Item",
+    "Prescription Items": "Prescription Items",
+    "Guide": "Guide",
+    "Send request for Admin": "Send request for Admin",
+    "Medicine not found! Click to make request for Admin!": "Medicine not found! Click to make request for Admin!",
+    "Short Describer for Medicine to send Admin.": "Short Describer for Medicine to send Admin.",
+    "Out Store": "Out Store",
+    "In Store": "In Store",
+    "Edit Prescription": "Edit Prescription",
+    "Respone By Admin": "Respone By Admin",
+    "Price": "Price",
+    "Add new prescription successfully!": "Add new prescription successfully!",
+    "Delete prescription :name successfully!": "Delete prescription :name successfully!"
 }

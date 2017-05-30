@@ -34,19 +34,27 @@
                     {!! Form::open(['route' => ['medicine.update', $medicine->id], 'id' => 'edit-medicine', 'class' => 'form-horizontal', 'method' => 'PUT', 'files' => 'true']) !!}
 
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                {!! Form::label('name', __('Medicine Name'), ['class' => 'col-sm-2 control-label']) !!}
-
-                                <div class="col-sm-10">
+                            <div class="col-sm-12">
+                                {!! Form::label('name', __('Medicine Name'), ['class' => 'col-sm-1 control-label']) !!}
+                                <div class="col-sm-11">
                                     {!! Form::text('name', $medicine->name, ['class' => 'form-control', 'placeholder' => __('Medicine Name')]) !!}
                                     <span class="text-danger">{!! $errors->first('name') !!}</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-6">
                                 {!! Form::label('symptom', __('Symptom'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
                                     {!! Form::text('symptom', $medicine->symptom, ['class' => 'form-control', 'placeholder' => __('Symptom')]) !!}
                                     <span class="text-danger">{!! $errors->first('symptom') !!}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                {!! Form::label('price', __('Price'), ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-10">
+                                    {!! Form::text('price', $medicine->price, ['class' => 'form-control', 'placeholder' => __('Price')]) !!}
+                                    <span class="text-danger">{!! $errors->first('price') !!}</span>
                                 </div>
                             </div>
                         </div>

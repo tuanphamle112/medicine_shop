@@ -24,6 +24,7 @@ class Medicine extends Model
         'avg_rate',
         'total_rate',
         'related_medicine',
+        'price',
     ];
     public function getAllCategories()
     {
