@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'Admin\AdminController@index');
-    Rou8te::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
+    Route::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
 
     Route::resource('users', 'Admin\UserController');
 
