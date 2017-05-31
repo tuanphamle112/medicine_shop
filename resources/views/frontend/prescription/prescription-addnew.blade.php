@@ -3,7 +3,7 @@
 @section('title', __('Add New Prescription'))
 
 @section('content')
-<div class="content position-relative">
+<div class="content position-relative" id="area-add-prescription">
     <div class= "row">
         <div class="panel panel-success">
             <div class="panel-heading text-center">
@@ -98,6 +98,9 @@
 <script>
 
     var data = [];
-    ko.applyBindings(new AddPrescriptionViewModel().initData(data, '{{ __('Are you delete?')}}'));
+    ko.applyBindings(
+        new AddPrescriptionViewModel().initData(data, '{{ __('Are you delete?')}}'),
+        document.getElementById('area-add-prescription')
+    );
 </script>
 @endsection

@@ -12,15 +12,32 @@
                     </div> 
                 </div>
                 <!-- End logo -->
-                <div class="col-sm-6 col-xs-7">
-                    {!! Form::open(['url' => asset('#'),'method' => 'post'], $attributes = ['class' => 'search-form']) !!}
-                    <div class="form-group input-group search-form">
-                        {!! Form::text('firstname', $value = null, $attributes = ['class' => 'form-control', "placeholder" => trans('label.search')]) !!}
-                        <span class="input-group-btn">
-                            {!! Form::button(null, array('class' => 'btn btn-default glyphicon glyphicon-search')) !!} 
-                        </span>
-                    </div>
+                <div class="col-sm-6 col-xs-7" id="area-search-header-form">
+                    {!! Form::open(['route' => 'frontend.search', 'method' => 'get'], ['class' => 'search-form']) !!}
+                        <div class="form-group input-group search-form margin-bottom-0px">
+                            {!! Form::text('keyword', '', ['class' => 'form-control z-index-100', 'placeholder' => trans('label.search'), 'autocomplete' => 'off', 'data-bind' => 'event:{keyup: searchHeaderMedicine, focus: searchHeaderMedicine}']) !!}
+                            <span class="input-group-btn">
+                                {!! Form::button(null, ['class' => 'btn btn-default glyphicon glyphicon-search', 'type' => 'submit']) !!} 
+                            </span>
+                        </div>
+                        <div class="search-form position-relative">
+                            <div class="col-sm-12 prescrition-search-item position-absolute hide" id="search-header-medicine-result">
+                                <ul class="list-group" data-bind="foreach: searchItems">
+                                    <a data-bind="attr:{href: '/detail/' + id + '/' + str_slug(name)}">
+                                        <li class="list-group-item">
+                                            <span data-bind="text: name"></span>
+                                        </li>
+                                    </a>
+                                </ul>
+                                <ul class="list-group" data-bind="if: searchItems().length == 0">
+                                    <div class="text-center alert-danger cursor-pointer">
+                                        {{ __('Medicine not found!') }}
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
                     {!! Form::close() !!}
+                    <div class="hide" id="over-header-full-screen" data-bind="click: closeHeaderMedicineResult"></div>
                 </div>
                 <div class="col-sm-3 col-xs-5 ">
                     <div class="account">
@@ -49,16 +66,10 @@
                                 <ul>
                                     @if (Auth::check())
                                         <li>
-                                            <a href="#" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="{{ trans('label.per_info') }}" class="">{{ trans('label.per_info') }}</a>
+                                            <a href="{{ route('frontend.mark-medicine.index') }}" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('frontend.prescription.index') }}" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" title="{{ trans('label.notification') }}">{{ trans('label.notification') }}</a>
                                         </li>
                                         @if(Auth::user()->permission == App\User::PERMISSION_ADMIN)
                                             <li>

@@ -16,12 +16,20 @@ class MarkMedicine extends Model
         'user_id',
     ];
 
+    protected $table = 'mark_medicine';
+
     public function getUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
+    
     public function getMedicine()
     {
-        return $this->belongsTo(Medicine::class);
+        return $this->belongsTo(Medicine::class, 'medicine_id');
+    }
+
+    public function scopeGetMarkByUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
     }
 }

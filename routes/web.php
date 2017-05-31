@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'HomeController@index')->name('welcome');
+Route::get('/search', 'HomeController@search')->name('frontend.search');
+Route::get('/search/json', 'HomeController@jsonSearch');
 
 Auth::routes();
 
@@ -34,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
 });
 
 Route::group(['middleware' => 'isLogin'], function(){
+	// Prescription
 	Route::get('/prescription', 'Frontend\PrescriptionController@index')
 		->name('frontend.prescription.index');
 	Route::get('/prescription/json/getList', 'Frontend\PrescriptionController@getJsonList');
@@ -48,6 +51,12 @@ Route::group(['middleware' => 'isLogin'], function(){
 	Route::post('/prescription/addnew', 'Frontend\PrescriptionController@storeNewPrescription')
 		->name('frontend.prescription.store');
 	Route::get('/prescription/json/searchMedicines', 'Frontend\PrescriptionController@jsonSeachMedicines');
+
+	// Mark Medicine
+	Route::get('/mark-medicine', 'HomeController@markMedicineIndex')
+		->name('frontend.mark-medicine.index');
+	Route::delete('/mark-medicine/{id}', 'HomeController@markMedicineDestroy')
+		->name('frontend.mark-medicine.destroy');
 });
 
 // Detail medicine

@@ -6,7 +6,7 @@
 @php
     $prescription = $data['prescription'];
 @endphp
-<div class="content position-relative">
+<div class="content position-relative" id="area-edit-prescription">
     <div class= "row">
         <div class="panel panel-success">
             <div class="panel-heading text-center">
@@ -106,6 +106,9 @@
 <script>
 
     var data = {!! json_encode($prescription->getAllItemPrescriptions) !!};
-    ko.applyBindings(new AddPrescriptionViewModel().initData(data, '{{ __('Are you delete?')}}'));
+    ko.applyBindings(
+        new AddPrescriptionViewModel().initData(data, '{{ __('Are you delete?')}}'),
+        document.getElementById('area-edit-prescription')
+    );
 </script>
 @endsection
