@@ -15,6 +15,13 @@ class Helper
         Session::flash('flash_messages', $messages);
     }
 
+    public static function addMessageFlashFrontendSession($title, $message, $type = 'success')
+    {
+        $messages = Session::get('flash_frontend_messages', []);
+        $messages[] = ['title' => $title, 'message' => $message, 'type' => $type];
+        Session::flash('flash_frontend_messages', $messages);
+    }
+
     public static function deleteFile($path)
     {
         if (is_file($path)) {
