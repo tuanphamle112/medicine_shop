@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'Admin\AdminController@index');
-    Route::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
+    Rou8te::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
 
     Route::resource('users', 'Admin\UserController');
 
@@ -35,9 +35,17 @@ Route::group(['middleware' => 'isLogin'], function(){
 	Route::get('/prescription', 'Frontend\PrescriptionController@index')
 		->name('frontend.prescription.index');
 	Route::get('/prescription/json/getList', 'Frontend\PrescriptionController@getJsonList');
+	Route::delete('/prescription/{id}', 'Frontend\PrescriptionController@destroyPrescription');
+	
 	Route::get('/prescription/{id}/edit', 'Frontend\PrescriptionController@editPrescription');
+	Route::put('/prescription/{id}/edit', 'Frontend\PrescriptionController@updatePrescription')
+		->name('frontend.prescription.update');
+
 	Route::get('/prescription/addnew', 'Frontend\PrescriptionController@addNewPrescription')
 		->name('frontend.prescription.addnew');
+	Route::post('/prescription/addnew', 'Frontend\PrescriptionController@storeNewPrescription')
+		->name('frontend.prescription.store');
+	Route::get('/prescription/json/searchMedicines', 'Frontend\PrescriptionController@jsonSeachMedicines');
 });
 
 // Detail medicine

@@ -38,6 +38,7 @@
                             <th>{{ __('ID #') }}</th>
                             <th>{{ __('Medicine Name') }}</th>
                             <th>{{ __('Symptom') }}</th>
+                            <th>{{ __('Price') }}</th>
                             <th>{{ __('Created By') }}</th>
                             <th>{{ __('Avg Rate') }}</th>
                             <th>{{ __('Action') }}</th>
@@ -57,6 +58,9 @@
                                 </td>
                                 <td>
                                     <span>{{ $medicine->symptom }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ $medicine->price }}</span>
                                 </td>
                                 <td>
                                     <span>{{ $medicine->getCreatedUser->display_name }}</span>

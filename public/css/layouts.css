@@ -1187,60 +1187,93 @@
 
 /*End how it work*/
 
-    .indicator {
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100%;
-        background: #fff;
-        text-align: center;
-        position: absolute;
-        opacity: .7;
-        z-index: 1000;
-    }
-    .indicator .spinner {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -16px;
-        margin-top: -16px;
-        width: 32px;
-        height: 32px;
-        background: url(../images/AjaxLoader.gif) no-repeat center;
-    }
-    .position-relative {
-        position: relative;
-    }
-    .padding-15px {
-        padding: 15px 0px;
-    }
 
-    .indicator {
-        top: 0;
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100%;
-        background: #fff;
-        text-align: center;
-        position: absolute;
-        opacity: .7;
-        z-index: 1000;
-    }
-    .indicator .spinner {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: -16px;
-        margin-top: -16px;
-        width: 32px;
-        height: 32px;
-        background: url(../images/AjaxLoader.gif) no-repeat center;
-    }
-    .position-relative {
-        position: relative;
-    }
-    .padding-15px {
-        padding: 15px 0px;
-    }
+.indicator {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    position: absolute;
+    opacity: .7;
+    z-index: 1000;
+}
+.indicator .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+    width: 32px;
+    height: 32px;
+    background: url(../images/AjaxLoader.gif) no-repeat center;
+}
+.position-relative {
+    position: relative;
+}
+
+.indicator {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100%;
+    background: #fff;
+    text-align: center;
+    position: absolute;
+    opacity: .7;
+    z-index: 1000;
+}
+.indicator .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+    width: 32px;
+    height: 32px;
+    background: url(../images/AjaxLoader.gif) no-repeat center;
+}
+.position-relative {
+    position: relative;
+}
+.padding-15px {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.height-35px {
+    height: 35px;
+    line-height: 35px;
+}
+.prescrition-search-item {
+    height: auto;
+    z-index: 10;
+    background-color: #FFF;
+    max-height: 200px;
+    overflow: auto;
+    border: 1px #33b7b7 solid;
+    border-radius: 5px;
+    padding: 0px;
+}
+.prescrition-search-item ul{
+    padding: 0px;
+    margin-bottom: 0px;
+}
+.prescrition-search-item ul li:hover{
+    z-index: 2;
+    color: #fff;
+    background-color: #33b7b7;
+    border-color: #33b7b7;
+    cursor: pointer;
+}
+.prescrition-search-item .list-group-item{
+    padding: 3px 15px;
+}
+.prescrition-search-item ul li img {
+    height: 45px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}

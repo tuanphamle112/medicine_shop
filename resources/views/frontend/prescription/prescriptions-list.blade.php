@@ -4,6 +4,19 @@
 
 @section('content')
 <div class="content position-relative">
+
+    @php
+        $messages = Session::get('flash_frontend_messages', []) 
+    @endphp
+
+    @foreach ($messages as $message)
+        <div class="alert alert-{{ $message['type'] }} alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>{{ $message['title'] }}</h4>
+            <p>{{ $message['message'] }}</p>
+        </div>
+    @endforeach
+
     <div class= "row">
         <div class="panel panel-success">
             <div class="panel-heading text-center">
@@ -23,7 +36,7 @@
                     <thead>
                         <tr class="warning">
                             <th>{{ __('ID #') }}</th>
-                            <th class="text-center">{{ __('Prescription Name') }}</th>
+                            <th>{{ __('Prescription Name') }}</th>
                             <th>{{ __('Doctor Name') }}</th>
                             <th>{{ __('Frequency') }}</th>
                             <th>{{ __('Created At') }}</th>
@@ -52,16 +65,24 @@
                                 <span data-bind="text: updated_at"></span>
                             </td>
                             <td class="text-center">
-                                <span class="text-right" data-toggle="modal" data-target="#showDetailPrescription" data-bind="click: $root.viewDetailPrescription">
-                                    <a href="#" class="btn btn-primary" data-toggle="tooltip" title="{{ __('View Detail') }}">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                </span>
-                                <span class="text-right">
-                                    <a href="#" data-toggle="tooltip" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}" data-bind="attr:{href: '/prescription/' + id + '/edit'}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </span>
+                                {!! Form::open(['url' => '/', 'method' => 'DELETE', 'data-bind' => 'attr:{action: "/prescription/" + id}']) !!}
+                                    <span class="text-right" data-toggle="modal" data-target="#showDetailPrescription" data-bind="click: $root.viewDetailPrescription">
+                                        <a href="#" class="btn btn-primary" data-toggle="tooltip" title="{{ __('View Detail') }}">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </span>
+                                    <span class="text-right">
+                                        <a href="#" data-toggle="tooltip" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}" data-bind="attr:{href: '/prescription/' + id + '/edit'}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </span>
+                                    <button type="button" data-toggle="tooltip" class="btn btn-danger"
+                                        onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
+                                        title="{{ __('Delete') }}"
+                                    >
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     </tbody>
@@ -129,6 +150,7 @@
                                                 <th>{{ __('ID #') }}</th>
                                                 <th>{{ __('Medicine Name') }}</th>
                                                 <th>{{ __('Amout') }}</th>
+                                                <th>{{ __('Status') }}</th>
                                                 <th>{{ __('Created At') }}</th>
                                             </tr>
                                         </thead>
@@ -142,6 +164,9 @@
                                                 </td>
                                                 <td>
                                                     <span data-bind="text: amount"></span>
+                                                </td>
+                                                <td>
+                                                    <span data-bind="text: $parent.statusItem[status]"></span>
                                                 </td>
                                                 <td>
                                                     <span data-bind="text: created_at"></span>
@@ -172,6 +197,10 @@
 @section('custom-javascript')
 <script src="{!! url('js/frontend/prescrition.js') !!}"></script>
 <script>
-    ko.applyBindings(new PrescriptionViewModel().initData());
+    @php
+        $optionStatusItem = App\ItemPrescription::getOptionStatus();
+    @endphp
+    var statusOption = {!! json_encode($optionStatusItem) !!};
+    ko.applyBindings(new PrescriptionViewModel().initData(statusOption));
 </script>
 @endsection
