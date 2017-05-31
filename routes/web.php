@@ -41,8 +41,9 @@ Route::group(['middleware' => 'isLogin'], function(){
 });
 
 // Detail medicine
-Route::get('chitiet/{id}', 'DetailMedicines@index')->name('detail');
-
+Route::get('detail/{id}', 'DetailMedicinesController@index')->name('detail');
+Route::post('detail/{id}', 'DetailMedicinesController@avg')->name('avg');
+Route::post('detail/{id}/edit', 'DetailMedicinesController@editRating')->name('edit_rating');
 
 Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
 Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');

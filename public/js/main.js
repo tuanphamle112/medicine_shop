@@ -9,5 +9,14 @@ $(document).ready(function(){
     $("header").sticky({
         zIndex:1
     });
+
+    $('#input-reliable').on('rating.change', function(event, value, caption) {
+        console.log(caption);
+        $('#hidden-reliable').val(value);
+    });
+
+    $('#input-quality').on('rating.change', function(event, value, caption) {
+        $('#hidden-quality').val(value);
+    });
 });
 

@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/slick-carousel/slick/slick.css') }}" />
     <link href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/layouts.css') }}" />
+    <link href="{{ asset('bower_components/bootstrap-star-rating/css/star-rating.css') }}" media="all" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bower_components/bootstrap-star-rating/css/theme-krajee-svg.css') }}" type="text/css" />
 </head>
 <body>
     <div class="wrap-page">
@@ -24,11 +26,7 @@
         @include('layouts.footer')
         <!-- End footer -->
     </div>
-    <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"> </script>
-    <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"> </script>
-    <script src="{{ asset('bower_components/slick-carousel/slick/slick.js') }}"> </script>
-    <script src="{{ asset('bower_components/jquery-sticky/jquery.sticky.js') }}"> </script>
-    <script src="{{ asset('/js/main.js') }}"> </script>
+
 
     @include('layouts.library.footer-js')
     @yield('custom-javascript')

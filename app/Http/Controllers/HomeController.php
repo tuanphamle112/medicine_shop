@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+$check_rated
 use Illuminate\Http\Request;
 use App\Medicine;
 use App\Image;
@@ -13,10 +13,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      * Show the application dashboard.
