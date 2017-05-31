@@ -34,7 +34,7 @@ class ItemPrescription extends Model
     public function getPrescription()
     {
     
-        return $this->hasOne(Prescription::class);
+        return $this->belongsTo(Prescription::class, 'prescription_id');
     }
     public function getMedicine()
     {

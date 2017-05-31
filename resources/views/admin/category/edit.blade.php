@@ -31,7 +31,7 @@
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    {!! Form::open(['route' => ['category.update', $category->id], 'id' => 'edit-category', 'class' => 'form-horizontal', 'method' => 'PUT']) !!}
+                    {!! Form::open(['route' => ['category.update', $category->id], 'id' => 'edit-category', 'class' => 'form-horizontal', 'method' => 'PUT', 'files' => 'true']) !!}
                         <div class="form-group">
                             <div class="col-sm-6">
                                 {!! Form::label('name', __('Name'), ['class' => 'col-sm-3 control-label']) !!}
@@ -46,6 +46,21 @@
                                     {!! Form::text('link', $category->link, ['class' => 'form-control', 'placeholder' => __('Link')]) !!}
                                     <span class="text-danger">{!! $errors->first('link') !!}</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('image', __('Image'), ['class' => 'col-sm-2 control-label']) !!}
+                            @if ($category->image)
+                                <div class="col-sm-3">
+                                    <img src="{{ url($category->image) }}" alt="{{ $category->name }}" class="img-responsive">
+                                </div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-5">
+                            @else
+                                <div class="col-sm-10">
+                            @endif
+                                {!! Form::file('image', ['class' => 'form-control']) !!}
+                                <span class="text-danger">{!! $errors->first('image') !!}</span>
                             </div>
                         </div>
                         @if ($category->parent_id != null)

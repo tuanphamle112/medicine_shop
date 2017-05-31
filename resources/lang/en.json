@@ -125,5 +125,12 @@
     "Respone By Admin": "Respone By Admin",
     "Price": "Price",
     "Add new prescription successfully!": "Add new prescription successfully!",
-    "Delete prescription :name successfully!": "Delete prescription :name successfully!"
+    "Delete prescription :name successfully!": "Delete prescription :name successfully!",
+    "Request Medicine": "Request Medicine",
+    "Not seen": "Not seen",
+    "Watched": "Watched",
+    "Has responded": "Has responded",
+    "Request Medicine not found!": "Request Medicine not found!",
+    "Detail request medicine :name": "Detail request medicine :name",
+    "Image": "Image"
 }

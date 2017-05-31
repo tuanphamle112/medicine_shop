@@ -52,6 +52,12 @@
                 </a>
             </li>
             <li class="treeview">
+                <a href="{{ route('request.index') }}">
+                    <i class="fa  fa-question"></i>
+                    <span> {{ __('Request Medicine') }}  </span>
+                </a>
+            </li>
+            <li class="treeview">
                 <a href="#">
                     <i class="fa fa-windows"></i>
                     <span>{{ __('Website') }}</span>

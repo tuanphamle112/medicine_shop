@@ -7,6 +7,9 @@ use App\Medicine;
 
 class Category extends Model
 {
+    
+    const PATH_CATEGORIES = 'uploads/categories/';
+
     /**
      * The attributes that are mass assignable.
      *

@@ -57,6 +57,7 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'link' => 'required|max:255',
+            'image' => 'image',
         ]);
 
         $validator->after(function ($validator) {
@@ -76,13 +77,18 @@ class CategoryController extends Controller
             else $link = route('category.create');
 
             return redirect($link)
-                        ->withErrors($validator)
-                        ->withInput($request->input);
+                ->withErrors($validator)
+                ->withInput($request->input);
         }
 
         $category = $this->category;
-        $category->fill($request->all());
+        $category->fill($request->except(['image']));
         $category->link = str_slug($category->link);
+        if ($request->hasFile('image')) {
+            $nameFile = $request->image->hashName();
+            $path = $request->file('image')->store(Category::PATH_CATEGORIES, 'uploads');
+            $category->image = $path;
+        }
 
         try {
             $category->save();
@@ -152,8 +158,10 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'link' => 'required|max:255',
+            'image' => 'image',
         ]);
         $validator->id = $id;
+
         $validator->after(function ($validator) {
             $dataRequest = $validator->getData();
             $dataRequest['link'] = str_slug($dataRequest['link']);
@@ -167,13 +175,20 @@ class CategoryController extends Controller
         });
 
         if ($validator->fails()) {
-            return redirect('admin/category/create')
-                        ->withErrors($validator)
-                        ->withInput($request->input);
+            return redirect()
+                ->route('category.edit', [$category->id])
+                ->withErrors($validator);
         }
         
-        $category->fill($request->all());
+        $category->fill($request->except(['images']));
         $category->link = str_slug($category->link);
+
+        if ($request->hasFile('image')) {
+            Helper::deleteFile($category->image);
+            $nameFile = $request->image->hashName();
+            $path = $request->file('image')->store(Category::PATH_CATEGORIES, 'uploads');
+            $category->image = $path;
+        }
 
         try {
             $category->save();
@@ -182,7 +197,8 @@ class CategoryController extends Controller
         } catch (Exception $e){
             Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
 
-            return redirect('admin/category/create')->withInput($request->input);
+            return redirect()
+                ->route('category.edit',[$category->id]);
         }
 
         return redirect()->route('category.index');
@@ -197,33 +213,35 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = $this->category->find($id);
-        if ($category){
+
+        if (!$category){
+            $message = __('Category not found!');
+            Helper::addMessageFlashSession(__('Error'), $message, 'danger');
+
+            return redirect()->route('category.index');
+        }
+
+        try {
             if ($category->parent_id == null){
                 $children = $this->category->where('parent_id', $category->id)->get();
                 foreach ($children as $subCategory) {
-                    try {
-                        $subCategory->delete();
-                        $message = __('Delete sub category :name successfully!', ['name' => $subCategory->name]);
-                        Helper::addMessageFlashSession(__('Success'), $message, 'success');
-                    } catch (Exception $e) {
-                        Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
-                    }
+                    $subCategory->delete();
+                    $message = __('Delete sub category :name successfully!', ['name' => $subCategory->name]);
+                    Helper::addMessageFlashSession(__('Success'), $message, 'success');
                 }
             }
-            try {
-                $category->delete();
-                if ($category->parent_id == null){
-                    $message = __('Delete category :name successfully!', ['name' => $category->name]);
-                } else {
-                    $message = __('Delete sub category :name successfully!', ['name' => $category->name]);
-                }
-                Helper::addMessageFlashSession(__('Success'), $message, 'success');
-            } catch (Exception $e) {
-                Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
+        
+            Helper::deleteFile($category->image);
+            $category->delete();
+            if ($category->parent_id == null){
+                $message = __('Delete category :name successfully!', ['name' => $category->name]);
+            } else {
+                $message = __('Delete sub category :name successfully!', ['name' => $category->name]);
             }
-        } else {
-            $message = __('Category not found!');
-            Helper::addMessageFlashSession(__('Error'), $message, 'danger');
+            Helper::addMessageFlashSession(__('Success'), $message, 'success');
+
+        } catch (Exception $e) {
+            Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
         }
 
         return redirect()->route('category.index');

@@ -29,6 +29,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('comment', 'Admin\CommentController');
 
     Route::resource('rate', 'Admin\RateController');
+
+    Route::resource('request', 'Admin\RequestMedicineController');
 });
 
 Route::group(['middleware' => 'isLogin'], function(){
