@@ -911,31 +911,11 @@ footer .social li a {
 .position-relative {
     position: relative;
 }
-
-.indicator {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100%;
-    background: #fff;
-    text-align: center;
+.position-absolute {
     position: absolute;
-    opacity: .7;
-    z-index: 1000;
 }
-.indicator .spinner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -16px;
-    margin-top: -16px;
-    width: 32px;
-    height: 32px;
-    background: url(../images/AjaxLoader.gif) no-repeat center;
-}
-.position-relative {
-    position: relative;
+.z-index-100 {
+    z-index: 100;
 }
 .padding-15px {
     padding-top: 15px;
@@ -947,7 +927,7 @@ footer .social li a {
 }
 .prescrition-search-item {
     height: auto;
-    z-index: 10;
+    z-index: 100;
     background-color: #FFF;
     max-height: 200px;
     overflow: auto;
@@ -974,4 +954,19 @@ footer .social li a {
 }
 .cursor-pointer {
     cursor: pointer;
+}
+.margin-bottom-0px {
+    margin-bottom: 0px;
+}
+#search-medicine-result img {
+    height: 35px!important;
+}
+#over-header-full-screen {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    top: 0px;
+    left: 0px;
+    position: fixed;
 }

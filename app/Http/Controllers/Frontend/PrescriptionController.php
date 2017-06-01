@@ -180,6 +180,7 @@ class PrescriptionController extends Controller
         $keyword = $request->keyword;
         $medicines = Medicine::select(['name', 'id'])
             ->where('name', 'like', '%' . $keyword . '%')
+            ->orWhere('symptom', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')->get();
         
         return Response::json($medicines);

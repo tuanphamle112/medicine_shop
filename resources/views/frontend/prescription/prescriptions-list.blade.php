@@ -3,7 +3,7 @@
 @section('title', __('Prescription List'))
 
 @section('content')
-<div class="content position-relative">
+<div class="content position-relative" id="area-prescription-list">
 
     @php
         $messages = Session::get('flash_frontend_messages', []) 
@@ -108,90 +108,90 @@
      <div class="indicator hide">
         <div class="spinner"></div>
     </div>
-</div>
-
-<!-- ko if: (prescriptionDetail()) -->
-    <div class="modal fade" id="showDetailPrescription" tabindex="-1" role="dialog" aria-labelledby="detailPrescriptionLabel">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center" id="detailPrescriptionLabel">{{ __('Detail Prescription') }}</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title" data-bind="">
-                                <span class="label label-info">{{ __('Prescription Name') }}</span>
-                                <span data-bind="text: prescriptionDetail().name_prescription"></span>
-                            </h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <span class="label label-info">{{ __('Doctor Name') }}</span>
-                                    <span data-bind="text: prescriptionDetail().name_doctor"></span>
+    <!-- ko if: (prescriptionDetail()) -->
+        <div class="modal fade" id="showDetailPrescription" tabindex="-1" role="dialog" aria-labelledby="detailPrescriptionLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title text-center" id="detailPrescriptionLabel">{{ __('Detail Prescription') }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" data-bind="">
+                                    <span class="label label-info">{{ __('Prescription Name') }}</span>
+                                    <span data-bind="text: prescriptionDetail().name_prescription"></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <span class="label label-info">{{ __('Doctor Name') }}</span>
+                                        <span data-bind="text: prescriptionDetail().name_doctor"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="label label-info">{{ __('Frequency') }}</span>
+                                        <span data-bind="text: prescriptionDetail().frequency"></span>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <span class="label label-info">{{ __('Frequency') }}</span>
-                                    <span data-bind="text: prescriptionDetail().frequency"></span>
+                                <div class="row padding-15px">
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <td colspan="7" class="text-center success">
+                                                        {{ __('Items List') }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="info">
+                                                    <th>{{ __('ID #') }}</th>
+                                                    <th>{{ __('Medicine Name') }}</th>
+                                                    <th>{{ __('Amout') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th>{{ __('Created At') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody data-bind="foreach: prescriptionDetail().get_all_item_prescriptions">
+                                                <tr>
+                                                    <td>
+                                                        <span data-bind="text: id"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span data-bind="text: name_medicine"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span data-bind="text: amount"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span data-bind="text: $parent.statusItem[status]"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span data-bind="text: created_at"></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            
+                                            <tbody data-bind="if: prescriptionDetail().get_all_item_prescriptions.length === 0">
+                                                <tr>
+                                                    <td colspan="4" class="text-center">
+                                                        {{ __('No Item') }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row padding-15px">
-                                <div class="col-sm-12">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td colspan="7" class="text-center success">
-                                                    {{ __('Items List') }}
-                                                </td>
-                                            </tr>
-                                            <tr class="info">
-                                                <th>{{ __('ID #') }}</th>
-                                                <th>{{ __('Medicine Name') }}</th>
-                                                <th>{{ __('Amout') }}</th>
-                                                <th>{{ __('Status') }}</th>
-                                                <th>{{ __('Created At') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody data-bind="foreach: prescriptionDetail().get_all_item_prescriptions">
-                                            <tr>
-                                                <td>
-                                                    <span data-bind="text: id"></span>
-                                                </td>
-                                                <td>
-                                                    <span data-bind="text: name_medicine"></span>
-                                                </td>
-                                                <td>
-                                                    <span data-bind="text: amount"></span>
-                                                </td>
-                                                <td>
-                                                    <span data-bind="text: $parent.statusItem[status]"></span>
-                                                </td>
-                                                <td>
-                                                    <span data-bind="text: created_at"></span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        
-                                        <tbody data-bind="if: prescriptionDetail().get_all_item_prescriptions.length === 0">
-                                            <tr>
-                                                <td colspan="4" class="text-center">
-                                                    {{ __('No Item') }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <div class="panel-footer" data-bind="text: prescriptionDetail().guide"></div>
                         </div>
-                        <div class="panel-footer" data-bind="text: prescriptionDetail().guide"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-<!-- /ko -->
+    <!-- /ko -->
+</div>
+
 @endsection
 
 @section('custom-javascript')
@@ -200,7 +200,11 @@
     @php
         $optionStatusItem = App\ItemPrescription::getOptionStatus();
     @endphp
+    
     var statusOption = {!! json_encode($optionStatusItem) !!};
-    ko.applyBindings(new PrescriptionViewModel().initData(statusOption));
+    ko.applyBindings(
+        new PrescriptionViewModel().initData(statusOption),
+        document.getElementById('area-prescription-list')
+    );
 </script>
 @endsection
