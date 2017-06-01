@@ -61,7 +61,16 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::post('detail/{id}', 'DetailMedicinesController@avg')->name('avg');
     Route::post('detail/{id}/edit', 'DetailMedicinesController@editRating')->name('edit_rating');
     Route::get('detail/add-to-box', 'DetailMedicinesController@addToBox')->name('add_to_box');
+
+    // Add comment
+    Route::post('/comment/send/data', 'DetailMedicinesController@addComment');
+
 });
+
+Route::post('/contact/sendemail', 'HomeController@sendEmail')->name('frontend.sendemail');
+
+// Comment
+Route::get('/comment/json/getList', 'DetailMedicinesController@jsonCommentList');
 
 // Detail medicine
 Route::get('detail/{id}/{name}', 'DetailMedicinesController@index')->name('detail');

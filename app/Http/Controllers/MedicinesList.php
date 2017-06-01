@@ -14,7 +14,18 @@ class MedicinesList extends Controller
 
         $medicine = Category::ShowBar($bar);
         $sMedicines = Category::ShowSBar($medicine->id);
-        $items = Category::ShowItem($medicine->id);
+
+        $catedoryIDs = [$medicine->id];
+        foreach ($sMedicines as $subCategory) {
+            $catedoryIDs[] = $subCategory->id;
+        }
+        $allMedicines = CategoryMedicineRelated::whereIn('category_id', $catedoryIDs)->get();
+        $medicineIDs = [];
+        foreach ($allMedicines as $value) {
+            $medicineIDs[$value->medicine_id] = $value->medicine_id;
+        }
+
+        $items = Medicine::whereIn('id', $medicineIDs)->orderBy('id', 'desc')->paginate(12);
         
         return view('medicine', [
             'medicine'=> $medicine,
@@ -27,7 +38,7 @@ class MedicinesList extends Controller
     {
         $medicine = Category::ShowBar($bar);
         $subMedicine = Category::ShowSub($link);
-        $items = Category::ShowItem($subMedicine->id);
+        $items = Category::find($subMedicine->id)->getAllMedicines()->paginate(12);;
         $sMedicines = Category::ShowSBar($medicine->id);
 
         return view('subcate', [

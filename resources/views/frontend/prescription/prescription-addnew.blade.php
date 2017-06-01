@@ -7,7 +7,7 @@
     <div class= "row">
         <div class="panel panel-success">
             <div class="panel-heading text-center">
-                <div class="row">
+                <div class="row padding-15px">
                     <div class="col-sm-10">
                         <h3 class="panel-title">{{ __('Add New Prescription') }}</h3>
                     </div>

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Medicine;
 use App\Image;
 use App\Category;
 use App\MarkMedicine;
+use App\InforWebsite;
 use App\Helpers\Helper;
+use Session;
 use Response;
 use Auth;
 use DB;
@@ -82,4 +85,23 @@ class HomeController extends Controller
 
         return redirect()->route('frontend.mark-medicine.index');
     }
+
+    public function sendEmail(Request $request)
+    {
+
+        $info = InforWebsite::getInfoWebsite()->first();
+
+        $data['firstname'] = $request->firstname;
+        $data['email'] = $request->email;
+        $data['content'] = $request->message;
+        Mail::send('emails.contact', $data, function($message) use ($info, $data) {
+            $message->from($data['email'], $info->title);
+            $message->subject($info->title);
+            $message->to('tai.dinhvan2702@gmail.com');
+        });
+        Session::flash('sent_email_contact', 'true');
+
+        return redirect()->route('welcome');
+    }
+    
 }

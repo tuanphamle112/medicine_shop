@@ -4,9 +4,6 @@
             @php
                 $social = json_decode($frontendInfoWebsite->link_communications, true);
             @endphp
-            <a href="/" class="brand">
-                {{ trans('label.logo') }}
-            </a>
             <ul class="social">
                 @if (isset($social['facebook']))
                     <li>
@@ -55,20 +52,20 @@
         <div class="col-xs-12 col-sm-5 col-md-5 quick-contact-us">
             <h2 class="sub-header">{{ trans('label.contact') }}</h2>
             <div class="form-group">
-                {!! Form::open(['route' => 'welcome']) !!}
+                {!! Form::open(['route' => 'frontend.sendemail']) !!}
                     <table class="">
                         <tbody>
                             <tr>
                                 <td>
-                                   {!! Form::text('firstname', $value = null, $attributes = ['class' => 'firstname', "placeholder" => trans('label.name')]) !!}
+                                   {!! Form::text('firstname', $value = null, $attributes = ['class' => 'firstname', 'placeholder' => trans('label.name'), 'required' => 'true']) !!}
                                 </td>
                                 <td>
-                                    {!! Form::email('email', $value = null,  ['class' => 'email', "placeholder" => trans('label.email')]) !!}
+                                    {!! Form::email('email', $value = null,  ['class' => 'email', 'placeholder' => trans('label.email'), 'required' => 'true']) !!}
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2" rowspan="2">
-                                    {!! Form::textarea('message', $value = null, ['class' => 'message', "placeholder" => trans('label.comment')]) !!}
+                                    {!! Form::textarea('message', $value = null, ['class' => 'message', 'placeholder' => trans('label.comment'), 'required' => 'true']) !!}
                                 </td>
                             </tr>
                         </tbody>
@@ -77,5 +74,35 @@
                 {!! Form::close() !!}
             </div>
         </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" id="contact-button-show-thanks" class="hide" data-toggle="modal" data-target="#content-thanks-contact">
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="content-thanks-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{{ __('Thank you for your feedback!') }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </footer>
 </div>
+@php
+    $sentEmail = Session::get('sent_email_contact', '');
+@endphp
+
+
+@section('custom-javascript')
+    @if ($sentEmail)
+        <script>
+            $('#contact-button-show-thanks').click();
+        </script>
+    @endif
+@endsection
+

@@ -53,9 +53,6 @@
 
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="" class="btn btn-default btn-flat">{{ __('Profile') }}</a>
-                            </div>
                             <div class="pull-right">
                                 {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
                                     <button type="submit" data-toggle="tooltip" class="btn btn-danger"

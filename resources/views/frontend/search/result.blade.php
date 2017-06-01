@@ -1,10 +1,12 @@
 @extends('layouts.master')
 
+@section('title', __('Search Medicine'))
+
 @section('content')
  <div class="panel panel-success">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-12 text-center">
+            <div class="col-sm-12 text-center padding-15px">
                 <h3 class="panel-title">
                     {{ __('Search results for keywords:') }}
                     {{ ' "' . $keyword . '"' }}
@@ -22,7 +24,7 @@
                 @endforeach
 
                 @if (count($items) == 0)
-                    <div class="text-center">
+                    <div class="text-center v-x2-padding">
                         {{ __('No Item') }}
                     </div>
                 @endif

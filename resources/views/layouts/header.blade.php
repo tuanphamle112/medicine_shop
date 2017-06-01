@@ -1,6 +1,7 @@
 <header class="container-fluid"  id="header" >
     <div class=" page-header-container">
         <div class="container">
+        <!-- <div class="col-sm-9"> -->
             <div class="row">
                 <div class="col-sm-3 col-xs-12">
                     <div class="logo">

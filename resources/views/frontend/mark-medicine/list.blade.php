@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', __('Prescription List'))
+@section('title', __('Mark Medicine List'))
 
 @section('content')
 <div class="content position-relative" id="area-prescription-list">
@@ -20,14 +20,9 @@
     <div class= "row">
         <div class="panel panel-success">
             <div class="panel-heading text-center">
-                <div class="row">
-                    <div class="col-sm-11">
+                <div class="row padding-15px">
+                    <div class="col-sm-12">
                         <h3 class="panel-title">{{ __('Mark Medicine List') }}</h3>
-                    </div>
-                    <div class="col-sm-1">
-                        <a href="{{ route('frontend.prescription.addnew') }}" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Add New Prescription') }}">
-                            <i class="fa fa-plus"></i>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -46,7 +41,7 @@
                             <tr>
                                 <td>{{ $mark->id }}</td>
                                 <td>
-                                    <a href="{{ url('/detail/' . $mark->id . '/' . str_slug($mark->getMedicine->name)) }}" title="{{ $mark->getMedicine->name }}">
+                                    <a href="{{ url('/detail/' . $mark->getMedicine->id . '/' . str_slug($mark->getMedicine->name)) }}" title="{{ $mark->getMedicine->name }}">
                                         {{ $mark->getMedicine->name }}
                                     </a>
                                 </td>

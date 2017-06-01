@@ -7,13 +7,19 @@ use App\Image;
 use App\Medicine;
 use App\RateMedicine;
 use App\MarkMedicine;
+use App\Comment;
 use Auth;
+use Response;
 
 class DetailMedicinesController extends Controller
 {
     public function index($id)
     {
-        $showD= Medicine::medicineItem($id);
+        $showD= Medicine::find($id);
+        if (!$showD){
+            return redirect()->route('welcome');
+        }
+
         $imageD=Image::where('medicine_id', $showD->id)->first();
         if (Auth::check())
             {
@@ -39,8 +45,9 @@ class DetailMedicinesController extends Controller
     public function avg(Request $request, $id) {
         $user_id = Auth::user()->id;
         $check_rated = RateMedicine::checkRated($user_id, $id);
-        // dd($check_rated);
+
         $showD= Medicine::medicineItem($id);
+
         // caculator rating point
         $reliable = $request->input('reliable');
         $quality = $request->input('quality');
@@ -62,13 +69,12 @@ class DetailMedicinesController extends Controller
         $showD->avg_rate = $avgMedicine;
         $showD->total_rate = $countTotalRate;
         $showD->save();
-        // var_dump($countTotalRate);die;
-        return redirect()->route('detail', [
-            'id' => $id,
-            str_slug($showD->name),
-            ])
+
+        return redirect()
+            ->route('detail', [$id, str_slug($showD->name)])
             ->with('check_rated', $check_rated);
     }
+
     public function editRating(Request $request, $id) {
         $user_id = Auth::user()->id;
 
@@ -97,9 +103,10 @@ class DetailMedicinesController extends Controller
         $user_id = $request->user_id;
         $medicine_name = Medicine::find($medicine_id);
         $check_added = MarkMedicine::where('user_id',$user_id)->where('medicine_id',$medicine_id)->first();
+
         if(!empty($check_added->id))
         {
-            return __('This medicine already in your box');
+            return __('This medicine already in your box!');
         }
         else
         {
@@ -111,5 +118,51 @@ class DetailMedicinesController extends Controller
             return $medicine_name->name . __(' has been added');
         }
 
+    }
+
+    public function jsonCommentList(Request $request)
+    {
+        $user_id = 0;
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+        }
+
+        $medicineId = $request->medicineId;
+
+        $comments = Comment::with('getUser')
+            ->where('medicine_id', $medicineId)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+        $data['comments'] = $comments;
+        $data['currentUserId'] = $user_id;
+
+        return Response::json($data);
+
+    }
+
+    public function addComment(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $medicine_id = $request->medicineId;
+        $content = $request->content;
+
+        $comment = new Comment;
+        $comment->user_id = $user_id;
+        $comment->medicine_id = $medicine_id;
+        $comment->content = $content;
+        $comment->save();
+
+        $comments = Comment::with('getUser')
+            ->where('medicine_id', $medicine_id)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')->paginate(5);
+        $comments->currentUserId = $user_id;
+
+        $data['comments'] = $comments;
+        $data['currentUserId'] = $user_id;
+
+        return Response::json($data);
     }
 }
