@@ -50,4 +50,5 @@ return [
     'frequency'=> 'Frequency',
     'information'=> 'Information',
     'write_comment'=> 'Write comment',
+    'to_add_to_box'=>'to add to box'
 ];

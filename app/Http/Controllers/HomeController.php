@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-$check_rated
+
 use Illuminate\Http\Request;
 use App\Medicine;
 use App\Image;
 use App\Category;
+
 class HomeController extends Controller
 {
     /**

@@ -9,3 +9,4 @@
 <script src="{!! url('bower_components/tinymce/tinymce.min.js') !!}"></script>
 <script src="{!! url('js/frontend/custom.js') !!}"></script>
 <script src="{!! url('bower_components/bootstrap-star-rating/js/star-rating.js') !!}"></script>
+

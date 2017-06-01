@@ -6,73 +6,113 @@ use App\Category;
 use App\Image;
 use App\Medicine;
 use App\RateMedicine;
+use App\MarkMedicine;
 use Auth;
+
 class DetailMedicinesController extends Controller
 {
     public function index($id)
-    {   
-        $showD= Medicine::where('id', $id)->first();
+    {
+        $showD= Medicine::medicineItem($id);
         $imageD=Image::where('medicine_id', $showD->id)->first();
-        $user_id = Auth::user()->id;
-        $check_rated = RateMedicine::where('user_id',$user_id)->where('medicine_id',$id)->first();
-        // dd($check_rated);die;
-        return view('medicineDetail', [
-            'showD'=>$showD,
-            'imageD'=>$imageD,
-            'id'=>$id,
-            'check_rated'=>$check_rated
-        ]);
+        if (Auth::check())
+            {
+                $user_id = Auth::user()->id;
+                $check_rated = RateMedicine::checkRated($user_id, $id);
+
+                return view('medicineDetail', [
+                    'showD'=>$showD,
+                    'imageD'=>$imageD,
+                    'id'=>$id,
+                    'check_rated'=>$check_rated
+                ]);
+            }
+        else
+            {
+                return view('medicineDetail', [
+                    'showD'=>$showD,
+                    'imageD'=>$imageD,
+                    'id'=>$id,
+                ]);
+            }
     }
     public function avg(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $check_rated = RateMedicine::where('user_id',$user_id)->where('medicine_id',$id)->first();
-        $showD= Medicine::where('id', $id)->first();
-        $imageD=Image::where('medicine_id', $showD->id)->first();
-
+        $check_rated = RateMedicine::checkRated($user_id, $id);
+        // dd($check_rated);
+        $showD= Medicine::medicineItem($id);
+        // caculator rating point
         $reliable = $request->input('reliable');
         $quality = $request->input('quality');
         $avg = ($reliable + $quality)/2;
-
-        if(!isset($check_rated)) {
+        
+        if (empty($check_rated->id)) {
             $rate_medicines = new RateMedicine;
             $rate_medicines->user_id = $user_id;
             $rate_medicines->medicine_id = $id;
             $rate_medicines->point_rate = $avg;
             $rate_medicines->save();
-            $total_rate = ($showD->total_rate + $avg)/2;
         }
 
-        
-        // var_dump($total_rate);die;
+        $collectionRate = RateMedicine::where('medicine_id', $id)
+            ->where('user_id', $user_id)->get();
 
-        return view('medicineDetail',[
-                'showD'=>$showD,
-                'imageD'=>$imageD,
-                'id'=>$id,
-                'avg'=>$avg,
-                'check_rated'=>$check_rated
-            ]);
+        $avgMedicine = $collectionRate->avg('point_rate');
+        $countTotalRate = count($collectionRate);
+
+        $showD->avg_rate = $avgMedicine;
+        $showD->total_rate = $countTotalRate;
+        $showD->save();
+
+        return redirect()->route('detail', [
+            'id' => $id,
+            str_slug($showD->name),
+            ])
+            ->with('check_rated', $check_rated);
     }
     public function editRating(Request $request, $id) {
         $user_id = Auth::user()->id;
-        $check_rated = RateMedicine::where('user_id',$user_id)->where('medicine_id',$id)->first();
-        $showD= Medicine::where('id', $id)->first();
-        $imageD=Image::where('medicine_id', $showD->id)->first();
 
         $reliable = $request->input('reliable');
         $quality = $request->input('quality');
         $avg = ($reliable + $quality)/2;
-        // var_dump($id);die;
-        RateMedicine::where('user_id',$user_id)
-        ->where('medicine_id', $id)
-        ->update(['point_rate'=>$avg]);
+        RateMedicine::where('user_id', $user_id)
+            ->where('medicine_id', $id)
+            ->update(['point_rate' => $avg]);
 
-        return view('medicineDetail',[
-                'showD'=>$showD,
-                'imageD'=>$imageD,
-                'id'=>$id,
-                'avg'=>$avg,
-                'check_rated'=>$check_rated
-            ]);
+        $medicine = Medicine::find($id);
+
+        $collectionRate = RateMedicine::where('medicine_id', $id)
+            ->where('user_id', $user_id)->get();
+
+        $avgMedicine = $collectionRate->avg('point_rate');
+        $countTotalRate = count($collectionRate);
+
+        $medicine->avg_rate = $avgMedicine;
+        $medicine->total_rate = $countTotalRate;
+        $medicine->save();
+
+        return redirect()->route('detail', [$id, str_slug($medicine->name)]);
+    }
+    public function addToBox(Request $request) {
+        $medicine_id = $request->medicine_id;
+        $user_id = $request->user_id;
+        $medicine_name= Medicine::where('id',$medicine_id)->first();
+        $check_added = MarkMedicine::where('user_id',$user_id)->where('medicine_id',$medicine_id)->first();
+        if(!empty($check_added->id))
+        {
+            return 'This medicine already in your box';
+        }
+        else
+        {
+            $mark_medicines = new MarkMedicine;
+            $mark_medicines->user_id = $user_id;
+            $mark_medicines->medicine_id= $medicine_id;
+            $mark_medicines->save();
+
+            return $medicine_name->name . ' has been added';
+        }
+        // return $medicine_name->name
+
     }
 }

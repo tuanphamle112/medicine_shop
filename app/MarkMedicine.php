@@ -11,10 +11,12 @@ class MarkMedicine extends Model
      *
      * @var array
      */
+    protected $table = 'mark_medicine';
     protected $fillable = [
         'medicine_id',
         'user_id',
     ];
+
 
     public function getUser()
     {

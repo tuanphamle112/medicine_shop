@@ -53,9 +53,49 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <button class="btn btn-success add-to-box2">
+                            @if (Auth::check())
+                            <button medicine_id="{{ $id }}" user_id="{{ Auth()->user()->id }}" class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box">
                                 {{ trans('label.add_to_box') }}
                             </button>
+                            <div class="modal fade" id="add-to-box" role="dialog">
+                                <div class="modal-dialog">
+                                  <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">{{ trans('label.notification') }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @else
+                                <button class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box-not-login">
+                                    {{ trans('label.add_to_box') }}
+                                </button>
+                                <div class="modal fade" id="add-to-box-not-login" role="dialog">
+                                    <div class="modal-dialog">
+                                      <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">{{ trans('label.notification') }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <span>{{ trans('label.you_have_to') }} <a href="/login"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
@@ -63,11 +103,7 @@
                                     <div class="wrap-rating">
                                         <span class="label col-sm-2">{{ trans('label.total_rating') }}</span>
                                         <div class="wrap-star col-sm-6">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <input type="number" id="star-main" name="star-main" value="4" class="ui rating">
                                         </div>
                                         
                                         <div class="container">
@@ -85,7 +121,7 @@
                                                         </div>
                                                         @if (Auth::check())
                                                             <div class="modal-body">
-                                                                @if ( $check_rated )
+                                                                @if (!empty($check_rated->id))
                                                                     {!! Form::open(['route' => [ 'edit_rating', $id ], 'method' => 'post']) !!}
 
                                                                         {{ Form::label('star-reliable', 'Reliable:') }}
@@ -99,10 +135,10 @@
 
                                                                         {{ Form::label('last-rating', 'The last total rating:') }}
                                                                             <span class="label label-info">{{ $check_rated->point_rate }}</span><br>
-                                                                        {!! Form::submit('Re-rate', ['class' => 'btn btn-danger']) !!}
+                                                                        {!! Form::submit('Re-rate', ['class' => 'btn btn-danger re-rate']) !!}
                                                                     {{ Form::close() }}
                                                                 @else
-                                                                    {!! Form::open(['route' => [ 'avg', $id ], 'method' => 'post']) !!}
+                                                                    {!! Form::open(['route' => ['avg', $id ], 'method' => 'post']) !!}
 
                                                                         {{ Form::label('star-reliable', 'Reliable:') }}
                                                                         {!! Form::text('input-name1', '', ['class' => 'rating','id'=> 'input-reliable', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
@@ -120,8 +156,8 @@
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('label.close') }}</button>
                                                             </div>
                                                         @else
-                                                            <div>
-                                                                   <h2>{{ trans('label.out_of_stock') }}<a href="/login">{{ trans('label.login') }}</a> {{ trans('label.to_rating') }}</h2>
+                                                            <div class="modal-body">
+                                                               <span>{{ trans('label.you_have_to') }} <a href="/login"> {{ trans('label.login') }}</a> {{ trans('label.to_rating') }}</span>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('label.close') }}</button>
