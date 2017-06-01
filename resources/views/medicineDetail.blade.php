@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-sm-6 extra-info">
                             <p class="availability in-stock">
-                                <span class="label">Tình trạng:</span>
+                                <span class="label">{{ trans('label.status') }}</span>
                                 <span class="value">
                                     @if ($showD->quantity <=0)
                                     {{ trans('label.out_of_stock') }}
@@ -102,8 +102,15 @@
                                 <div class="row">
                                     <div class="wrap-rating">
                                         <span class="label col-sm-2">{{ trans('label.total_rating') }}</span>
-                                        <div class="wrap-star col-sm-6">
-                                            <input type="number" id="star-main" name="star-main" value="4" class="ui rating">
+                                        <div class="wrap-star col-sm-7">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input type="hidden" id="star-main" name="star-main" min="1" max="5" step="0.1" value="{{ $showD->avg_rate }}" class="rating">
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span> {{ $showD->total_rate }} vote</span>
+                                                </div>
+                                            </div>
                                         </div>
                                         
                                         <div class="container">
@@ -173,7 +180,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="clearer"></div>
                 </div>
             </div>

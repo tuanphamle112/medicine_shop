@@ -443,11 +443,12 @@
 /*DETAIL CONTENT*/
     .add-to-box2 {
         float: right;
-        margin-right: 55px;
+        margin-right: 10px;
         box-shadow: 2px;
         box-shadow: 2px 3px 5px #ccc;
         padding: 8px;
     }
+    .
     .product-img-box {
         padding-right: 15px;
     }
@@ -537,7 +538,7 @@
     }
     label {
     display: inline-block;
-    font-size: 13px;
+    font-size: 16px;
     font-family: sans-serif, "Helvetica Neue", Verdana, Arial;
     font-weight: 600;
     user-select: none;
@@ -694,6 +695,16 @@
         color: #334c85;
     }
     /*Rating*/
+    .rating {
+        top:-40px;
+    }
+    .clear-rating {
+        margin-top:-65px !important;
+    }
+    .rating-container .caption {
+        font-size:30% !important;
+        margin-top:-75px !important;
+    }
     .wrap-rating {
         margin-left: 23px;
         margin-top: 20px;
@@ -703,10 +714,13 @@
         color: yellowgreen;
     }
     .wrap-rating span {
-        font-size :16px;
+        margin-top:0px;
     }
     .wrap-star {
         margin-left:20px;
+    }
+    .wrap-star span {
+        color: #5cb85c;
     }
     .rating-link {
         text-decoration: underline;

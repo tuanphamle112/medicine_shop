@@ -54,8 +54,7 @@ class DetailMedicinesController extends Controller
             $rate_medicines->save();
         }
 
-        $collectionRate = RateMedicine::where('medicine_id', $id)
-            ->where('user_id', $user_id)->get();
+        $collectionRate = RateMedicine::where('medicine_id', $id)->get();
 
         $avgMedicine = $collectionRate->avg('point_rate');
         $countTotalRate = count($collectionRate);
@@ -63,7 +62,7 @@ class DetailMedicinesController extends Controller
         $showD->avg_rate = $avgMedicine;
         $showD->total_rate = $countTotalRate;
         $showD->save();
-
+        // var_dump($countTotalRate);die;
         return redirect()->route('detail', [
             'id' => $id,
             str_slug($showD->name),
@@ -82,8 +81,7 @@ class DetailMedicinesController extends Controller
 
         $medicine = Medicine::find($id);
 
-        $collectionRate = RateMedicine::where('medicine_id', $id)
-            ->where('user_id', $user_id)->get();
+        $collectionRate = RateMedicine::where('medicine_id', $id)->get();
 
         $avgMedicine = $collectionRate->avg('point_rate');
         $countTotalRate = count($collectionRate);
@@ -97,7 +95,7 @@ class DetailMedicinesController extends Controller
     public function addToBox(Request $request) {
         $medicine_id = $request->medicine_id;
         $user_id = $request->user_id;
-        $medicine_name= Medicine::where('id',$medicine_id)->first();
+        $medicine_name = Medicine::find($medicine_id);
         $check_added = MarkMedicine::where('user_id',$user_id)->where('medicine_id',$medicine_id)->first();
         if(!empty($check_added->id))
         {
@@ -112,7 +110,6 @@ class DetailMedicinesController extends Controller
 
             return $medicine_name->name . ' has been added';
         }
-        // return $medicine_name->name
 
     }
 }

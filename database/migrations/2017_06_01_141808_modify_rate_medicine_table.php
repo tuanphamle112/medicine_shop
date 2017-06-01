@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyMedicinesTable extends Migration
+class ModifyRateMedicineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyMedicinesTable extends Migration
      */
     public function up()
     {
-        Schema::table('medicines', function($table) {
-            // $table->string('price');
+        Schema::table('rate_medicines', function($table) {
+            $table->float('point_rate')->change();
         });
     }
 
@@ -25,8 +25,8 @@ class ModifyMedicinesTable extends Migration
      */
     public function down()
     {
-        Schema::table('medicines', function($table) {
-            $table->dropColumn('price');
+        Schema::table('rate_medicines', function(Blueprint $table) {
+            $table->interger('point_rate')->change();
         });
     }
 }
