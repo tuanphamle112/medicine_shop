@@ -31,7 +31,7 @@
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    {!! Form::open(['route' => 'category.store', 'id' => 'add-new-category', 'class' => 'form-horizontal', 'method' => 'post']) !!}
+                    {!! Form::open(['route' => 'category.store', 'id' => 'add-new-category', 'class' => 'form-horizontal', 'method' => 'post', 'files' => 'true']) !!}
                         <div class="form-group">
                             <div class="col-sm-6">
                                 {!! Form::label('name', __('Name'), ['class' => 'col-sm-3 control-label']) !!}
@@ -49,6 +49,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-6">
+                                {!! Form::label('image', __('Image'), ['class' => 'col-sm-3 control-label']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::file('image', ['class' => 'form-control']) !!}
+                                    <span class="text-danger">{!! $errors->first('image') !!}</span>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 {!! Form::label('parent_id', __('Parent Category'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
