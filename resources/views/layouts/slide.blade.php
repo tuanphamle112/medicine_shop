@@ -19,7 +19,7 @@
                                         @endphp
                                     <li>
                                         <a id="hrefUrl1" href="{{ $parent_category->link }}/{{ $category->link }}">
-                                            <img src="{{ $category->cate_img }}" width="170" height="150">
+                                            <img src="{{ $category->image }}" width="170" height="150">
                                             <span>{{ $category->name }}</span>
                                             <div class="fp_mask"></div>
                                         </a>
@@ -29,12 +29,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        {{-- <a href="#" class="prev1" id="prev1" style="display: block;">
-                            <span class="fa  fa-angle-left fa-2x"></span>
-                        </a>
-                        <a href="#" class="next1 text-right" id="next1" style="display: block;">
-                            <span class="fa  fa-angle-right fa-2x"></span>
-                        </a>  --}}
                     </div>
                 </div>
             </div>

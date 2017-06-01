@@ -5,7 +5,7 @@
         <div class="slide banner banner1">
             <div class="max-width">
                 <div class="white-text">
-                    <h2>{{ trans('label.good_pills') }} <br> {{ trans('label.good_heath') }} <br>& {{ trans('label.wdf_life') }}</h2>
+                    <h2>{{ trans('label.good_pills') }} <br> {{ trans('label.good_heath') }} <br>&#38; {{ trans('label.wdf_life') }}</h2>
                 </div>
             </div>
         </div>

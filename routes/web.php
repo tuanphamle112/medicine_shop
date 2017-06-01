@@ -57,11 +57,14 @@ Route::group(['middleware' => 'isLogin'], function(){
 		->name('frontend.mark-medicine.index');
 	Route::delete('/mark-medicine/{id}', 'HomeController@markMedicineDestroy')
 		->name('frontend.mark-medicine.destroy');
+
+    Route::post('detail/{id}', 'DetailMedicinesController@avg')->name('avg');
+    Route::post('detail/{id}/edit', 'DetailMedicinesController@editRating')->name('edit_rating');
+    Route::get('detail/add-to-box', 'DetailMedicinesController@addToBox')->name('add_to_box');
 });
 
 // Detail medicine
-Route::get('chitiet/{id}', 'DetailMedicines@index')->name('detail');
-
+Route::get('detail/{id}/{name}', 'DetailMedicinesController@index')->name('detail');
 
 Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
 Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');
