@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\category;
+use App\Image;
 
 class Medicine extends Model
 {
@@ -26,6 +27,16 @@ class Medicine extends Model
         'related_medicine',
         'price',
     ];
+    public function scopemedicineItem($query, $id) {
+        $showD= $query->where('id', $id)->first();
+
+        return $showD;
+    }
+    public function scopemedicineImage($query, $id) {
+        $imageD= $query->where('id', $id)->getAllImages;
+        // dd($imageD);
+        return $imageD;
+    }
     public function getAllCategories()
     {
         return $this->belongsToMany(Medicine::class, 'category_medicine_related', 'medicine_id', 'category_id');
