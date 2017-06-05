@@ -34,15 +34,13 @@
                     {!! Form::open(['route' => 'medicine.store', 'id' => 'add-new-medicine', 'class' => 'form-horizontal', 'method' => 'post', 'files' => 'true']) !!}
 
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                {!! Form::label('name', __('Medicine Name'), ['class' => 'col-sm-1 control-label']) !!}
-                                <div class="col-sm-11">
+                            <div class="col-sm-6">
+                                {!! Form::label('name', __('Medicine Name'), ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-10">
                                     {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => __('Medicine Name')]) !!}
                                     <span class="text-danger">{!! $errors->first('name') !!}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-sm-6">
                                 {!! Form::label('symptom', __('Symptom'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
@@ -50,11 +48,20 @@
                                     <span class="text-danger">{!! $errors->first('symptom') !!}</span>
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-6">
                                 {!! Form::label('price', __('Price'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
                                     {!! Form::text('price', '', ['class' => 'form-control', 'placeholder' => __('Price')]) !!}
                                     <span class="text-danger">{!! $errors->first('price') !!}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                {!! Form::label('quantity', __('Quantity'), ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-10">
+                                    {!! Form::text('quantity', '', ['class' => 'form-control', 'placeholder' => __('Quantity')]) !!}
+                                    <span class="text-danger">{!! $errors->first('quantity') !!}</span>
                                 </div>
                             </div>
                         </div>

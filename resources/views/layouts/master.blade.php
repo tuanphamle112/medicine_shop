@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>@yield('title')</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="_token" content="{!! csrf_token() !!}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/slick-carousel/slick/slick-theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/slick-carousel/slick/slick.css') }}" />

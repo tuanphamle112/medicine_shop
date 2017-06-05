@@ -26,6 +26,7 @@ class Medicine extends Model
         'total_rate',
         'related_medicine',
         'price',
+        'quantity',
     ];
     public function scopemedicineItem($query, $id) {
         $showD= $query->where('id', $id)->first();

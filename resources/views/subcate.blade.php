@@ -1,4 +1,7 @@
 @extends('layouts.master')
+
+@section('title', $subMedicine->name)
+
 @section('subMedicine', $subMedicine->name)
 @section('subnav-bar')
     @include('layouts.subnav-bar')
@@ -11,6 +14,9 @@
                     @include('item')
                 </div>
             @endforeach
+            <div class="col-sm-12 text-center">
+                {{ $items->links() }}
+            </div>
         </div>
         @if (Auth::check())
             <div class="modal fade" id="add-to-box3" role="dialog">

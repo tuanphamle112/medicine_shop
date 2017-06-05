@@ -1,9 +1,8 @@
 @php
-// dd($item);
-$image = App\Image::where('medicine_id', $item->id)->orderBy('is_main', 'desc')->first();
-$image_show = '';
-if ($image) $image_show = $image->path_origin;
-$mdc_name = str_slug($item->name);
+    $image = App\Image::where('medicine_id', $item->id)->orderBy('is_main', 'desc')->first();
+    $image_show = '';
+    if ($image) $image_show = $image->path_origin;
+    $mdc_name = str_slug($item->name);
 @endphp
 <div class= "wrap-cateitem">
     <div class= "overlay-container">
