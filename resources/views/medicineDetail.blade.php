@@ -208,13 +208,13 @@
                 <div class="overlap-comment">
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-12">
                                 <h3>{{ trans('label.write_comment') }}</h3>
                             </div><!-- /col-sm-12 -->
                         </div><!-- /row -->
                         @if (!Auth::check())
                             <div class="row">
-                                <div class="col-sm-8">
+                                <div class="col-sm-12">
                                     <div class="alert alert-warning" role="alert">
                                         <p>{{ __('You are not logged in. Please login to comment!') }}</p>
                                         <a href="{{route('login')}}">{{ __('Login') }}</a>
@@ -225,17 +225,17 @@
                             </div>
                         @else
                             <div class="row">
-                                <div class="col-sm-8">
+                                <div class="col-sm-12">
                                     {!! Form::textarea('', '', ['rows' => '6', 'class' => 'form-control', 'placeholder' => '...', 'id' => 'comment-content-textarea']) !!}
                                 </div><!-- /col-sm-12 -->
                             </div><!-- /row -->
                             <div class="row">
-                                <div class="col-sm-8 text-right padding-15px">
+                                <div class="col-sm-12 text-right padding-15px">
                                     {!! Form::button(__('Send'), ['data-toggle' => 'tooltip', 'class' => 'btn btn-primary', 'title' => __('Send'), 'data-bind' => 'click: sendComment']) !!}
                                 </div><!-- /col-sm-12 -->
                             </div><!-- /row -->
                         @endif
-                        <div class="col-sm-8 position-relative">
+                        <div class="col-sm-12 position-relative">
                             <div data-bind="foreach: commentDataArray">
                                 <div class="row">
                                     <div class="col-sm-1">
@@ -259,23 +259,6 @@
                                             </div>
                                             <div class="panel-body" data-bind="text: content">
                                             </div><!-- /panel-body -->
-                                            <div class="panel-body" data-bind="if: $parent.currentUserId() == user_id">
-                                                <div class="col-sm-12 text-left">
-                                                    <a href="{{ route('frontend.prescription.addnew') }}" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a href="#" data-toggle="tooltip" class="btn btn-danger" data-bin="click: $root.deleteItem" title="{{ __('Delete') }}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-                                                </div><!-- /col-sm-12 -->
-                                            </div><!-- /panel-body -->
-                                            <div class="panel-body" data-bind="if: showEditComment()">
-                                                {!! Form::textarea('', '', ['rows' => '3', 'class' => 'form-control', 'placeholder' => '...', 'id' => 'comment-content-textarea']) !!}
-                                                <div class="col-sm-12 text-right padding-15px">
-                                                    {!! Form::button(__('Save'), ['data-toggle' => 'tooltip', 'class' => 'btn btn-primary', 'title' => __('Save'), 'data-bin' => 'click: saveComment']) !!}
-                                                </div><!-- /col-sm-12 -->
-                                            </div><!-- /panel-body -->
-
                                         </div><!-- /panel panel-default -->
                                     </div><!-- /col-sm-5 -->
                                 </div><!-- /row -->

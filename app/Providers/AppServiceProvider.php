@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,9 +15,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $infoWebsite = \App\InforWebsite::getInfoWebsite()->first();
-        if (!$infoWebsite) $infoWebsite = new \App\InforWebsite;
-        view()->share('frontendInfoWebsite', $infoWebsite);
+        $infoModel = new \App\InforWebsite;
+        if (Schema::hasTable($infoModel->getTable())) {
+            $infoWebsite = $infoModel->getInfoWebsite()->first();
+            if (!$infoWebsite) $infoWebsite = $infoModel;
+            view()->share('frontendInfoWebsite', $infoWebsite);
+        }
     }
 
     /**
