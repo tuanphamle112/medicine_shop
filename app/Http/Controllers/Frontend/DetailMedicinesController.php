@@ -1,13 +1,14 @@
 <?php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Category;
-use App\Image;
-use App\Medicine;
-use App\RateMedicine;
-use App\MarkMedicine;
-use App\Comment;
+use App\Eloquent\Category;
+use App\Eloquent\Image;
+use App\Eloquent\Medicine;
+use App\Eloquent\RateMedicine;
+use App\Eloquent\MarkMedicine;
+use App\Eloquent\Comment;
 use Auth;
 use Response;
 
@@ -15,32 +16,22 @@ class DetailMedicinesController extends Controller
 {
     public function index($id)
     {
-        $showD= Medicine::find($id);
-        if (!$showD){
+        $medicine = Medicine::with('getAllImages')->find($id);
+
+        if (!$medicine){
             return redirect()->route('welcome');
         }
 
-        $imageD=Image::where('medicine_id', $showD->id)->first();
-        if (Auth::check())
-            {
-                $user_id = Auth::user()->id;
-                $check_rated = RateMedicine::checkRated($user_id, $id);
+        $check_rated = [];
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            $check_rated = RateMedicine::checkRated($user_id, $id)->first();
+        }
 
-                return view('medicineDetail', [
-                    'showD'=>$showD,
-                    'imageD'=>$imageD,
-                    'id'=>$id,
-                    'check_rated'=>$check_rated
-                ]);
-            }
-        else
-            {
-                return view('medicineDetail', [
-                    'showD'=>$showD,
-                    'imageD'=>$imageD,
-                    'id'=>$id,
-                ]);
-            }
+        return view('frontend.medicine.detail', [
+            'medicine' => $medicine,
+            'check_rated' => $check_rated,
+        ]);
     }
     public function avg(Request $request, $id) {
         $user_id = Auth::user()->id;
@@ -81,9 +72,8 @@ class DetailMedicinesController extends Controller
         $reliable = $request->input('reliable');
         $quality = $request->input('quality');
         $avg = ($reliable + $quality)/2;
-        RateMedicine::where('user_id', $user_id)
-            ->where('medicine_id', $id)
-            ->update(['point_rate' => $avg]);
+
+        RateMedicine::where('user_id', $user_id)->where('medicine_id', $id)->update(['point_rate' => $avg]);
 
         $medicine = Medicine::find($id);
 

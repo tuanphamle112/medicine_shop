@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Banner extends Model
+class Banner extends AbstractEloquent
 {
     const POSITION_TOP = 'postion_top';
     const POSITION_BOTTOM = 'position_bottom';

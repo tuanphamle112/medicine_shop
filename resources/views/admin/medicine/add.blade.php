@@ -76,8 +76,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('categories', __('Categories'), ['class' => 'col-sm-2 control-label']) !!}
                                 <div class="col-sm-10">
-                                    <?php $allCategories = new App\Category; ?>
-                                    {{ Form::select('categories[]', $allCategories->getAllOptionCategories(), null, ['multiple' => true, 'class' => 'form-control categories'])}}
+                                    {{ Form::select('categories[]', $allOptionCategories, null, ['multiple' => true, 'class' => 'form-control categories'])}}
                                     <span class="text-danger">{!! $errors->first('categories') !!}</span>
                                 </div>
                             </div>

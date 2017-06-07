@@ -93,7 +93,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('permission', __('Permission'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
-                                    {!! Form::select('permission', App\User::getPermissionOption(), null, ['class' => 'form-control']) !!}
+                                    {!! Form::select('permission', $permissionOption, null, ['class' => 'form-control']) !!}
                                     <span class="text-danger">{!! $errors->first('permission') !!}</span>
                                 </div>
                             </div>

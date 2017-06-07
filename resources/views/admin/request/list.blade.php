@@ -71,12 +71,12 @@
                                     <span>{{ $requestMedicine->created_at }}</span>
                                 </td>
                                 <td class="text-center">
-                                    @if ($requestMedicine->status === App\RequestMedicine::STATUS_NOT_SEEN)
+                                    @if ($requestMedicine->status === App\Eloquent\RequestMedicine::STATUS_NOT_SEEN)
                                         <div class="btn btn-danger text-center">
                                             <i class="fa fa-eye-slash"></i>
                                             <span>{{ __('Not seen') }}</span>
                                         </div>
-                                    @elseif ($requestMedicine->status === App\RequestMedicine::STATUS_WATCHED)
+                                    @elseif ($requestMedicine->status === App\Eloquent\RequestMedicine::STATUS_WATCHED)
                                         <div class="btn btn-primary text-center">
                                             <i class="fa fa-eye"></i>
                                             <span>{{ __('Watched') }}</span>

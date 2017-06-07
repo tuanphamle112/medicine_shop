@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class RequestMedicine extends Model
+class RequestMedicine extends AbstractEloquent
 {
     
     const STATUS_NOT_SEEN = 1;

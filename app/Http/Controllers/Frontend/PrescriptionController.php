@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Prescription;
-use App\Medicine;
-use App\ItemPrescription;
-use App\RequestMedicine;
+use App\Eloquent\Prescription;
+use App\Eloquent\Medicine;
+use App\Eloquent\ItemPrescription;
+use App\Eloquent\RequestMedicine;
 use App\Helpers\Helper;
 use Response;
 use Auth;

@@ -69,7 +69,7 @@
                                     <span>{{ $comment->updated_at }}</span>
                                 </td>
                                 <td class="text-center">
-                                    @if ($comment->status === App\Comment::STATUS_ENABLE)
+                                    @if ($comment->status === App\Eloquent\Comment::STATUS_ENABLE)
                                         <div class="btn btn-primary text-center">
                                             <i class="fa fa-eye"></i>
                                             <span>{{ __('Enable') }}</span>

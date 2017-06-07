@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
 @section('title', __('Edit Prescription'))
 

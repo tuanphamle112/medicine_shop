@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ItemPrescription extends Model
+class ItemPrescription extends AbstractEloquent
 {
     //
     const STATUS_IN_STORE = 1;

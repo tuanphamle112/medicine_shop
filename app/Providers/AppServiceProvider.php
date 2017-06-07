@@ -15,11 +15,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $infoModel = new \App\InforWebsite;
+        $infoModel = new \App\Eloquent\InforWebsite;
         if (Schema::hasTable($infoModel->getTable())) {
             $infoWebsite = $infoModel->getInfoWebsite()->first();
             if (!$infoWebsite) $infoWebsite = $infoModel;
             view()->share('frontendInfoWebsite', $infoWebsite);
+        }
+
+        $categoryModel = new \App\Eloquent\Category;
+        if (Schema::hasTable($categoryModel->getTable())) {
+            $parentCategories = $categoryModel->allParentCategories()->get();
+
+            view()->share('frontendAllParentCategories', $parentCategories);
         }
     }
 

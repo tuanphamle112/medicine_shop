@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Prescription extends Model
+class Prescription extends AbstractEloquent
 {
     /**
      * The attributes that are mass assignable.

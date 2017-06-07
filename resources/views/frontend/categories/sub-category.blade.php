@@ -1,17 +1,38 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
-@section('title', $medicine->name)
+@section('title', $selectSubCate->name)
 
-@section('subMedicine', $medicine->name)
 @section('subnav-bar')
-    @include('layouts.subnav-bar')
+    <div class="col-xs-12 col-sm-12">
+        <div class="subm-2">
+            <div class="subm-2-page">
+                <div class="subm-cat-full">
+                    <ul class="menulist">
+                        @foreach ($subCategories as $subCategory)
+                            <li>
+                                <a href="{!! action('Frontend\MedicinesListController@showSubCategory', [
+                                        $parentCategory->link,
+                                        $subCategory->link,
+                                    ]) !!}"
+                                    class="{{ $selectSubCate->link === $subCategory->link ? 'active' : '' }}"
+                                >
+                                    {{ $subCategory->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>  
 @endsection
+
 @section('content')
     <div class="content">
         <div class= "row">
             @foreach($items as $item)
                 <div class= "col-sm-3">
-                    @include('item')
+                    @include('frontend.components.item')
                 </div>
             @endforeach
             <div class="col-sm-12 text-center">
@@ -31,13 +52,13 @@
                             <p></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                         </div>
                     </div>
                 </div>
             </div>
         @else
-            <div class="modal fade" id="add-to-box-not-login" role="dialog">
+            <div class="modal fade" id="add-to-box3" role="dialog">
                 <div class="modal-dialog">
                   <!-- Modal content-->
                     <div class="modal-content">
@@ -46,10 +67,10 @@
                             <h4 class="modal-title">{{ trans('label.notification') }}</h4>
                         </div>
                         <div class="modal-body">
-                            <span>{{ trans('label.you_have_to') }} <a href="/login"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
+                            <span>{{ trans('label.you_have_to') }} <a href="{{ route('login') }}"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                         </div>
                     </div>
                 </div>

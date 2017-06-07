@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Comment;
+use App\Eloquent\Comment;
 use App\Helpers\Helper;
 
 class CommentController extends Controller
@@ -77,8 +77,9 @@ class CommentController extends Controller
             
             return redirect()->route('comment.index');
         }
+        $optionStatus = $this->comment->getOptionStatus();
 
-        return view('admin.comment.edit', ['comment' => $comment]);
+        return view('admin.comment.edit', compact(['comment', 'optionStatus']));
     }
 
     /**

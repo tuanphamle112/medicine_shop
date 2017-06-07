@@ -1,6 +1,6 @@
 <div class="row v-x2-padding footer">
     <footer class="col-md-12">
-        <div class="col-xs-12 col-sm-4 col-md-4">
+        <div class="col-sm-6">
             @php
                 $social = json_decode($frontendInfoWebsite->link_communications, true);
             @endphp
@@ -29,27 +29,8 @@
             </ul>
         </div>
         <!-- End social -->
-        <div class="col-xs-12 col-sm-3 col-md-3">
-            <h2 class="sub-header">{{ trans('label.nav') }}</h2>
-            <ul class="no-margin navigation">
-                <li>
-                    <a href="{{ route('welcome') }}">{{ trans('label.home') }}</a>
-                </li>
-
-                @php
-                    $parentCategories = App\Category::allParentCategories()->get();
-                @endphp
-
-                @foreach ($parentCategories as $parentCategory)
-                <li>
-                    <a href="{{ route('nav', ['bar' => $parentCategory->link]) }}">{{ $parentCategory->name }}</a>
-                </li>
-                @endforeach
-
-            </ul>
-        </div>
-        <!-- End nav -->
-        <div class="col-xs-12 col-sm-5 col-md-5 quick-contact-us">
+        
+        <div class="col-sm-6 quick-contact-us">
             <h2 class="sub-header">{{ trans('label.contact') }}</h2>
             <div class="form-group">
                 {!! Form::open(['route' => 'frontend.sendemail']) !!}

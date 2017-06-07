@@ -1,6 +1,6 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
-@section('title', $showD->name)
+@section('title', $medicine->name)
 
 @section('content')
 <div class="content prod-details">
@@ -10,19 +10,25 @@
                 <div id="product_addtocart_form">
                     <div class="product-img-box">
                         <div class="product-image product-image-zoom">
+                            @php
+                                $imagesCollection = $medicine->getAllImages();
+                                $image = $imagesCollection->orderBy('is_main', 'desc')->first();
+                                $image_show = ''; //default Image
+                                if ($image) $image_show = $image->path_origin;
+                            @endphp
                             <div class="product-image-gallery">
-                                <img id="image-main" class="gallery-image visible" src="/{{ $imageD->path_origin }}" alt="{{ $showD->name }}" title="{{ $showD->name }}">
+                                <img id="image-main" class="gallery-image visible" src="{{ url($image_show) }}" alt="{{ $medicine->name }}" title="{{ $medicine->name }}">
                             </div>
                         </div>
                     </div>
                     <div class="product-shop">
                         <div class=" col-sm-12 product-name">
-                            <span class="h1">{{ $showD->name }}</span>
+                            <span class="h1">{{ $medicine->name }}</span>
                         </div>
                         <div class="col-sm-6 price-info">
                             <div class="price-box">
-                                <span class="regular-price" id="product-price-1117">
-                                    <span class="price">{{ $showD->price}}</span> 
+                                <span class="regular-price">
+                                    <span class="price">{{ $medicine->price }}</span> 
                                 </span>
                             </div>
                         </div>
@@ -30,7 +36,7 @@
                             <p class="availability in-stock">
                                 <span class="label">{{ trans('label.status') }}</span>
                                 <span class="value">
-                                    @if ($showD->quantity <=0)
+                                    @if ($medicine->quantity <= 0)
                                         {{ trans('label.out_of_stock') }}
                                     @else
                                         {{ trans('label.available') }}
@@ -39,16 +45,16 @@
                             </p>
                         </div>
                         <div class=" col-sm-12 short-description">
-                            <div class="std"><p>{{ $showD->short_describer }}</p></div>
+                            <div class="std"><p>{{ $medicine->short_describer }}</p></div>
                         </div>
 
                         <div class="col-sm-6 add-to-cart-wrapper">
                             <div class="add-to-box1">
                                 <div class="add-to-cart">
                                     <div class="qty-wrapper">
-                                        @if ($showD->quantity)
+                                        @if ($medicine->quantity)
                                             <label for="qty">{{ trans('label.quantity') }}</label>
-                                            <span>{{ $showD->quantity }}</span>
+                                            <span>{{ $medicine->quantity }}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -56,7 +62,7 @@
                         </div>
                         <div class="col-sm-6">
                             @if (Auth::check())
-                            <button medicine_id="{{ $id }}" user_id="{{ Auth()->user()->id }}" class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box">
+                            <button medicine_id="{{ $medicine->id }}" user_id="{{ Auth()->user()->id }}" class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box">
                                 {{ trans('label.add_to_box') }}
                             </button>
                             <div class="modal fade" id="add-to-box" role="dialog">
@@ -89,7 +95,7 @@
                                                 <h4 class="modal-title">{{ trans('label.notification') }}</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <span>{{ trans('label.you_have_to') }} <a href="/login"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
+                                                <span>{{ trans('label.you_have_to') }} <a href="{{ route('login') }}"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
@@ -107,10 +113,10 @@
                                         <div class="wrap-star col-sm-6">
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <input type="hidden" id="star-main" name="star-main" min="1" max="5" step="0.1" value="{{ $showD->avg_rate }}" class="rating">
+                                                    <input type="hidden" id="star-main" name="star-main" min="1" max="5" step="0.1" value="{{ $medicine->avg_rate }}" class="rating">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <span> {{ $showD->total_rate }} {{ __('vote') }}</span>
+                                                    <span> {{ $medicine->total_rate }} {{ __('vote') }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +138,7 @@
                                                         @if (Auth::check())
                                                             <div class="modal-body">
                                                                 @if (!empty($check_rated->id))
-                                                                    {!! Form::open(['route' => [ 'edit_rating', $id ], 'method' => 'post']) !!}
+                                                                    {!! Form::open(['route' => [ 'edit_rating', $medicine->id ], 'method' => 'post']) !!}
 
                                                                         {{ Form::label('star-reliable', 'Reliable:') }}
                                                                         {!! Form::text('input-name1', '', ['class' => 'rating','id'=> 'input-reliable', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
@@ -148,7 +154,7 @@
                                                                         {!! Form::submit('Re-rate', ['class' => 'btn btn-danger re-rate']) !!}
                                                                     {{ Form::close() }}
                                                                 @else
-                                                                    {!! Form::open(['route' => ['avg', $id ], 'method' => 'post']) !!}
+                                                                    {!! Form::open(['route' => ['avg', $medicine->id ], 'method' => 'post']) !!}
 
                                                                         {{ Form::label('star-reliable', 'Reliable:') }}
                                                                         {!! Form::text('input-name1', '', ['class' => 'rating','id'=> 'input-reliable', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
@@ -185,18 +191,18 @@
                 <div class="overlap-detail">
                     <div class="container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home">{{ trans('label.detail') }}</a></li>
-                            <li><a data-toggle="tab" href="#menu2">{{ trans('label.information') }}</a></li>
+                            <li class="active"><a data-toggle="tab" href="#detail-medicine">{{ trans('label.detail') }}</a></li>
+                            <li><a data-toggle="tab" href="#short-describer-medicine">{{ trans('label.information') }}</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div id="home" class="tab-pane fade in active">
+                            <div id="detail-medicine" class="tab-pane fade in active">
                                 <h3>{{ trans('label.detail') }}</h3>
-                                <p>{!! $showD->detail !!}</p>
+                                <p>{!! $medicine->detail !!}</p>
                             </div>
-                            <div id="menu2" class="tab-pane fade">
+                            <div id="short-describer-medicine" class="tab-pane fade">
                                 <h3>{{ trans('label.information') }}</h3>
-                                <p>{!! $showD->short_describer !!}</p>
+                                <p>{!! $medicine->short_describer !!}</p>
                             </div>
                         </div>
                     </div>
@@ -217,7 +223,7 @@
                                 <div class="col-sm-12">
                                     <div class="alert alert-warning" role="alert">
                                         <p>{{ __('You are not logged in. Please login to comment!') }}</p>
-                                        <a href="{{route('login')}}">{{ __('Login') }}</a>
+                                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
                                         <span>{{ __('or') }}</span>
                                         <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </div>
@@ -281,16 +287,16 @@
                 </div>
 
                 <!-- Button trigger modal -->
-                <button type="button" id="comment-button-show-emty" class="hide" data-toggle="modal" data-target="#myModal1">
+                <button type="button" id="comment-button-show-emty" class="hide" data-toggle="modal" data-target="#show-empty-content">
                 </button>
 
                 <!-- Modal -->
-                <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal fade" id="show-empty-content" tabindex="-1" role="dialog" aria-labelledby="label-comment">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">{{ __('Please enter text to comment!') }}</h4>
+                                <h4 class="modal-title" id="label-comment">{{ __('Please enter text to comment!') }}</h4>
                             </div>
                         </div>
                     </div>
@@ -308,7 +314,7 @@
 <script src="{!! url('js/frontend/medicine-comment.js') !!}"></script>
 <script>
     ko.applyBindings(
-        new CommentViewModel().initData('{{ $showD->id }}'),
+        new CommentViewModel().initData('{{ $medicine->id }}'),
         document.getElementById('area-comment-medicine')
     );
 </script>

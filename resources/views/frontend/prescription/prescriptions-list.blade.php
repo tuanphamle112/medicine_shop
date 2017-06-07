@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
 @section('title', __('Prescription List'))
 
@@ -198,7 +198,7 @@
 <script src="{!! url('js/frontend/prescrition.js') !!}"></script>
 <script>
     @php
-        $optionStatusItem = App\ItemPrescription::getOptionStatus();
+        $optionStatusItem = App\Eloquent\ItemPrescription::getOptionStatus();
     @endphp
     
     var statusOption = {!! json_encode($optionStatusItem) !!};

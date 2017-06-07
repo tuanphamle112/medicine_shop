@@ -1,16 +1,18 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
-    const PERMISSION_ADMIN = 1;
     const PERMISSION_USER = 0;
+    const PERMISSION_ADMIN = 1;
 
     const PATH_AVATAR = 'uploads/avatars/';
 
