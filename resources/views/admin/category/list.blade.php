@@ -42,7 +42,7 @@
                                             <span class="label label-info">
                                                 {{ $category->name }}
                                             </span>
-                                            <span style="padding-left: 10px">
+                                            <span class"padding-left-10px">
                                                 {{ url($category->link) }}
                                             </span>
                                         </a>
@@ -77,7 +77,7 @@
                                                         <span class="label label-warning">
                                                             {{ $children->name }}
                                                         </span>
-                                                        <span style="padding-left: 10px">
+                                                        <span class="padding-left-10px">
                                                             {{ url($category->link.'/'.$children->link) }}
                                                         </span>
                                                     </a>

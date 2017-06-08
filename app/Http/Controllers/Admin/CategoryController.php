@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Category;
+use App\Eloquent\Category;
 use Validator;
 use App\Helpers\Helper;
 
 class CategoryController extends Controller
 {
+    protected $category;
+
     public function __construct(Category $category)
     {
         $this->category = $category;
     }
+    
     /**
      * Display a listing of the resource.
      *
@@ -134,8 +137,9 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index');
         }
+        $optionParentCategory = $this->category->getOptionParentCategories();
 
-        return view('admin.category.edit', ['category' => $category]);
+        return view('admin.category.edit', compact(['category', 'optionParentCategory']));
     }
 
     /**
@@ -256,7 +260,8 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index');
         }
+        $optionParentCategory = $this->category->getOptionParentCategories();
 
-        return view('admin.category.addSub', ['parentCategory' => $parentCategory]);
+        return view('admin.category.addSub', compact(['parentCategory', 'optionParentCategory']));
     }
 }

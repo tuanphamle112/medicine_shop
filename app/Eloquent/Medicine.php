@@ -1,12 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-use App\category;
-use App\Image;
-
-class Medicine extends Model
+class Medicine extends AbstractEloquent
 {
     
     const PATH_MEDICINE = 'uploads/medicines/';
@@ -35,7 +31,6 @@ class Medicine extends Model
     }
     public function scopemedicineImage($query, $id) {
         $imageD= $query->where('id', $id)->getAllImages;
-        // dd($imageD);
         return $imageD;
     }
     public function getAllCategories()
@@ -44,7 +39,7 @@ class Medicine extends Model
     }
     public function getAllImages()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'medicine_id');
     }
     public function getAllRateMedicines()
     {

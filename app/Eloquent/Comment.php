@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Comment extends Model
+class Comment extends AbstractEloquent
 {
     const STATUS_DISABLE = 0;
     const STATUS_ENABLE  = 1;

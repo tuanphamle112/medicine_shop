@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Eloquent\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -11,6 +11,8 @@ use App\Helpers\Helper;
 
 class UserController extends Controller
 {
+    protected $user;
+
     public function __construct(User $user)
     {
         $this->user = $user;
@@ -26,6 +28,8 @@ class UserController extends Controller
         $data = [];
         $users = $this->user->all();
         $data['users'] = $users;
+        $data['permissionOption'] = $this->user->getPermissionOption();
+
         return view('admin.user.user-list', ['data' => $data]);
     }
 
@@ -36,7 +40,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.user-add');
+        $permissionOption = $this->user->getPermissionOption();
+
+        return view('admin.user.user-add', compact('permissionOption'));
     }
 
     /**
@@ -65,8 +71,8 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             return redirect('admin/users/create')
-                        ->withErrors($validator)
-                        ->withInput($request->input);
+                ->withErrors($validator)
+                ->withInput($request->input);
         }
 
         $user = $this->user;
@@ -85,6 +91,7 @@ class UserController extends Controller
             Helper::addMessageFlashSession(__('Success'), $message, 'success');
         } catch (Exception $e){
             Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
+
             return redirect('admin/users/create')->withInput($request->input);
         }
 
@@ -100,7 +107,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         if (!$user) return redirect()->route('users.index');
-        return view('admin.user.user-detail', ['user' => $user]);
+
+        $permissionOption = $this->user->getPermissionOption();
+
+        return view('admin.user.user-detail', ['user' => $user, 'permissionOption' => $permissionOption]);
     }
 
     /**
@@ -111,7 +121,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.user-edit', ['user' => $user]);
+        $permissionOption = $this->user->getPermissionOption();
+
+        return view('admin.user.user-edit', ['user' => $user, 'permissionOption' => $permissionOption]);
     }
 
     /**
@@ -131,8 +143,8 @@ class UserController extends Controller
        
         if ($validator->fails()) {
             return redirect('admin/users/'. $user->id .'/edit')
-                        ->withErrors($validator)
-                        ->withInput($request->input);
+                ->withErrors($validator)
+                ->withInput($request->input);
         }
 
         $user->fill($request->except(['password', 'email', 'avatar']));
@@ -154,6 +166,7 @@ class UserController extends Controller
             Helper::addMessageFlashSession(__('Success'), $message, 'success');
         } catch (Exception $e){
             Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
+
             return redirect('admin/users/'. $user->id .'/edit')->withInput($request->input);
         }
 
@@ -178,6 +191,7 @@ class UserController extends Controller
                 Helper::addMessageFlashSession(__('Error'), $e->getMessage(), 'danger');
             }
         }
+        
         return redirect()->route('users.index');
     }
 }

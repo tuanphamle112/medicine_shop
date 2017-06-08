@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('welcome');
-Route::get('/search', 'HomeController@search')->name('frontend.search');
-Route::get('/search/json', 'HomeController@jsonSearch');
+Route::get('/', 'Frontend\HomeController@index')->name('welcome');
+Route::get('/search', 'Frontend\HomeController@search')->name('frontend.search');
+Route::get('/search/json', 'Frontend\HomeController@jsonSearch');
 
 Auth::routes();
 
@@ -53,27 +53,27 @@ Route::group(['middleware' => 'isLogin'], function(){
 	Route::get('/prescription/json/searchMedicines', 'Frontend\PrescriptionController@jsonSeachMedicines');
 
 	// Mark Medicine
-	Route::get('/mark-medicine', 'HomeController@markMedicineIndex')
+	Route::get('/mark-medicine', 'Frontend\HomeController@markMedicineIndex')
 		->name('frontend.mark-medicine.index');
-	Route::delete('/mark-medicine/{id}', 'HomeController@markMedicineDestroy')
+	Route::delete('/mark-medicine/{id}', 'Frontend\HomeController@markMedicineDestroy')
 		->name('frontend.mark-medicine.destroy');
 
-    Route::post('detail/{id}', 'DetailMedicinesController@avg')->name('avg');
-    Route::post('detail/{id}/edit', 'DetailMedicinesController@editRating')->name('edit_rating');
-    Route::get('detail/add-to-box', 'DetailMedicinesController@addToBox')->name('add_to_box');
+    Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
+    Route::post('detail/{id}/edit', 'Frontend\DetailMedicinesController@editRating')->name('edit_rating');
+    Route::get('detail/add-to-box', 'Frontend\DetailMedicinesController@addToBox')->name('add_to_box');
 
     // Add comment
-    Route::post('/comment/send/data', 'DetailMedicinesController@addComment');
+    Route::post('/comment/send/data', 'Frontend\DetailMedicinesController@addComment');
 
 });
 
-Route::post('/contact/sendemail', 'HomeController@sendEmail')->name('frontend.sendemail');
+Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');
 
 // Comment
-Route::get('/comment/json/getList', 'DetailMedicinesController@jsonCommentList');
+Route::get('/comment/json/getList', 'Frontend\DetailMedicinesController@jsonCommentList');
 
 // Detail medicine
-Route::get('detail/{id}/{name}', 'DetailMedicinesController@index')->name('detail');
+Route::get('detail/{id}/{name}', 'Frontend\DetailMedicinesController@index')->name('detail');
 
-Route::get('/{bar}', 'MedicinesList@showSubbar')->name('nav');
-Route::get('/{bar}/{link}', 'MedicinesList@showLink')->name('sub_Nav');
+Route::get('/{parent}', 'Frontend\MedicinesListController@showParentCategories')->name('nav');
+Route::get('/{parentLink}/{subLink}', 'Frontend\MedicinesListController@showSubCategory')->name('sub_Nav');

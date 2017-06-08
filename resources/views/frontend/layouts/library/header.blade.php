@@ -72,7 +72,7 @@
                                         <li>
                                             <a href="{{ route('frontend.prescription.index') }}" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
                                         </li>
-                                        @if(Auth::user()->permission == App\User::PERMISSION_ADMIN)
+                                        @if(Auth::user()->permission == App\Eloquent\User::PERMISSION_ADMIN)
                                             <li>
                                                 <a href="{!! url('/admin') !!}" title="{{ trans('label.adminpage') }}">{{ trans('label.adminpage') }}</a>
                                             </li>
@@ -109,14 +109,11 @@
                     <li class="has-subm">
                         <a href="{{ route('welcome') }}">{{ trans('label.home') }}</a>
                     </li>
-                    @php
-                        $parentCategories = App\Category::allParentCategories()->get();
-                    @endphp
-
-                    @foreach ($parentCategories as $parentCategory)
-                    <li>
-                        <a href="{{ route('nav', ['bar' => $parentCategory->link]) }}">{{ $parentCategory->name }}</a>
-                    </li>
+                    
+                    @foreach ($frontendAllParentCategories as $parentCategory)
+                        <li>
+                            <a href="{{ route('nav', ['bar' => $parentCategory->link]) }}">{{ $parentCategory->name }}</a>
+                        </li>
                     @endforeach
 
                 </ul>

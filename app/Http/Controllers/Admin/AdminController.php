@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\Helpers\Helper;
-use App\InforWebsite;
+use App\Eloquent\InforWebsite;
 
 class AdminController extends Controller
 {

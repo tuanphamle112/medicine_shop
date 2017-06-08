@@ -17,7 +17,7 @@
 <body>
     <div class="wrap-page">
         <!-- Start header -->
-        @include('layouts.header')
+        @include('frontend.layouts.library.header')
         <!-- Sub navigation bar -->
         @yield('subnav-bar')
         <!-- End header -->
@@ -25,12 +25,13 @@
         @yield('content')
         <!-- End content -->
         <!-- Start footer -->
-        @include('layouts.footer')
+        @include('frontend.layouts.library.footer')
         <!-- End footer -->
     </div>
 
 
-    @include('layouts.library.footer-js')
+    @include('frontend.layouts.library.footer-js')
+
     @yield('custom-javascript')
 </body>
 </html>

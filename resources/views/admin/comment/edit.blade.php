@@ -47,7 +47,7 @@
                             <div class="col-sm-4">
                                 {!! Form::label('status', __('Status'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
-                                    {!! Form::select('status', App\Comment::getOptionStatus(), $comment->status, ['class' => 'form-control']) !!}
+                                    {!! Form::select('status', $optionStatus, $comment->status, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                             <div class="col-sm-4">

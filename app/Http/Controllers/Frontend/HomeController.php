@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Medicine;
-use App\Image;
-use App\Category;
-use App\MarkMedicine;
-use App\InforWebsite;
+use App\Eloquent\Medicine;
+use App\Eloquent\Image;
+use App\Eloquent\Category;
+use App\Eloquent\MarkMedicine;
+use App\Eloquent\InforWebsite;
 use App\Helpers\Helper;
 use Session;
 use Response;
@@ -25,11 +26,11 @@ class HomeController extends Controller
     public function index()
     {
         $newestProducts = Medicine::orderBy('created_at', 'desc')->take(5)->get();
-        $categories = Category::whereNotNull('parent_id')->get();
+        $subCategories = Category::with('getParentFromSubCategory')->whereNotNull('parent_id')->get();
         
-        return view('welcome', [
+        return view('frontend.home.index', [
             'newestProducts'=> $newestProducts,
-            'categories'=> $categories
+            'subCategories'=> $subCategories
             ]);
     }
 

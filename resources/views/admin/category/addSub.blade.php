@@ -59,8 +59,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('parent_id', __('Parent Category'), ['class' => 'col-sm-3 control-label']) !!}
                                 <div class="col-sm-9">
-                                    <?php $categories = new App\Category; ?>
-                                    {!! Form::select('parent_id', $categories->getOptionParentCategories(), $parentCategory->id, ['class' => 'form-control']) !!}
+                                    {!! Form::select('parent_id', $optionParentCategory, $parentCategory->id, ['class' => 'form-control']) !!}
                                     <span class="text-danger">{!! $errors->first('parent_id') !!}</span>
                                 </div>
                             </div>

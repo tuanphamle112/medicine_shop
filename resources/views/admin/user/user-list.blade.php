@@ -58,7 +58,7 @@
                                     <span>{{ $user->display_name }}</span>
                                 </td>
                                 <td>
-                                    <span>{{ App\User::getPermissionOption()[$user->permission] }}</span>
+                                    <span>{{ $data['permissionOption'][$user->permission] }}</span>
                                 </td>
                                 <td>
                                     {!! Form::open(['route' =>['users.destroy', $user->id], 'method' => 'DELETE']) !!}

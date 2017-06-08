@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
-
-class MarkMedicine extends Model
+class MarkMedicine extends AbstractEloquent
 {
     /**
      * The attributes that are mass assignable.

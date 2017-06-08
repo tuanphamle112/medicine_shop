@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('frontend.layouts.master')
 
 @section('title', __('Search Medicine'))
 
@@ -19,7 +19,7 @@
             <div class= "row">
                 @foreach($items as $item)
                     <div class= "col-sm-3">
-                        @include('item')
+                        @include('frontend.components.item')
                     </div>
                 @endforeach
 

@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 use App\Helpers\Helper;
-use App\Medicine;
-use App\CategoryMedicineRelated;
-use App\Image;
+use App\Eloquent\Medicine;
+use App\Eloquent\CategoryMedicineRelated;
+use App\Eloquent\Image;
+use App\Eloquent\Category;
 use App\Http\Requests\MedicinePost;
 use DB;
 
@@ -19,15 +20,18 @@ class MedicineController extends Controller
     protected $medicine;
     protected $relatedCateMedi;
     protected $image;
+    protected $category;
 
     public function __construct(
         Medicine $medicine,
         CategoryMedicineRelated $relatedCateMedi,
-        Image $image
+        Image $image,
+        Category $category
     ){
         $this->medicine = $medicine;
         $this->relatedCateMedi = $relatedCateMedi;
         $this->image = $image;
+        $this->category = $category;
     }
 
     /**
@@ -50,7 +54,9 @@ class MedicineController extends Controller
      */
     public function create()
     {
-    	return view('admin.medicine.add');
+        $allOptionCategories = $this->category->getAllOptionCategories();
+
+    	return view('admin.medicine.add', ['allOptionCategories' => $allOptionCategories]);
     }
 
     /**
@@ -134,9 +140,13 @@ class MedicineController extends Controller
         foreach ($categories as $category) {
             $selectCategories[] = $category->category_id;
         }
+
+        $allOptionCategories = $this->category->getAllOptionCategories();
+
         $images = $this->image->where('medicine_id', $id)->get();
         $data['selectCategories'] = $selectCategories;
         $data['images'] = $images;
+        $data['allOptionCategories'] = $allOptionCategories;
 
         return view('admin.medicine.edit', ['medicine' => $medicine, 'data' => $data]);
     }

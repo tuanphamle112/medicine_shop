@@ -33,7 +33,7 @@
                 <div class="box-body">
                     @if ($user->avatar)
                         <div class="col-sm-4">
-                            <img src="{{ url($user->avatar) }}" alt="{{ $user->display_name }}" class="img-responsive" style="border-radius: 30%">
+                            <img src="{{ url($user->avatar) }}" alt="{{ $user->display_name }}" class="img-responsive border-radius-30per">
                         </div>
                         <div class="col-sm-8">
                     @else
@@ -45,7 +45,7 @@
                                 <i class="fa  fa-user"></i>
                                 <span>{{ $user->display_name }}</span>
                                 <span class="label label-warning">
-                                    {{ App\User::getPermissionOption()[$user->permission] }}
+                                    {{ $permissionOption[$user->permission] }}
                                 </span>
                             </div>
                             <div class="panel-body">

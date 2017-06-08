@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use Session;
-use App\Image;
+use App\Eloquent\Image;
 
 class Helper
 {

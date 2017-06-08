@@ -1,6 +1,7 @@
 @php
-    $image = App\Image::where('medicine_id', $item->id)->orderBy('is_main', 'desc')->first();
-    $image_show = '';
+    $imagesCollection = $item->getAllImages();
+    $image = $imagesCollection->orderBy('is_main', 'desc')->first();
+    $image_show = ''; //default Image
     if ($image) $image_show = $image->path_origin;
     $mdc_name = str_slug($item->name);
 @endphp
