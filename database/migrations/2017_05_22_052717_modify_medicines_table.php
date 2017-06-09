@@ -14,7 +14,7 @@ class ModifyMedicinesTable extends Migration
     public function up()
     {
         Schema::table('medicines', function($table) {
-            // $table->string('price');
+            $table->string('price');
         });
     }
 
