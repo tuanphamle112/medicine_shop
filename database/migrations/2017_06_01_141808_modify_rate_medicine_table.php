@@ -26,7 +26,7 @@ class ModifyRateMedicineTable extends Migration
     public function down()
     {
         Schema::table('rate_medicines', function(Blueprint $table) {
-            $table->interger('point_rate')->change();
+            $table->integer('point_rate')->change();
         });
     }
 }

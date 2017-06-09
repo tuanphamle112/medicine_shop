@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\InforWebsite;
-use App\User;
+use App\Eloquent\InforWebsite;
+use App\Eloquent\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'footer'    => '',
             'options'   => '',
         ];
-        InforWebsite::insert($dataMainInforWebsite);
+        InforWebsite::create($dataMainInforWebsite);
 
         $dataUserAdmin = [
             'email'             =>  'admin@gmail.com',
@@ -37,6 +37,6 @@ class DatabaseSeeder extends Seeder
             'permission'        =>  User::PERMISSION_ADMIN,
             'avatar'            =>  '',
         ];
-        User::insert($dataUserAdmin);
+        User::create($dataUserAdmin);
     }
 }
