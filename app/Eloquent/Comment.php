@@ -17,6 +17,7 @@ class Comment extends AbstractEloquent
         'medicine_id',
         'content',
         'status',
+        'parent_id',
     ];
 
     public static function getOptionStatus()
@@ -34,6 +35,6 @@ class Comment extends AbstractEloquent
 
     public function getMedicine()
     {
-    	return $this->belongsTo(Medicine::class, 'medicine_id');
+        return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 }

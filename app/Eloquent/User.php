@@ -14,6 +14,10 @@ class User extends Authenticatable
     const PERMISSION_USER = 0;
     const PERMISSION_ADMIN = 1;
 
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+    const GENDER_OTHER = 'other';
+
     const PATH_AVATAR = 'uploads/avatars/';
 
     /**
@@ -24,11 +28,17 @@ class User extends Authenticatable
     protected $fillable = [
         'display_name',
         'email',
-        'password',
         'phone',
         'address',
         'permission',
-        'avatar',
+        'position',
+        'gender',
+        'specialize',
+        'certificate',
+        'experience',
+        'workplace',
+        'about_you',
+        'birthday',
     ];
 
     /**
@@ -49,14 +59,25 @@ class User extends Authenticatable
         ];
     }
 
+    public static function getGenderOption()
+    {
+        return [
+            self::GENDER_MALE => __('Male'),
+            self::GENDER_FEMALE => __('Female'),
+            self::GENDER_OTHER => __('Other'),
+        ];
+    }
+
     public function getAllComments()
     {
         return $this->hasMany(Comment::class);
     }
+
     public function getAllMarkMedicines()
     {
         return $this->hasMany(MarkMedicine::class);
     }
+    
     public function getAllPrescriptions()
     {
         return $this->hasMany(Prescription::class);

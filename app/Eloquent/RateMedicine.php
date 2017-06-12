@@ -15,6 +15,8 @@ class RateMedicine extends Model
         'user_id',
         'medicine_id',
         'point_rate',
+        'title',
+        'content',
     ];
     
     public function getUser()
