@@ -4,7 +4,6 @@ namespace App\Eloquent;
 
 class ItemPrescription extends AbstractEloquent
 {
-    //
     const STATUS_IN_STORE = 1;
     const STATUS_OUT_STORE = 0;
 
@@ -19,6 +18,8 @@ class ItemPrescription extends AbstractEloquent
         'prescription_id',
         'amount',
         'status',
+        'guide',
+        'qty_purchased',
     ];
 
     public static function getOptionStatus()
@@ -34,10 +35,12 @@ class ItemPrescription extends AbstractEloquent
     
         return $this->belongsTo(Prescription::class, 'prescription_id');
     }
+
     public function getMedicine()
     {
         return $this->belongsTo(Medicine::class);
     }
+
     public function getRequestMedicine()
     {
         return $this->hasOne(RequestMedicine::class, 'item_prescription_id');

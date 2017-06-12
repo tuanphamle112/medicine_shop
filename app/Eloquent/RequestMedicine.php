@@ -18,8 +18,8 @@ class RequestMedicine extends AbstractEloquent
         'medicine_name',
         'short_describer',
         'respone_admin',
-        'item_prescription_id',
         'status',
+        'user_id',
     ];
 
     public static function getOptionStatus()
@@ -34,5 +34,10 @@ class RequestMedicine extends AbstractEloquent
     public function getItemPrescription()
     {
         return $this->belongsTo(ItemPrescription::class, 'item_prescription_id');
+    }
+
+    public function getAllImages()
+    {
+        return $this->hasMany(Image::class, 'request_medicines_id');
     }
 }

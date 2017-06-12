@@ -14,6 +14,8 @@ class Image extends AbstractEloquent
         'path_origin',
         'path_thumb',
         'is_main',
+        'request_medicines_id',
+        'request_prescription_id',
     ];
 
     /**

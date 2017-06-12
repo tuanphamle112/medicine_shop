@@ -146,5 +146,12 @@
     "You receive a message from the :url website!": "You receive a message from the :url website!",
     "Sender information": "Sender information",
     "Name": "Name",
-    "Thank you for your feedback!": "Thank you for your feedback!"
+    "Thank you for your feedback!": "Thank you for your feedback!",
+    "Male": "Male",
+    "Female": "Female",
+    "Other": "Orther",
+    "Pending": "Pending",
+    "Complete": "Complete",
+    "Cancel": "Cancel",
+    "Refund": "Refund"
 }

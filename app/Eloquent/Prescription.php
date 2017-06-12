@@ -16,6 +16,9 @@ class Prescription extends AbstractEloquent
         'guide',
         'status',
         'name_doctor',
+        'doctor_id',
+        'diagnose',
+        'request_prescription_id',
     ];
 
     public function getAllItemPrescriptions()
