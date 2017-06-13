@@ -5,14 +5,106 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
+use Response;
 use App\Helpers\Helper;
 use App\Eloquent\InforWebsite;
+use App\Eloquent\User;
+use App\Eloquent\Order;
+use App\Eloquent\RateMedicine;
+use App\Eloquent\Comment;
+use App\Eloquent\Medicine;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard.index');
+        $userCollection = User::select('permission')->get();
+        $orderCollection = Order::select(['status', 'grand_total'])->get();
+        $commmentCollection = Comment::select('parent_id')->get();
+        $rateCollection = RateMedicine::select('id')->get();
+        $medicineCollection = Medicine::select('id')->get();
+
+        $data['medicines']['total'] = $medicineCollection->count();
+        $data['medicines']['reviews'] = $rateCollection->count();
+        $data['comments']['questions'] = $commmentCollection->where('parent_id', null)->count();
+        $data['comments']['answers'] = $commmentCollection->where('parent_id', '<>', null)->count();
+        $data['orders']['total'] = $orderCollection->count();
+        $data['orders']['sales'] = $orderCollection->where('status', Order::STATUS_COMPLETE)->sum('grand_total');
+        $data['orders']['list'] = Order::orderBy('id', 'desc')->take(5)->get();
+        $data['orders']['options'] = Order::getOptionStatus();
+        $data['users']['admins'] = $userCollection->where('permission', User::PERMISSION_ADMIN)->count();
+        $data['users']['users'] = $userCollection->where('permission', User::PERMISSION_USER)->count();
+        $data['users']['doctors'] = $userCollection->where('permission', User::PERMISSION_DOCTER)->count();
+
+        return view('admin.dashboard.index', compact(['data']));
+    }
+
+    public function getStaticstics(Request $request)
+    {
+        $paramMonth = $request->month;
+
+        $mytime = \Carbon\Carbon::now();
+        $currentTime = $mytime->format('F, Y');
+        $endTimeSql = $mytime->format('Y-m'). '-' . $mytime->daysInMonth . ' 23:59:59';
+       
+        switch ($paramMonth) {
+            case '3':
+                $startTime = $mytime->modify('-3 month');
+                $totalMonth = 3;
+                break;
+            case '9':
+                $startTime = $mytime->modify('-9 month');
+                $totalMonth = 9;
+                break;
+            case '12':
+                $startTime = $mytime->modify('-12 month');
+                $totalMonth = 12;
+                break;
+            case '18':
+                $startTime = $mytime->modify('-18 month');
+                $totalMonth = 18;
+                break;
+            case '24':
+                $startTime = $mytime->modify('-24 month');
+                $totalMonth = 24;
+                break;
+            default:
+                $startTime = $mytime->modify('-6 month');
+                $totalMonth = 6;
+        }
+
+        $orderCollection = Order::select(['status'])
+            ->where('updated_at', '>=', $startTime->format('Y-m') . '-01 00:00:00')
+            ->where('updated_at', '<=', $endTimeSql)
+            ->get();
+
+        $data['orders']['total'] = $orderCollection->count();
+        $data['orders']['pending'] = $orderCollection->where('status', Order::STATUS_PENDING)->count();
+        $data['orders']['complete'] = $orderCollection->where('status', Order::STATUS_COMPLETE)->count();
+        $data['orders']['cancel'] = $orderCollection->where('status', Order::STATUS_CANCEL)->count();
+        $data['orders']['refund'] = $orderCollection->where('status', Order::STATUS_REFUND)->count();
+
+        for ($i = 0; $i < $totalMonth; $i++) {
+            $startTime->modify('+1 month');
+
+            if ($i == 0){
+                $data['startTime'] = $startTime->format('F, Y');
+            }
+
+            $sumSales = Order::select('grand_total')
+                ->where('updated_at', '>=', $startTime->format('Y-m') . '-01 00:00:00')
+                ->where('updated_at', '<=', $startTime->format('Y-m'). '-' . $startTime->daysInMonth . ' 23:59:59')
+                ->where('status', Order::STATUS_COMPLETE)
+                ->get()->sum('grand_total');
+
+            $data['labels'][] = $startTime->format('m-y');
+            $data['data'][] = $sumSales;
+        }
+
+        $data['label'] = __('Staticstics sales');
+        $data['endTime'] = $currentTime;
+
+        return Response::json($data);
     }
 
     public function setup(Request $request)

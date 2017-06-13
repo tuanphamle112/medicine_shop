@@ -43,6 +43,7 @@ class MedicineController extends Controller
     {
         $medicines = $this->medicine->orderBy('id', 'desc')->paginate(10);
         $data['medicines'] = $medicines;
+        $data['optionAlowedBuy'] = $this->medicine->getOptionAllowedBuy();
 
         return view('admin.medicine.list', ['data' => $data]);
     }
@@ -54,9 +55,11 @@ class MedicineController extends Controller
      */
     public function create()
     {
-        $allOptionCategories = $this->category->getAllOptionCategories();
 
-    	return view('admin.medicine.add', ['allOptionCategories' => $allOptionCategories]);
+        $allOptionCategories = $this->category->getAllOptionCategories();
+        $optionAlowedBuy = $this->medicine->getOptionAllowedBuy();
+
+    	return view('admin.medicine.add', compact(['allOptionCategories', 'optionAlowedBuy']));
     }
 
     /**
@@ -142,11 +145,13 @@ class MedicineController extends Controller
         }
 
         $allOptionCategories = $this->category->getAllOptionCategories();
+        $optionAlowedBuy = $this->medicine->getOptionAllowedBuy();
 
         $images = $this->image->where('medicine_id', $id)->get();
         $data['selectCategories'] = $selectCategories;
         $data['images'] = $images;
         $data['allOptionCategories'] = $allOptionCategories;
+        $data['optionAlowedBuy'] = $optionAlowedBuy;
 
         return view('admin.medicine.edit', ['medicine' => $medicine, 'data' => $data]);
     }

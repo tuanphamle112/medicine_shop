@@ -60,11 +60,9 @@
                                 </td>
                                 <td>
                                     <span>
-                                        {{ 
-                                            $requestMedicine->getItemPrescription
-                                            ->getPrescription
-                                            ->getUser->display_name 
-                                        }}
+                                        @if ($requestMedicine->getUser)
+                                            {{ $requestMedicine->getUser->display_name }}
+                                        @endif
                                     </span>
                                 </td>
                                 <td>

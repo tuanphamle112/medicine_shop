@@ -13,6 +13,7 @@ class User extends Authenticatable
 
     const PERMISSION_USER = 0;
     const PERMISSION_ADMIN = 1;
+    const PERMISSION_DOCTER = 2;
 
     const GENDER_MALE = 'male';
     const GENDER_FEMALE = 'female';
@@ -56,6 +57,7 @@ class User extends Authenticatable
         return [
             self::PERMISSION_USER => __('Normal User'),
             self::PERMISSION_ADMIN => __('Admin'),
+            self::PERMISSION_DOCTER => __('Doctor'),
         ];
     }
 

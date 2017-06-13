@@ -40,6 +40,7 @@
                             <th>{{ __('Symptom') }}</th>
                             <th>{{ __('Price') }}</th>
                             <th>{{ __('Created By') }}</th>
+                            <th>{{ __('Allowed buy') }}</th>
                             <th>{{ __('Avg Rate') }}</th>
                             <th>{{ __('Action') }}</th>
                         </tr>
@@ -60,10 +61,15 @@
                                     <span>{{ $medicine->symptom }}</span>
                                 </td>
                                 <td>
-                                    <span>{{ $medicine->price }}</span>
+                                    <span>
+                                        {{ App\Helpers\Helper::formatPrice($medicine->price) }}
+                                    </span>
                                 </td>
                                 <td>
                                     <span>{{ $medicine->getCreatedUser->display_name }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ $data['optionAlowedBuy'][$medicine->allowed_buy] }}</span>
                                 </td>
                                 <td>
                                     <span>{{ $medicine->avg_rate }}</span>
