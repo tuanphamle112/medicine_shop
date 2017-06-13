@@ -1,51 +1,21 @@
-@php
-    $imagesCollection = $item->getAllImages();
-    $image = $imagesCollection->orderBy('is_main', 'desc')->first();
-    $image_show = ''; //default Image
-    if ($image) $image_show = $image->path_origin;
-    $mdc_name = str_slug($item->name);
-@endphp
-<div class= "wrap-cateitem">
-    <div class= "overlay-container">
-        <div class= "cateitem-image">
-            <a href= "{{ route('detail', ['id' => $item->id,'name'=>$mdc_name]) }}" class= "cateitem-link">
-                <img src="{{ url($image_show) }}" alt="{{ url($item->name) }}">
-                {{-- <span class= "zooming-img" style= "background-image: url(&quot;{{ url($image_show) }}&quot;);"></span> --}}
+<div class="col-md-3 visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+<div class="store-item wrap-cateitem">
+        <div class="store-item-rating text-warning">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star-half-o"></i>
+        </div>
+        <div class="store-item-image">
+            <a href="ecom_product.html">
+                <img src="/medicines/1.jpeg" alt="" class="img-responsive">
             </a>
         </div>
-        <div class= "cateitem-labeling">
-            <div class= "row">
-                <div class= "col-sm-12">
-                    <div class= "cateitem-name">
-                        <h2>
-                            <a href="{{ route('detail', [$item->id, $mdc_name]) }}">{{ $item->name }}</a>
-                        </h2>
-                    </div>
-                </div>
-                <div class= "row">
-                    <div class= "col-sm-12">
-                        <div class= "cateitem-price-container">
-                            <h2 class= "cateitem-price">
-                                <a href="#">{{ $item->price }}<small>{{ trans('label.dong') }}</small> </a>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="store-item-info clearfix">
+            <span class="store-item-price themed-color-dark pull-right">$ 59</span>
+            <a href="ecom_product.html"><strong>Gloves</strong></a><br>
+            <small><i class="fa fa-shopping-cart text-muted"></i> <a href="javascript:void(0)" class="text-muted">{{ __('Add to cart') }}</a></small>
         </div>
     </div>
-    <div class= "cateitem-buttons">
-    @if (Auth::check())
-        <button medicine_id="{{ $item->id }}" user_id="{{ Auth()->user()->id }}" class= "detail-link" data-toggle="modal" data-target="#add-to-box3">
-            <i class="fa fa-book" aria-hidden="true"></i>
-            <span>{{ trans('label.add_to_box') }}</span>
-        </button>
-    @else
-        <button  class= "detail-link" data-toggle="modal" data-target="#add-to-box-not-login">
-            <i class="fa fa-book" aria-hidden="true"></i>
-            <span>{{ trans('label.add_to_box') }}</span>
-        </button>
-    @endif
-    </div>
 </div>
-{{-- href= "{{ route('detail', ['id' => $item->id, 'name'=>$mdc_name]) }}" --}}

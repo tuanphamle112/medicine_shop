@@ -3,93 +3,137 @@
 @section('title', $frontendInfoWebsite->title)
 
 @section('content')
-    <div class="content2">
-        <div class="slide banner banner1">
-            <div class="max-width">
-                <div class="white-text">
-                    <h2>{{ trans('label.good_pills') }} <br> {{ trans('label.good_heath') }} <br>&#38; {{ trans('label.wdf_life') }}</h2>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slider Sub Categories -->
-        <div class="container container1">
-            <div class="feaHeader">
-                <h3>{{ trans('label.featured_categories') }}</h3>
-                <div class="pull-right"><a href="{{ route('frontend.prescription.index') }}" class="btn btn-blue">{{ trans('label.view_all') }}</a></div>
-            </div>
-            <div class="row">
-                <div id="cate_list">
-                    <div class="col-md-12">
-                        <div class="featured-product"> 
-                            <!-- product display carousel -->
-                            <div class="list_carousel1 ">
-                                <div class="caroufredsel_wrapper">
-                                    <div class="caroufredsel_wrapper">
-
-                                        <ul id="topsell_ulList" class="carousel-product" >
-                                            @foreach ($subCategories as $subCategory)
-                                            <li>
-                                                <a href="{!! action('Frontend\MedicinesListController@showSubCategory', [
-                                                        $subCategory->getParentFromSubCategory->link,
-                                                        $subCategory->link,
-                                                    ]) !!}"
-                                                    id="hrefUrl1"
-                                                >
-                                                    <img src="{{ $subCategory->image }}" width="170" height="150">
-                                                    <span>{{ $subCategory->name }}</span>
-                                                    <div class="fp_mask"></div>
-                                                </a>
-                                            </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
+   
+    <div id="home-carousel" class="carousel carousel-home slide">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="active item">
+                <section class="site-section site-section-light site-section-top themed-background-default">
+                    <div class="container">
+                        <p class="text-center bgimg animation-fadeIn">
+                            <img src="/guy.png" alt="Promo Image 1">
+                            <img src="/20-per-off-default.png" alt="Promo Image 1">
+                        </p>
                     </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="clearfix"></div>
+                </section>
             </div>
-        </div>
-        <!-- End Slider Sub Categories -->
-
-
-        <div class= "row how-it-work">
-            <div class="col-sm-12 text-align-center">
-                <div class="wrap-how-it-work container">
-                    <h2>{{ trans('label.how_it_works') }}</h2>
-                    <div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <img src="{!! asset('slide_images/searching.png') !!}" alt="" class="searching-info">
-                                <h3>{{ trans('label.searching_information') }}</h3>
-                                <p class="searching-info-text">
-                                    {{ trans('label.home_text1') }}
-                                </p>
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="{!! asset('slide_images/write2.png') !!}" alt="" class="searching-info">
-                                <h3>{{ trans('label.make_prescription') }}</h3>
-                                <p class="searching-info-text">
-                                    {{ trans('label.home_text2') }}
-                                </p>
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="{!! asset('slide_images/enjoy.png') !!}" alt="" class="searching-info">
-                                <h3>{{ trans('label.bring_to_doctor') }}</h3>
-                                <p class="searching-info-text">
-                                    {{ trans('label.home_text3') }}
-                                </p>
-                            </div>
+            <div class="item">
+                <div class="media-container">
+                    <section class="site-section site-section-light site-section-top">
+                        <div class="container text-center bgimg2">
+                            <h1 class="animation-slideDown"><strong>{{ __('Welcome to our Medicines Online Store!') }}</strong></h1>
+                            <h2 class="h3 animation-slideUp hidden-xs">{{ __('Explore over 5.000 medicines and over 2000 doctors!') }}</h2>
                         </div>
-                    </div>
+                    </section>
+                    <!-- For best results use an image with a resolution of 2560x279 pixels -->
+                     <img src="/store_home.jpg" alt="" class="media-image animation-pulseSlow">
                 </div>
+                
             </div>
+            
         </div>
+        <!-- END Wrapper for slides -->
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#home-carousel" data-slide="prev">
+            <span>
+                <i class="fa fa-chevron-left"></i>
+            </span>
+        </a>
+        <a class="right carousel-control" href="#home-carousel" data-slide="next">
+            <span>
+                <i class="fa fa-chevron-right"></i>
+            </span>
+        </a>
+        <!-- END Controls -->
     </div>
-@endsection
+    <section class="site-section site-section-light site-section-top themed-background-dark">
+        <div class="container">
+            <h1 class="text-center animation-slideDown"><i class="fa fa-cogs"></i> <strong>{{ __('How it works') }}</strong></h1>
+            <h2 class="h3 text-center animation-slideUp">{{ __('We can help you ') }}<strong>{{ __('feel better') }}</strong>!</h2>
+        </div>
+    </section>
+    <!-- Step 1 Header -->
+    <section class="site-content site-section site-section-light themed-background">
+        <div class="container">
+            <div class="site-block visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <h1 class="site-heading"><i class="fa fa-arrow-right"></i> <strong> {{ __('Step One') }}</strong></h1>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 1 Header -->
 
-@section('title', $frontendInfoWebsite->title)
+    <!-- Step 1 -->
+    <section class="site-content site-section site-slide-content">
+        <div class="container">
+            <div class="row visibility-none " data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <div class="col-sm-6 site-block">
+                    <img src="/searching.png" alt="Promo #1" class="img-responsive img1">
+                </div>
+                <div class="col-sm-6 col-md-5 col-md-offset-1 site-block">
+                    <h3 class="h2 site-heading site-heading-promo"><strong>{{ __('Searching information') }}</strong></h3>
+                    <p class="promo-content">{{ __("At first, find all you need and mark them all, with us, you don't have to remember anything, just click on your pills...") }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 1 -->
+
+    <!-- Step 2 Header -->
+    <section class="site-content site-section site-section-light themed-background">
+        <div class="container">
+            <div class="site-block visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <h1 class="site-heading"><i class="fa fa-arrow-right"></i> <strong> {{ __('Step Two') }}</strong></h1>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 2 Header -->
+
+    <!-- Step 2 -->
+    <section class="site-content site-section site-slide-content">
+        <div class="container">
+            <div class="row visibility-none margin-left" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <div class="col-sm-6 col-md-5 site-block">
+                    <h3 class="h2 site-heading site-heading-promo"><strong>{{ __('Make prescription') }}</strong></h3>
+                    <p class="promo-content"> {{ __('After choose pills part, you just need to make your own prescription from your pills box or searching and mark them') }}
+                    </p>
+                </div>
+                <div class="col-sm-6 col-md-offset-1 site-block">
+                <img src="/write2.png" alt="Promo #2" class="img-responsive img2">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 2 -->
+
+    <!-- Step 3 Header -->
+    <section class="site-content site-section site-section-light themed-background">
+        <div class="container">
+            <div class="site-block visibility-none" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <h1 class="site-heading"><i class="fa fa-arrow-right"></i> <strong> {{ __('Step Three') }}</strong></h1>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 3 Header -->
+
+    <!-- Step 3 -->
+    <section class="site-content site-section site-slide-content">
+        <div class="container">
+            <div class="row visibility-none margin-left" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                <div class="col-sm-6 col-md-5 site-block">
+                    <h3 class="h2 site-heading site-heading-promo"><strong>{{ __('Bring to doctor') }}</strong></h3>
+                    <p class="promo-content">
+                    {{ __("Bring your prescription to some doctor and get pills by it. By this way, you are your own 'health keeper'") }}
+                    </p>
+                </div>
+                <div class="col-sm-6 col-md-offset-1 site-block">
+                    <img src="/enjoy.png" alt="Promo #4" class="img-responsive img3">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END Step 3 -->
+
+    @endsection
+
+    @section('title', $frontendInfoWebsite->title)

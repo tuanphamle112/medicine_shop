@@ -13,13 +13,23 @@
     <link href="{{ asset('bower_components/bootstrap-star-rating/css/star-rating.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bower_components/bootstrap-star-rating/css/theme-krajee-svg.min.css') }}" type="text/css" />
     <link href="{{ asset('bower_components/bootstrap-star-rating/css/theme-krajee-fa.min.css') }}" type="text/css" />
+    
+    {{-- template css --}}
+    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/plugins.css') }}">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/main.css') }}">
+
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/themes.css') }}">
+    <!-- END Stylesheets -->
+
+    {{-- end template css --}}
 </head>
 <body>
     <div class="wrap-page">
         <!-- Start header -->
         @include('frontend.layouts.library.header')
         <!-- Sub navigation bar -->
-        @yield('subnav-bar')
         <!-- End header -->
         <!-- Start content -->
         @yield('content')

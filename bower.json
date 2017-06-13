@@ -24,6 +24,7 @@
     "tinymce": "^4.6.2",
     "slick-carousel": "^1.6.0",
     "jquery-sticky": "^1.0.4",
-    "bootstrap-star-rating": "^4.0.1"
+    "bootstrap-star-rating": "^4.0.1",
+    "template": "https://github.com/tuanphamle112/template.git"
   }
 }
