@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::match(['get', 'post'], 'setup', 'Admin\AdminController@setup')->name('admin.setup');
+    Route::get('json/getStaticstics', 'Admin\AdminController@getStaticstics');
 
     Route::resource('users', 'Admin\UserController');
 

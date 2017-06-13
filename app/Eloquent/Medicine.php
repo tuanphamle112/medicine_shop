@@ -4,6 +4,8 @@ namespace App\Eloquent;
 
 class Medicine extends AbstractEloquent
 {
+    const ALLOWED_BUY = 1;
+    const NOT_ALLOWED_BUY = 0;
     
     const PATH_MEDICINE = 'uploads/medicines/';
 
@@ -23,6 +25,7 @@ class Medicine extends AbstractEloquent
         'related_medicine',
         'price',
         'quantity',
+        'allowed_buy',
         'unit',
         'guide',
         'ingredient',
@@ -30,6 +33,14 @@ class Medicine extends AbstractEloquent
         'unintended_effect',
         'contraindications',
     ];
+
+    public static function getOptionAllowedBuy()
+    {
+        return [
+            self::NOT_ALLOWED_BUY => __('Not allowed to buy'),
+            self::ALLOWED_BUY => __('Allowed buy'),
+        ];
+    }
 
     public function getAllCategories()
     {

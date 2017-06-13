@@ -25,7 +25,7 @@ class RequestMedicineController extends Controller
     public function index()
     {
         $requestMedicine = $this->requestMedicine
-            ->with('getItemPrescription.getPrescription.getUser')
+            ->with('getUser')
             ->orderBy('id', 'desc')->paginate(15);
 
         $data['requestMedicine'] = $requestMedicine;
@@ -73,8 +73,8 @@ class RequestMedicineController extends Controller
      */
     public function edit($id)
     {
-         $requestMedicine = $this->requestMedicine
-            ->with('getItemPrescription.getPrescription.getUser')
+        $requestMedicine = $this->requestMedicine
+            ->with('getUser')
             ->find($id);
         if (!$requestMedicine) {
             $message = __('Request Medicine not found!');

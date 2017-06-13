@@ -31,6 +31,11 @@ class RequestMedicine extends AbstractEloquent
         ];
     }
 
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function getItemPrescription()
     {
         return $this->belongsTo(ItemPrescription::class, 'item_prescription_id');

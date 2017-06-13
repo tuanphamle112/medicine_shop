@@ -36,6 +36,31 @@ class Helper
         $image->path_origin = $pathOrigin;
         $image->path_thumb = $pathThumb;
         $image->is_main = $isMain;
+
         return $image->save();
+    }
+
+    public static function formatPrice($price)
+    {
+        $format = new \NumberFormatter(config('custom.price.locale_format'), \NumberFormatter::CURRENCY);
+
+        return $format->format($price);
+    }
+
+    public static function getSymbolCurrency()
+    {
+        $format = new \NumberFormatter(config('custom.price.locale_format'), \NumberFormatter::CURRENCY);
+
+        return $format->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
+    }
+
+    public static function numberIntegerFormat($number)
+    {
+        return number_format($number);
+    }
+
+    public static function numberFloatFormat($number)
+    {
+        return number_format($number, 2);
     }
 }

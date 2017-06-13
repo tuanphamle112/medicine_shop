@@ -43,16 +43,16 @@
                             <div class="panel-body">
                                 <!-- List group -->
                                 <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <span class="label label-info">{{ __('User') }}</span>
-                                        <span>
-                                            {{ 
-                                                $requestMedicine->getItemPrescription
-                                                ->getPrescription
-                                                ->getUser->display_name
-                                            }}
-                                        </span>
-                                    </li>
+                                    @if ($requestMedicine->getUser)
+                                        <li class="list-group-item">
+                                            <span class="label label-info">{{ __('User') }}</span>
+                                            <span>
+                                                {{ 
+                                                    $requestMedicine->getUser->display_name
+                                                }}
+                                            </span>
+                                        </li>
+                                    @endif
                                     <li class="list-group-item">
                                         <span class="label label-info">{{ __('Short Describer') }}</span>
                                         <span>{{ $requestMedicine->short_describer }}</span>
