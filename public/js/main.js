@@ -55,3 +55,9 @@ $(document).on('click', '.detail-link', function(){
         }
     });
 });
+// slide product
+$(document).ready(function() {
+    $('#Carousel').carousel({
+        interval: 4000
+    })
+});

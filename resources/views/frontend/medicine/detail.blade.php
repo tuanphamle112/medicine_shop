@@ -1,316 +1,180 @@
 @extends('frontend.layouts.master')
 
-@section('title', $medicine->name)
+{{-- @section('title', $medicine->name) --}}
 
 @section('content')
-<div class="content prod-details">
-    <div class="col-main">
-        <div class="product-view">
-            <div class="product-essential">
-                <div id="product_addtocart_form">
-                    <div class="product-img-box">
-                        <div class="product-image product-image-zoom">
-                            @php
-                                $imagesCollection = $medicine->getAllImages();
-                                $image = $imagesCollection->orderBy('is_main', 'desc')->first();
-                                $image_show = ''; //default Image
-                                if ($image) $image_show = $image->path_origin;
-                            @endphp
-                            <div class="product-image-gallery">
-                                <img id="image-main" class="gallery-image visible" src="{{ url($image_show) }}" alt="{{ $medicine->name }}" title="{{ $medicine->name }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-shop">
-                        <div class=" col-sm-12 product-name">
-                            <span class="h1">{{ $medicine->name }}</span>
-                        </div>
-                        <div class="col-sm-6 price-info">
-                            <div class="price-box">
-                                <span class="regular-price">
-                                    <span class="price">{{ $medicine->price }}</span> 
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 extra-info">
-                            <p class="availability in-stock">
-                                <span class="label">{{ trans('label.status') }}</span>
-                                <span class="value">
-                                    @if ($medicine->quantity <= 0)
-                                        {{ trans('label.out_of_stock') }}
-                                    @else
-                                        {{ trans('label.available') }}
-                                    @endif
-                                </span>
-                            </p>
-                        </div>
-                        <div class=" col-sm-12 short-description">
-                            <div class="std"><p>{{ $medicine->short_describer }}</p></div>
-                        </div>
-
-                        <div class="col-sm-6 add-to-cart-wrapper">
-                            <div class="add-to-box1">
-                                <div class="add-to-cart">
-                                    <div class="qty-wrapper">
-                                        @if ($medicine->quantity)
-                                            <label for="qty">{{ trans('label.quantity') }}</label>
-                                            <span>{{ $medicine->quantity }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            @if (Auth::check())
-                            <button medicine_id="{{ $medicine->id }}" user_id="{{ Auth()->user()->id }}" class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box">
-                                {{ trans('label.add_to_box') }}
-                            </button>
-                            <div class="modal fade" id="add-to-box" role="dialog">
-                                <div class="modal-dialog">
-                                  <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">{{ trans('label.notification') }}</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @else
-                                <button class="btn btn-success add-to-box2" data-toggle="modal" data-target="#add-to-box-not-login">
-                                    {{ trans('label.add_to_box') }}
-                                </button>
-                                <div class="modal fade" id="add-to-box-not-login" role="dialog">
-                                    <div class="modal-dialog">
-                                      <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">{{ trans('label.notification') }}</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <span>{{ trans('label.you_have_to') }} <a href="{{ route('login') }}"> {{ trans('label.login') }}</a> {{ trans('label.to_add_to_box') }}</span>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="wrap-rating">
-                                        <span class="label col-sm-2">{{ trans('label.total_rating') }}</span>
-                                        <div class="wrap-star col-sm-6">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <input type="hidden" id="star-main" name="star-main" min="1" max="5" step="0.1" value="{{ $medicine->avg_rate }}" class="rating">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <span> {{ $medicine->total_rate }} {{ __('vote') }}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- <div class="container"> -->
-                                        <div class="col-sm-3">
-                                            <a href="#" class="rating-link col-sm-12" data-toggle="modal" data-target="#myModal">{{ trans('label.your_rating') }}</a>
-                                            <!-- Trigger the modal with a button -->
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="myModal" role="dialog">
-                                                <div class="modal-dialog">
-                                                  <!-- Modal content-->
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">{{ trans('label.rating') }}</h4>
-                                                        </div>
-                                                        @if (Auth::check())
-                                                            <div class="modal-body">
-                                                                @if (!empty($check_rated->id))
-                                                                    {!! Form::open(['route' => [ 'edit_rating', $medicine->id ], 'method' => 'post']) !!}
-
-                                                                        {{ Form::label('star-reliable', 'Reliable:') }}
-                                                                        {!! Form::text('input-name1', '', ['class' => 'rating','id'=> 'input-reliable', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
-
-                                                                        {{ Form::label('star-quality', 'Quality:') }}
-                                                                        {!! Form::text('input-name2', '', ['class' => 'rating','id'=> 'input-quality', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
-                                                                        
-                                                                        {!! Form::hidden('reliable', '', ['id' => 'hidden-reliable']) !!}
-                                                                        {!! Form::hidden('quality', '', ['id' => 'hidden-quality']) !!}
-
-                                                                        {{ Form::label('last-rating', 'The last total rating:') }}
-                                                                            <span class="label label-info">{{ $check_rated->point_rate }}</span><br>
-                                                                        {!! Form::submit('Re-rate', ['class' => 'btn btn-danger re-rate']) !!}
-                                                                    {{ Form::close() }}
-                                                                @else
-                                                                    {!! Form::open(['route' => ['avg', $medicine->id ], 'method' => 'post']) !!}
-
-                                                                        {{ Form::label('star-reliable', 'Reliable:') }}
-                                                                        {!! Form::text('input-name1', '', ['class' => 'rating','id'=> 'input-reliable', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
-
-                                                                        {{ Form::label('star-quality', 'Quality:') }}
-                                                                        {!! Form::text('input-name2', '', ['class' => 'rating','id'=> 'input-quality', 'min' => '1','max' => '5', 'step' => '1', 'data-size' => 'lg', 'data-rtl' => 'false']) !!}
-                                                                        {!! Form::hidden('reliable', '', ['id' => 'hidden-reliable']) !!}
-                                                                        {!! Form::hidden('quality', '', ['id' => 'hidden-quality']) !!}
-                                                                        
-                                                                        {!! Form::submit('Rate it', ['class' => 'btn btn-success']) !!}
-                                                                    {{ Form::close() }}
-                                                                @endif
-                                                            </div>
-                                                        @else
-                                                            <div class="modal-body">
-                                                               <span>{{ trans('label.you_have_to') }} <a href="/login"> {{ trans('label.login') }}</a> {{ trans('label.to_rating') }}</span>
-                                                            </div>
-                                                        @endif
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearer"></div>
-                </div>
-            </div>
-
-            <div class="wrap-detail-medicine">
-                <div class="overlap-detail">
-                    <div class="container">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#detail-medicine">{{ trans('label.detail') }}</a></li>
-                            <li><a data-toggle="tab" href="#short-describer-medicine">{{ trans('label.information') }}</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div id="detail-medicine" class="tab-pane fade in active">
-                                <h3>{{ trans('label.detail') }}</h3>
-                                <p>{!! $medicine->detail !!}</p>
-                            </div>
-                            <div id="short-describer-medicine" class="tab-pane fade">
-                                <h3>{{ trans('label.information') }}</h3>
-                                <p>{!! $medicine->short_describer !!}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Comment -->
-            <div class="wrap-comment-medicine" id="area-comment-medicine">
-                <div class="overlap-comment">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h3>{{ trans('label.write_comment') }}</h3>
-                            </div><!-- /col-sm-12 -->
-                        </div><!-- /row -->
-                        @if (!Auth::check())
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="alert alert-warning" role="alert">
-                                        <p>{{ __('You are not logged in. Please login to comment!') }}</p>
-                                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                                        <span>{{ __('or') }}</span>
-                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    {!! Form::textarea('', '', ['rows' => '6', 'class' => 'form-control', 'placeholder' => '...', 'id' => 'comment-content-textarea']) !!}
-                                </div><!-- /col-sm-12 -->
-                            </div><!-- /row -->
-                            <div class="row">
-                                <div class="col-sm-12 text-right padding-15px">
-                                    {!! Form::button(__('Send'), ['data-toggle' => 'tooltip', 'class' => 'btn btn-primary', 'title' => __('Send'), 'data-bind' => 'click: sendComment']) !!}
-                                </div><!-- /col-sm-12 -->
-                            </div><!-- /row -->
-                        @endif
-                        <div class="col-sm-12 position-relative">
-                            <div data-bind="foreach: commentDataArray">
-                                <div class="row">
-                                    <div class="col-sm-1">
-                                        <!-- ko if: get_user.avatar-->
-                                            <div class="thumbnail">
-                                                <img class="img-responsive user-photo" data-bind="attr:{src: '/' + get_user.avatar}">
-                                            </div><!-- /thumbnail -->
-                                        <!-- /ko -->
-                                        <!-- ko ifnot: get_user.avatar-->
-                                            <div class="thumbnail">
-                                                <img class="img-responsive user-photo" src="/images/no-avatar.png">
-                                            </div><!-- /thumbnail -->
-                                        <!-- /ko -->
-                                    </div><!-- /col-sm-1 -->
-
-                                    <div class="col-sm-11">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <strong data-bind="text: get_user.display_name"></strong>
-                                                <span class="text-muted" data-bind="text: created_at"></span>
-                                            </div>
-                                            <div class="panel-body" data-bind="text: content">
-                                            </div><!-- /panel-body -->
-                                        </div><!-- /panel panel-default -->
-                                    </div><!-- /col-sm-5 -->
-                                </div><!-- /row -->
-                            </div>
-
-                            <ul class="pager">
-                                <li data-bind="if: currentPage() > 1">
-                                    <a href="#" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
+    <section class="site-section site-section-detail site-section-light site-section-top themed-background-dark">
+        <div class="container text-center">
+            <h1 class="animation-slideDown"><strong>{{ __('Antibiotics') }}</strong></h1>
+            <h3 class="animation-slideDown"><strong> {{ __('Destroy or slow down the growth of bacteria') }}</strong></h3>
+        </div>
+    </section>
+    <!-- Product View -->
+    <section class="site-content site-section">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-4 col-lg-3">
+                    <aside class="sidebar site-block">
+                        <!-- Store Menu -->
+                        <!-- Store Menu functionality is initialized in js/app.js -->
+                        <div class="sidebar-block">
+                            <ul class="store-menu">
+                                <li>
+                                    <a href="javascript:void(0)" class="submenu"><i class="fa fa-angle-right"></i> Clothes</a>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Women</a></li>
+                                        <li><a href="javascript:void(0)">Men</a></li>
+                                    </ul>
                                 </li>
-                                <li data-bind="if: currentPage() < totalPage()">
-                                    <a href="#" data-bind="click: nextPage"><i class="fa  fa-angle-double-right"></i></a>
+                                <li class="open">
+                                    {{-- This class show what open onload page --}}
                                 </li>
                             </ul>
-
-                            <div class="indicator hide" id="comment-indicator">
-                                <div class="spinner"></div>
-                            </div>
                         </div>
-                    </div><!-- /container -->
+                        <!-- END Store Menu -->
+
+                    </aside>
                 </div>
+                <!-- END Sidebar -->
 
-                <!-- Button trigger modal -->
-                <button type="button" id="comment-button-show-emty" class="hide" data-toggle="modal" data-target="#show-empty-content">
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="show-empty-content" tabindex="-1" role="dialog" aria-labelledby="label-comment">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="label-comment">{{ __('Please enter text to comment!') }}</h4>
+                <!-- Product Details -->
+                <div class="col-md-8 col-lg-9">
+                    <div class="row" data-toggle="lightbox-gallery">
+                        <!-- Images -->
+                        <div class="col-sm-6 push-bit">
+                            <a href="/medicines/6.jpeg" class="gallery-link"><img src="/medicines/6.jpeg" alt="" class="img-responsive push-bit"></a>
+                            <div class="row push-bit">
+                                <div class="col-xs-4">
+                                    <a href="/medicines/1.jpeg" class="gallery-link"><img src="/medicines/1.jpeg" alt="" class="img-responsive"></a>
+                                </div>
+                                <div class="col-xs-4">
+                                    <a href="/medicines/2.jpeg" class="gallery-link"><img src="/medicines/2.jpeg" alt="" class="img-responsive"></a>
+                                </div>
+                                <div class="col-xs-4">
+                                    <a href="/medicines/3.jpeg" class="gallery-link"><img src="/medicines/3.jpeg" alt="" class="img-responsive"></a>
+                                </div>
                             </div>
                         </div>
+                        <!-- END Images -->
+
+                        <!-- Info -->
+                        <div class="col-sm-6 push-bit">
+                            <div class="clearfix">
+                                <div class="product-name">
+                                    <span class= "h1">Trileptal 800mg</span>
+                                </div>
+                                <div class="pull-right">
+                                    <span class="h2"><strong>$ 69</strong></span>
+                                </div>
+                                <span class="h4"><small>Status: </small><strong class="text-success h4-left">IN STOCK</strong><br></span>
+                            </div>
+                            <hr>
+                                <p>abc</p>
+                            <hr>
+    {{--                         <form action="ecom_shopping_cart.html" method="post" class="form-inline push-bit text-right">
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            </form> --}}
+                            <div class="add-to-box border-heart">
+                                <span>
+                                    {{-- <i class="fa fa-heart" aria-hidden="true"></i> --}}
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- END Info -->
+
+                        <!-- More Info Tabs -->
+                        <div class="col-xs-12 site-block">
+                            <ul class="nav nav-tabs push-bit" data-toggle="tabs">
+                                <li class="active"><a href="#product-specs">{{ __('Details') }}</a></li>
+                                <li><a href="#product-description">{{ __('Questions - answers') }}</a></li>
+                                <li><a href="#product-reviews">{{ __('Reviews') }}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="product-specs">
+                                    Details product
+                                </div>
+                                <div class="tab-pane" id="product-description">
+                                    {{-- Comment and reply --}}
+                                    <div class="comments-container">
+                                        <ul id="comments-list" class="comments-list">
+                                            <li>
+                                                <div class="comment-main-level">
+                                                    <!-- Avatar -->
+                                                    <div class="comment-avatar"><img src="/searching.png" alt=""></div>
+                                                    <!-- Contenedor del Comentario -->
+                                                    <div class="comment-box">
+                                                        <div class="comment-head">
+                                                            <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
+                                                            <span>20 {{ __('minutes ago') }}minutes ago</span>
+                                                            <i class="fa fa-reply"></i>
+                                                            <i class="fa fa-heart"></i>
+                                                        </div>
+                                                        <div class="comment-content">
+                                                            This is a comment of some  doctor
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Respuestas de los comentarios -->
+                                                <ul class="comments-list reply-list">
+                                                    <li>
+                                                        <!-- Avatar -->
+                                                        <div class="comment-avatar"><img src="/enjoy.png" alt=""></div>
+                                                        <!-- Contenedor del Comentario -->
+                                                        <div class="comment-box">
+                                                            <div class="comment-head">
+                                                                <h6 class="comment-name"><a href="http://creaticode.com/blog">TPL</a></h6>
+                                                                <span>15 {{ __('minutes ago') }}</span>
+                                                                <i class="fa fa-reply"></i>
+                                                                <i class="fa fa-heart"></i>
+                                                            </div>
+                                                            <div class="comment-content">
+                                                                This is a reply comment :>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {{-- End comment and reply --}}
+                                </div>
+                                <div class="tab-pane" id="product-reviews">
+                                    <ul class="media-list push">
+                                        <li class="media">
+                                            <a href="javascript:void(0)" class="pull-left">
+                                                <img src="/medicines/1.jpeg" alt="Avatar" class="img-circle">
+                                            </a>
+                                            <div class="media-body">
+                                                <div class="text-warning pull-right">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <a href="javascript:void(0)"><strong>Customer</strong></a><br>
+                                                <span class="text-muted"><small><em>2 {{ __('hours ago') }}</em></small></span>
+                                                <p>Uvuvwevwevwe Onyetenyevwe Ugwemuhwem Osas</p>
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END More Info Tabs -->
                     </div>
                 </div>
-
+                <!-- END Product Details -->
             </div>
-            <!-- End Comment -->
-
         </div>
-    </div>
-</div>
+    </section>
+<!-- END Product View -->
 @endsection
 
-@section('custom-javascript')
+{{-- @section('custom-javascript')
 <script src="{!! url('js/frontend/medicine-comment.js') !!}"></script>
 <script>
     ko.applyBindings(
@@ -318,4 +182,4 @@
         document.getElementById('area-comment-medicine')
     );
 </script>
-@endsection
+@endsection --}}
