@@ -40,6 +40,9 @@ class User extends Authenticatable
         'workplace',
         'about_you',
         'birthday',
+        'provider',
+        'provider_user_id',
+        'password',
     ];
 
     /**

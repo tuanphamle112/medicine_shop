@@ -1,74 +1,95 @@
-@extends('layouts.app')
+@extends('frontend.layouts.master')
 
-@section('titlePage', __('Register'))
+@section('title', __('Register'))
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ __('Register') }}</div>
-                <div class="panel-body">
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container">
+        <h1 class="text-center animation-slideDown">
+            <i class="fa fa-plus"></i>
+            <strong>{{ __('Sign Up') }}</strong>
+        </h1>
+        <h2 class="h3 text-center animation-slideUp">
+            {{ __('Get your own dashboard in a few seconds!') }}
+        </h2>
+    </div>
+</section>
 
-                    {!! Form::open(['route' => 'register', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-                 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            {!! Form::label('display_name', __('Display name'),['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::text('display_name','',['class' => 'form-control', 'placeholder' => __('Display Name'), 'autofocus' => '', 'required' => '']) !!}
+<section class="site-content site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 site-block">
+                <!-- Sign Up Form -->
+                {!! Form::open(['route' => 'register', 'method' => 'post', 'class' => 'form-horizontal', 'id' => 'form-sign-up', 'novalidate' => 'novalidate']) !!}
 
-                                @if ($errors->has('display_name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('display_name') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                                {!! Form::text('display_name','',['class' => 'form-control input-lg', 'placeholder' => __('Display Name'), 'autofocus' => '', 'required' => '']) !!}
                             </div>
+                            @if ($errors->has('display_name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('display_name') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            {!! Form::label('email', __('E-Mail Address'),['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::email('email','',['class' => 'form-control', 'placeholder' => __('E-Mail Address'), 'required' => '']) !!}
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                             <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                                {!! Form::email('email','',['class' => 'form-control input-lg', 'placeholder' => __('E-Mail Address'), 'required' => '']) !!}
                             </div>
+                            @if ($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            {!! Form::label('password', __('Password'),['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => __('Password')]) !!}
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                {!! Form::password('password', ['class' => 'form-control input-lg', 'required' => '', 'placeholder' => __('Password')]) !!}
                             </div>
+                            @if ($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            {!! Form::label('password_confirmation', __('Confirm Password'),['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::password('password_confirmation', ['class' => 'form-control', 'required' => '', 'placeholder' => __('Confirm Password')]) !!}
+                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                                {!! Form::password('password_confirmation', ['class' => 'form-control input-lg', 'required' => '', 'placeholder' => __('Confirm Password')]) !!}
                             </div>
+                            @if ($errors->has('password_confirmation'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
+                            @endif
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::button(__('Register'),['class' => 'btn btn-primary', 'type' => 'submit']) !!}
-                            </div>
-                        </div>
-
-                    {!! Form::close() !!}
+                    </div>
                     
-                </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-6"></div>
+                        <div class="col-xs-6 text-right">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i>{{ __('Register') }}
+                            </button>
+                        </div>
+                    </div>
+                {!! Form::close() !!}
+                <!-- END Sign Up Form -->
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
