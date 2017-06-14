@@ -15,6 +15,9 @@ Route::get('/', 'Frontend\HomeController@index')->name('welcome');
 Route::get('/search', 'Frontend\HomeController@search')->name('frontend.search');
 Route::get('/search/json', 'Frontend\HomeController@jsonSearch');
 
+Route::get('/redirect/{providerName}', 'Frontend\SocialAuthController@redirect')->name('auth.social');
+Route::get('/callback/{providerName}', 'Frontend\SocialAuthController@callback');
+
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {

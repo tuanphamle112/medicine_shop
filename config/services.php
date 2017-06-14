@@ -30,9 +30,20 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Eloquent\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+        'client_id' => '138792040026231',
+        'client_secret' => '0fc6a7d2fed575e3b3205cce02ad8680',
+        'redirect' => env('APP_URL') . '/callback/facebook',
+    ],
+
+    'google' => [
+        'client_id' => '733547052003-2ltnfps007hdntsej5vsalf9cla212ns.apps.googleusercontent.com',
+        'client_secret' => 'VQKaxzEY_lqLox_C03j9k3MA',
+        'redirect' => env('APP_URL') . '/callback/google',
+    ],
 ];

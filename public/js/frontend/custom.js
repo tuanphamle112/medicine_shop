@@ -61,7 +61,7 @@ var SearchMedicineViewModel = function()
     }
 }
 
-ko.applyBindings(
-    new SearchMedicineViewModel(),
-    document.getElementById('area-search-header-form')
-);
+// ko.applyBindings(
+//     new SearchMedicineViewModel(),
+//     document.getElementById('area-search-header-form')
+// );
