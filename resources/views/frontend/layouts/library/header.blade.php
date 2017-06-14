@@ -1,12 +1,39 @@
 <header>
     <div class="container">
         <!-- Site Logo -->
-        <a href="{{ route('welcome') }}" class="site-logo">
+        <a href="{{ route('welcome') }}" class="site-logo col-md-3">
             <i class="gi gi-flash"></i> <strong>{{ __('Framgia') }}</strong>{{ __('Medicines') }}
         </a>
         <!-- End Site Logo -->
+        <div class="col-md-3" id="area-search-header-form">
+            {!! Form::open(['route' => 'frontend.search', 'method' => 'get'], ['class' => 'search-form']) !!}
+                <div class="form-group input-group search-form margin-bottom-0px">
+                    {!! Form::text('keyword', '', ['class' => 'form-control z-index-100', 'placeholder' => trans('label.search'), 'autocomplete' => 'off', 'data-bind' => 'event:{keyup: searchHeaderMedicine, focus: searchHeaderMedicine}']) !!}
+                    <span class="input-group-btn">
+                        {!! Form::button(null, ['class' => 'btn btn-default glyphicon glyphicon-search top-0px', 'type' => 'submit']) !!} 
+                    </span>
+                </div>
+                <div class="search-form position-relative">
+                    <div class="col-sm-12 prescrition-search-item position-absolute hide" id="search-header-medicine-result">
+                        <ul class="list-group" data-bind="foreach: searchItems">
+                            <a data-bind="attr:{href: '/detail/' + id + '/' + str_slug(name)}">
+                                <li class="list-group-item">
+                                    <span data-bind="text: name"></span>
+                                </li>
+                            </a>
+                        </ul>
+                        <ul class="list-group" data-bind="if: searchItems().length == 0">
+                            <div class="text-center alert-danger cursor-pointer">
+                                {{ __('Medicine not found!') }}
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            {!! Form::close() !!}
+            <div class="hide" id="over-header-full-screen" data-bind="click: closeHeaderMedicineResult"></div>
+        </div>
         <!-- Site Navigation -->
-        <nav>
+        <nav class="col-md-6">
             <!-- Menu Toggle -->
             <!-- Toggles menu on small screens -->
             <a href="javascript:void(0)" class="btn btn-default site-menu-toggle visible-xs visible-sm">
@@ -15,7 +42,7 @@
             <!-- END Menu Toggle -->
 
             <!-- Main Menu -->
-            <ul class="site-nav">
+            <ul class="site-nav pull-right">
                 <!-- Toggles menu on small screens -->
                 <li class="visible-xs visible-sm">
                     <a href="javascript:void(0)" class="site-menu-toggle text-center">

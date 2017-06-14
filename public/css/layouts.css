@@ -1260,10 +1260,8 @@
 .prescrition-search-item {
     height: auto;
     z-index: 100;
-    background-color: #FFF;
     max-height: 200px;
     overflow: auto;
-    border: 1px #33b7b7 solid;
     border-radius: 5px;
     padding: 0px;
 }
@@ -1274,8 +1272,8 @@
 .prescrition-search-item ul li:hover{
     z-index: 2;
     color: #fff;
-    background-color: #33b7b7;
-    border-color: #33b7b7;
+    background-color: #bb34db;
+    border-color: #bb34db;
     cursor: pointer;
 }
 .prescrition-search-item .list-group-item{
@@ -1301,4 +1299,11 @@
     top: 0px;
     left: 0px;
     position: fixed;
+}
+.top-0px{
+    top: 0px!important;
+}
+.margin-top-5px {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

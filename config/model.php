@@ -12,6 +12,6 @@ return [
     ],
 
     'mark_medicine' => [
-        'items_limit' => 10,
+        'items_limit' => 8,
     ],
 ];

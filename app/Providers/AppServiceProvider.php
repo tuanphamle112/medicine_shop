@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         $categoryModel = new \App\Eloquent\Category;
         if (Schema::hasTable($categoryModel->getTable())) {
-            $parentCategories = $categoryModel->allParentCategories()->get();
+            $parentCategories = $categoryModel->with('getSubCategories')->allParentCategories()->get();
 
             view()->share('frontendAllParentCategories', $parentCategories);
         }
