@@ -11,8 +11,8 @@
                 <section class="site-section site-section-light site-section-top themed-background-default">
                     <div class="container">
                         <p class="text-center bgimg animation-fadeIn">
-                            <img src="/guy.png" alt="Promo Image 1">
-                            <img src="/20-per-off-default.png" alt="Promo Image 1">
+                            <img src="images/guy.png" alt="Promo Image 1">
+                            <img src="images/20-per-off-default.png" alt="Promo Image 1">
                         </p>
                     </div>
                 </section>
@@ -26,7 +26,7 @@
                         </div>
                     </section>
                     <!-- For best results use an image with a resolution of 2560x279 pixels -->
-                     <img src="/store_home.jpg" alt="" class="media-image animation-pulseSlow">
+                     <img src="images/store_home.jpg" alt="" class="media-image animation-pulseSlow">
                 </div>
                 
             </div>
@@ -68,7 +68,7 @@
         <div class="container">
             <div class="row visibility-none " data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
                 <div class="col-sm-6 site-block">
-                    <img src="/searching.png" alt="Promo #1" class="img-responsive img1">
+                    <img src="images/searching.png" alt="Promo #1" class="img-responsive img1">
                 </div>
                 <div class="col-sm-6 col-md-5 col-md-offset-1 site-block">
                     <h3 class="h2 site-heading site-heading-promo"><strong>{{ __('Searching information') }}</strong></h3>
@@ -99,7 +99,7 @@
                     </p>
                 </div>
                 <div class="col-sm-6 col-md-offset-1 site-block">
-                <img src="/write2.png" alt="Promo #2" class="img-responsive img2">
+                <img src="images/write2.png" alt="Promo #2" class="img-responsive img2">
                 </div>
             </div>
         </div>
@@ -127,7 +127,7 @@
                     </p>
                 </div>
                 <div class="col-sm-6 col-md-offset-1 site-block">
-                    <img src="/enjoy.png" alt="Promo #4" class="img-responsive img3">
+                    <img src="images/enjoy.png" alt="Promo #4" class="img-responsive img3">
                 </div>
             </div>
         </div>

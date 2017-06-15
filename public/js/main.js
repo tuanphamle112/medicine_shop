@@ -61,3 +61,25 @@ $(document).ready(function() {
         interval: 4000
     })
 });
+//ajax load subcate
+// $(document).on('click', '#linkToSubcate', function(){
+//     subcatelink = $(#subpassingName).val();
+//     console.log(subcatelink);
+//     parentcatelink = $(#parentpassingName).val();
+//     $.ajax({
+//         url : window.location.origin + '/'+ parentcatelink'/'+subcatelink,
+//         type : "get"
+
+//     });
+// });
+// $(document).ready(function(){
+//     subcatelink = $("#subpassingName").val();
+//     // document.getElementById("subpassingName");
+// // $("#subpassingName").val();
+//     parentcatelink = $("#parentpassingName").val();
+//     $("#linkToSubcate").click(function(){
+//         $.ajax({url: '/'+ parentcatelink+'/'+subcatelink, success: function(result){
+//             alert(subcatelink);
+//         }});
+//     });
+// });

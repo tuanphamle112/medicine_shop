@@ -32,7 +32,6 @@ class DetailMedicinesController extends Controller
             'medicine' => $medicine,
             'check_rated' => $check_rated,
         ]);
-        return view('frontend.medicine.detail');
     }
     public function avg(Request $request, $id) {
         $user_id = Auth::user()->id;

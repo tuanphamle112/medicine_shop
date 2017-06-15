@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-{{-- @section('title', $medicine->name) --}}
+@section('title', $medicine->name)
 
 @section('content')
     <section class="site-section site-section-detail site-section-light site-section-top themed-background-dark">
@@ -21,6 +21,9 @@
                         <div class="sidebar-block">
                             <ul class="store-menu">
                                 <li>
+                                    @php
+                                    dd($frontendAllParentCategories);
+                                    @endphp
                                     <a href="javascript:void(0)" class="submenu"><i class="fa fa-angle-right"></i> Clothes</a>
                                     <ul>
                                         <li><a href="javascript:void(0)">Women</a></li>

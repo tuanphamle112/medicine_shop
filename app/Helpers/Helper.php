@@ -75,7 +75,7 @@ class Helper
             $email = $provider->getEmail();
             $issetEmail = User::withTrashed()->where('email', $email)->first();
 
-            if ($issetEmail) {
+            if ($issetEmail || !$email) {
                 $email = $providerName . '.' .$provider->getId() . '@gmail.com';
             }
 

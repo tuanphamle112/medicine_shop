@@ -10,9 +10,9 @@ use App\Eloquent\Medicine;
 
 class MedicinesListController extends Controller
 {
-    public function showParentCategories($linkParentCategory)
+    public function showParentCategories($parentLink)
     {
-        $parentCategory = Category::getParentCategoryByLink($linkParentCategory)->first();
+        $parentCategory = Category::getParentCategoryByLink($parentLink)->first();
 
         $subCategories = Category::getSubCategoryByParentId($parentCategory->id)->get();
 
@@ -30,12 +30,24 @@ class MedicinesListController extends Controller
         $items = Medicine::whereIn('id', $medicineIDs)
             ->with('getAllImages')
             ->orderBy('id', 'desc')->paginate(12);
-        
+
+        $ItemSlideInCategories =Medicine::orderBy('id', 'desc')
+            ->take(12)
+            ->get();
+
+        $ItemSlideInCategoriesArr = [];
+        foreach ($ItemSlideInCategories as $ItemSlideInCategory) {
+            $ItemSlideInCategoriesArr[] = $ItemSlideInCategory->id;
+        }
+        $SlideInCategoriesArrChunk = array_chunk($ItemSlideInCategoriesArr, 2);
+        // dd($SlideInCategoriesArrChunk);
         return view('frontend.categories.parent-category', [
             'parentCategory' => $parentCategory,
             'subCategories' => $subCategories,
-            'linkParentCategory' => $linkParentCategory,
+            'parentLink' => $parentLink,
             'items' => $items,
+            'ItemSlideInCategories'=> $ItemSlideInCategories,
+            'SlideInCategoriesArrChunk'=> $SlideInCategoriesArrChunk
         ]);
     }
     public function showSubCategory($parentLink, $subLink)
@@ -47,15 +59,27 @@ class MedicinesListController extends Controller
         $selectSubCate = Category::getSubCaregoryByLink($subLink, $parentCategory->id)
             ->with('getAllMedicines.getAllImages')
             ->first();
-
+        // dd($selectSubCate);
         $items = $selectSubCate->getAllMedicines()->paginate(12);
+
+        $ItemSlideInCategories =Medicine::orderBy('id', 'desc')
+            ->take(12)
+            ->get();
+
+        $ItemSlideInCategoriesArr = [];
+        foreach ($ItemSlideInCategories as $ItemSlideInCategory) {
+            $ItemSlideInCategoriesArr[] = $ItemSlideInCategory->id;
+        }
+        $SlideInCategoriesArrChunk = array_chunk($ItemSlideInCategoriesArr, 2);
 
         return view('frontend.categories.sub-category', [
             'subCategories' => $subCategories,
             'parentCategory' => $parentCategory,
             'selectSubCate' => $selectSubCate,
+            'subLink' => $subLink,
             'parentLink' => $parentLink,
             'items' => $items,
+            'SlideInCategoriesArrChunk' => $SlideInCategoriesArrChunk
         ]);
     }
 }

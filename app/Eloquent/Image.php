@@ -2,7 +2,9 @@
 
 namespace App\Eloquent;
 
-class Image extends AbstractEloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Image extends Model
 {
     /**
      * The attributes that are mass assignable.
