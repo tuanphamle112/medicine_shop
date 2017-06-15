@@ -28,10 +28,7 @@ class HomeController extends Controller
         $newestProducts = Medicine::orderBy('created_at', 'desc')->take(5)->get();
         $subCategories = Category::with('getParentFromSubCategory')->whereNotNull('parent_id')->get();
         
-        return view('frontend.home.index', [
-            'newestProducts'=> $newestProducts,
-            'subCategories'=> $subCategories
-            ]);
+        return view('frontend.home.index', compact(['newestProducts', 'subCategories']));
     }
 
     public function search(Request $request)
@@ -39,11 +36,12 @@ class HomeController extends Controller
         $keyword = $request->keyword;
         $items = Medicine::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('symptom', 'like', '%' . $keyword . '%')
-            ->orderBy('id', 'desc')->paginate(8);
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.medicine.result_limit'));
 
         $items->withPath('/search?keyword=' . $keyword);
         
-        return view('frontend.search.result', ['items' => $items, 'keyword' => $keyword]);
+        return view('frontend.search.result', compact(['items' => $items, 'keyword' => $keyword]));
     }
 
     public function jsonSearch(Request $request)
@@ -52,6 +50,7 @@ class HomeController extends Controller
         $medicines = Medicine::select(['name', 'id'])
             ->where('name', 'like', '%' . $keyword . '%')
             ->orWhere('symptom', 'like', '%' . $keyword . '%')
+            ->take(config('model.medicine.autocomple_limit'))
             ->orderBy('id', 'desc')->get();
         
         return Response::json($medicines);
@@ -59,11 +58,14 @@ class HomeController extends Controller
 
     public function markMedicineIndex()
     {
-        $marks = MarkMedicine::with('getMedicine')
+        $marks = MarkMedicine::with('getMedicine.getAllImages')
+            ->with('getMedicine.getAllRateMedicines')
+            ->with('getMedicine.getAllComments')
             ->getMarkByUser(Auth::user()->id)
-            ->orderBy('id', 'desc')->paginate(10);
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.mark_medicine.items_limit'));
 
-        return view('frontend.mark-medicine.list', ['marks' => $marks]);
+        return view('frontend.mark-medicine.list', compact(['marks']));
     }
 
     public function markMedicineDestroy($id)

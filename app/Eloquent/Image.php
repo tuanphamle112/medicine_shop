@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
-class Image extends AbstractEloquent
+class Image extends Model
 {
     /**
      * The attributes that are mass assignable.

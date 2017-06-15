@@ -54,12 +54,12 @@ class Medicine extends AbstractEloquent
 
     public function getAllRateMedicines()
     {
-        return $this->hasMany(RateMedicine::class);
+        return $this->hasMany(RateMedicine::class, 'medicine_id');
     }
 
     public function getAllComments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'medicine_id');
     }
     
     public function getCreatedUser()
