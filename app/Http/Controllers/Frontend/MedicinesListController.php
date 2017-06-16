@@ -10,9 +10,9 @@ use App\Eloquent\Medicine;
 
 class MedicinesListController extends Controller
 {
-    public function showParentCategories($linkParentCategory)
+    public function showParentCategories($parentLink)
     {
-        $parentCategory = Category::getParentCategoryByLink($linkParentCategory)->first();
+        $parentCategory = Category::getParentCategoryByLink($parentLink)->first();
 
         $subCategories = Category::getSubCategoryByParentId($parentCategory->id)->get();
 
@@ -28,15 +28,20 @@ class MedicinesListController extends Controller
         }
 
         $items = Medicine::whereIn('id', $medicineIDs)
-            ->with('getAllImages')
-            ->orderBy('id', 'desc')->paginate(12);
-        
-        return view('frontend.categories.parent-category', [
-            'parentCategory' => $parentCategory,
-            'subCategories' => $subCategories,
-            'linkParentCategory' => $linkParentCategory,
-            'items' => $items,
-        ]);
+        ->with('getAllImages')
+        ->orderBy('id', 'desc')->paginate(12);
+
+        $itemSlideInCategories = Medicine::with('getAllImages')
+        ->take(config('model.medicine.slider_limit'))
+        ->orderBy('id', 'desc')->get();
+
+        return view('frontend.categories.parent-category', compact([
+            'parentCategory',
+            'subCategories',
+            'parentLink',
+            'items',
+            'itemSlideInCategories',
+            ]));
     }
     public function showSubCategory($parentLink, $subLink)
     {
@@ -45,17 +50,23 @@ class MedicinesListController extends Controller
         $subCategories = Category::getSubCategoryByParentId($parentCategory->id)->get();
 
         $selectSubCate = Category::getSubCaregoryByLink($subLink, $parentCategory->id)
-            ->with('getAllMedicines.getAllImages')
-            ->first();
-
+        ->with('getAllMedicines.getAllImages')
+        ->first();
         $items = $selectSubCate->getAllMedicines()->paginate(12);
 
-        return view('frontend.categories.sub-category', [
-            'subCategories' => $subCategories,
-            'parentCategory' => $parentCategory,
-            'selectSubCate' => $selectSubCate,
-            'parentLink' => $parentLink,
-            'items' => $items,
-        ]);
+        $itemSlideInCategories = Medicine::with('getAllImages')
+        ->take(config('model.medicine.slider_limit'))
+        ->orderBy('id', 'desc')->get();
+
+
+        return view('frontend.categories.parent-category', compact([
+            'parentCategory',
+            'subCategories',
+            'selectSubCate',
+            'parentLink',
+            'subLink',
+            'items',
+            'itemSlideInCategories',
+            ]));
     }
 }

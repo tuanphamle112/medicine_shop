@@ -18,21 +18,20 @@ class DetailMedicinesController extends Controller
     {
         $medicine = Medicine::with('getAllImages')->find($id);
 
-        if (!$medicine){
+        if (!$medicine) {
             return redirect()->route('welcome');
         }
-
-        $check_rated = [];
+        $check_marked = [];
         if (Auth::check()) {
             $user_id = Auth::user()->id;
-            $check_rated = RateMedicine::checkRated($user_id, $id)->first();
+            $medicine_id = $medicine->id;
+            $check_marked = MarkMedicine::checkMarkMedicine($user_id, $medicine_id)->first();
         }
 
         return view('frontend.medicine.detail', [
             'medicine' => $medicine,
-            'check_rated' => $check_rated,
-        ]);
-        return view('frontend.medicine.detail');
+            'check_marked' => $check_marked
+            ]);
     }
     public function avg(Request $request, $id) {
         $user_id = Auth::user()->id;
@@ -63,8 +62,8 @@ class DetailMedicinesController extends Controller
         $showD->save();
 
         return redirect()
-            ->route('detail', [$id, str_slug($showD->name)])
-            ->with('check_rated', $check_rated);
+        ->route('detail', [$id, str_slug($showD->name)])
+        ->with('check_rated', $check_rated);
     }
 
     public function editRating(Request $request, $id) {
@@ -93,22 +92,33 @@ class DetailMedicinesController extends Controller
         $medicine_id = $request->medicine_id;
         $user_id = $request->user_id;
         $medicine_name = Medicine::find($medicine_id);
-        $check_added = MarkMedicine::where('user_id',$user_id)->where('medicine_id',$medicine_id)->first();
-
-        if(!empty($check_added->id))
+        $check_added = MarkMedicine::where('user_id', $user_id)->where('medicine_id', $medicine_id)->first();
+        if ($user_id == "id-not-login")
         {
-            return __('This medicine already in your box!');
+            return 1;
         }
+
         else
         {
-            $mark_medicines = new MarkMedicine;
-            $mark_medicines->user_id = $user_id;
-            $mark_medicines->medicine_id= $medicine_id;
-            $mark_medicines->save();
+            if (!empty($check_added->id))
+            {
+                MarkMedicine::where('user_id', $user_id)
+                ->where('medicine_id', $medicine_id)
+                ->delete();
 
-            return $medicine_name->name . __(' has been added');
+                return __('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+            }
+            else
+            {
+                $mark_medicines = new MarkMedicine;
+                $mark_medicines->user_id = $user_id;
+                $mark_medicines->medicine_id= $medicine_id;
+                $mark_medicines->save();
+
+                return __(' <i class="fa fa-heart" aria-hidden="true"></i>');
+            }
         }
-
+        
     }
 
     public function jsonCommentList(Request $request)
@@ -121,16 +131,15 @@ class DetailMedicinesController extends Controller
         $medicineId = $request->medicineId;
 
         $comments = Comment::with('getUser')
-            ->where('medicine_id', $medicineId)
-            ->where('status', Comment::STATUS_ENABLE)
-            ->orderBy('id', 'desc')
-            ->paginate(5);
+        ->where('medicine_id', $medicineId)
+        ->where('status', Comment::STATUS_ENABLE)
+        ->orderBy('id', 'desc')
+        ->paginate(5);
 
         $data['comments'] = $comments;
         $data['currentUserId'] = $user_id;
 
         return Response::json($data);
-
     }
 
     public function addComment(Request $request)
@@ -146,9 +155,9 @@ class DetailMedicinesController extends Controller
         $comment->save();
 
         $comments = Comment::with('getUser')
-            ->where('medicine_id', $medicine_id)
-            ->where('status', Comment::STATUS_ENABLE)
-            ->orderBy('id', 'desc')->paginate(5);
+        ->where('medicine_id', $medicine_id)
+        ->where('status', Comment::STATUS_ENABLE)
+        ->orderBy('id', 'desc')->paginate(5);
         $comments->currentUserId = $user_id;
 
         $data['comments'] = $comments;
