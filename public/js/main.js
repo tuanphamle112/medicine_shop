@@ -61,3 +61,33 @@ $(document).ready(function() {
         interval: 4000
     })
 });
+$(document).on('click', '.login', function(){
+    $.ajax({
+        url : window.location.origin + '/detail/add-to-box',
+        type : "get",
+        dateType:"text",
+        context: this,
+        data : {
+            medicine_id: $(this).attr("medicine_id"),
+            user_id: $(this).attr("user_id")
+        },
+        success : function (result){
+            $(".span-heart").html(result);
+        }
+    });
+});
+$(document).on('click', '.notlogin', function(){
+    $.ajax({
+        url : window.location.origin + '/detail/add-to-box',
+        type : "get",
+        dateType:"text",
+        context: this,
+        data : {
+            medicine_id: $(this).attr("medicine_id"),
+            user_id: $(this).attr("user_id")
+        },
+        success : function (result){
+            $(".modal-body p").text('You have to login to mark medicines');
+        }
+    });
+});

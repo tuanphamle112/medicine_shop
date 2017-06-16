@@ -17,6 +17,10 @@ class MarkMedicine extends Model
         'user_id',
     ];
 
+    public function scopeCheckMarkMedicine($query, $userId, $medicineId) {
+
+        return $query->where('user_id', $userId)->where('medicine_id', $medicineId);
+    }
     public function getUser()
     {
         return $this->belongsTo(User::class, 'user_id');
