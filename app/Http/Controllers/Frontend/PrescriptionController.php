@@ -30,9 +30,11 @@ class PrescriptionController extends Controller
 
     public function getJsonList()
     {
-        $prescription = $this->prescription->with('getUser', 'getAllItemPrescriptions')
+        $prescription = $this->prescription
+            ->with('getUser', 'getAllItemPrescriptions', 'getDoctor')
             ->getPrescriptionsByUser(Auth::user()->id)
-            ->orderBy('id', 'desc')->paginate(10);
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.prescription.items_limit'));
         
         return  Response::json($prescription);
     }
@@ -40,7 +42,7 @@ class PrescriptionController extends Controller
     public function editPrescription($id)
     {
         $prescription = $this->prescription
-            ->with('getUser', 'getAllItemPrescriptions.getRequestMedicine')
+            ->with('getUser', 'getAllItemPrescriptions', 'getDoctor')
             ->find($id);
             
         if (!$prescription || ($prescription->user_id != Auth::user()->id)) {
@@ -181,6 +183,7 @@ class PrescriptionController extends Controller
         $medicines = Medicine::select(['name', 'id'])
             ->where('name', 'like', '%' . $keyword . '%')
             ->orWhere('symptom', 'like', '%' . $keyword . '%')
+            ->take(config('model.prescription.autocomple_limit'))
             ->orderBy('id', 'desc')->get();
         
         return Response::json($medicines);
@@ -200,10 +203,6 @@ class PrescriptionController extends Controller
             // Delete Item
             $itemsPrescription = $prescription->getAllItemPrescriptions;
             foreach ($itemsPrescription as $itemPrescription) {
-                $requestMedicine = $itemPrescription->getRequestMedicine;
-                if ($requestMedicine) {
-                    $requestMedicine->delete();
-                }
                 $itemPrescription->delete();
             }
 

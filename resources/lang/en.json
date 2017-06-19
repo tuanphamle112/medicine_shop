@@ -175,5 +175,17 @@
     "Connect to your dashboard!": "Connect to your dashboard!",
     "Get your own dashboard in a few seconds!": "Get your own dashboard in a few seconds!",
     ":number reviews": ":number reviews",
-    ":number Asks-Answers": ":number Asks-Answers"
+    ":number Asks-Answers": ":number Asks-Answers",
+    "Request Presctiption": "Request Presctiption",
+    "Request Prescription List": "Request Prescription List",
+    "No prescription required": "No prescription required",
+    "Add New Request Prescription": "Add New Request Prescription",
+    "Describer": "Describer",
+    "Add new request Prescription :name successfully!": "Add new request Prescription :name successfully!",
+    ":number prescriptions": ":number prescriptions",
+    "Detail Request Prescription": "Detail Request Prescription",
+    "Specialize: :text": "Specialize: :text",
+    "Certificate: :text": "Certificate: :text",
+    "You have to login to mark medicines!": "You have to login to mark medicines!",
+    "Notification": "Notification"
 }

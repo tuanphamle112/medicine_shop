@@ -73,6 +73,26 @@ class User extends Authenticatable
         ];
     }
 
+    public function getAllDoctorOption()
+    {
+        $doctors = $this->where('permission', self::PERMISSION_DOCTER)->get();
+        $result = [];
+        foreach ($doctors as $doctor) {
+            $textView = $doctor->display_name;
+
+            if ($doctor->specialize) {
+                $textView .= ' - ' . __('Specialize: :text', ['text' => $doctor->specialize]);
+            }
+            if ($doctor->certificate) {
+                $textView .= ' - ' . __('Certificate: :text', ['text' => $doctor->certificate]);
+            }
+
+            $result[$doctor->id] = $textView;
+        }
+
+        return $result;
+    }
+
     public function getAllComments()
     {
         return $this->hasMany(Comment::class);

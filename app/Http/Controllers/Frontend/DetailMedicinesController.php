@@ -90,35 +90,24 @@ class DetailMedicinesController extends Controller
     }
     public function addToBox(Request $request) {
         $medicine_id = $request->medicine_id;
-        $user_id = $request->user_id;
-        $medicine_name = Medicine::find($medicine_id);
-        $check_added = MarkMedicine::where('user_id', $user_id)->where('medicine_id', $medicine_id)->first();
-        if ($user_id == "id-not-login")
+        $user_id = Auth::user()->id;
+       
+        $check_added = MarkMedicine::checkMarkMedicine($user_id, $medicine_id)->first();
+       
+       
+        if (!empty($check_added->id))
         {
-            return 1;
+            $check_added->delete();
+
+            return __('<i class="fa fa-heart-o" aria-hidden="true"></i>');
         }
 
-        else
-        {
-            if (!empty($check_added->id))
-            {
-                MarkMedicine::where('user_id', $user_id)
-                ->where('medicine_id', $medicine_id)
-                ->delete();
+        $mark_medicines = new MarkMedicine;
+        $mark_medicines->user_id = $user_id;
+        $mark_medicines->medicine_id= $medicine_id;
+        $mark_medicines->save();
 
-                return __('<i class="fa fa-heart-o" aria-hidden="true"></i>');
-            }
-            else
-            {
-                $mark_medicines = new MarkMedicine;
-                $mark_medicines->user_id = $user_id;
-                $mark_medicines->medicine_id= $medicine_id;
-                $mark_medicines->save();
-
-                return __(' <i class="fa fa-heart" aria-hidden="true"></i>');
-            }
-        }
-        
+        return __(' <i class="fa fa-heart" aria-hidden="true"></i>');
     }
 
     public function jsonCommentList(Request $request)
@@ -155,10 +144,9 @@ class DetailMedicinesController extends Controller
         $comment->save();
 
         $comments = Comment::with('getUser')
-        ->where('medicine_id', $medicine_id)
-        ->where('status', Comment::STATUS_ENABLE)
-        ->orderBy('id', 'desc')->paginate(5);
-        $comments->currentUserId = $user_id;
+            ->where('medicine_id', $medicine_id)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')->paginate(5);
 
         $data['comments'] = $comments;
         $data['currentUserId'] = $user_id;

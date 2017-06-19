@@ -20,7 +20,7 @@
 /*HEADER CSS START~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`*/
 
     .top-0px {
-        margin-top:-1px !important;
+        margin-top:0px !important;
     }
     .search-form {
         /*margin-top:15px;*/
@@ -1271,8 +1271,8 @@
     z-index: 100;
 }
 .padding-15px {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 15px!important;
+    padding-bottom: 15px!important;
 }
 .height-35px {
     height: 35px;
@@ -1283,6 +1283,7 @@
     z-index: 100;
     background-color: #FFF;
     max-height: 200px;
+    width: 100%;
     overflow: auto;
     border: 1px #33b7b7 solid;
     border-radius: 5px;
@@ -1322,4 +1323,16 @@
     top: 0px;
     left: 0px;
     position: fixed;
+}
+.top-0px{
+    top: 0px!important;
+}
+.margin-top-5px {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice
+{
+    background-color: #00c0ef!important;
+    border: 1px solid #00c0ef!important;
 }

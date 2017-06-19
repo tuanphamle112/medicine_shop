@@ -12,23 +12,13 @@
 </section>
 <section class="site-content site-section">
     <div class="container">
-        <div class="row">
-            @php
-                $messages = Session::get('flash_frontend_messages', []) 
-            @endphp
 
-            @foreach ($messages as $message)
-                <div class="alert alert-{{ $message['type'] }} alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <h4>{{ $message['title'] }}</h4>
-                    <p>{{ $message['message'] }}</p>
-                </div>
-            @endforeach
-        </div>
+        @include('frontend.components.show-message')
+        
         <div class="row">
             <div class="col-xs-12">
                 <div class="row store-items">
-                    @foreach ($marks as $mark)
+                    @forelse ($marks as $mark)
 
                         @php
                             $medicine = $mark->getMedicine;
@@ -91,7 +81,13 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="col-md-12 animation-fadeInQuick text-center" data-toggle="animation-appear" data-animation-class="animation-fadeInQuick" data-element-offset="-100">
+                            <div class="alert alert-danger alert-dismissible">
+                                {{ __('No Mark Medicine') }}
+                            </div>
+                        </div>
+                    @endforelse
                 </div>
                 <!-- Pagination -->
                 <div class="text-center">
