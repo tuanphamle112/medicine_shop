@@ -30,6 +30,11 @@ class Prescription extends AbstractEloquent
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getDoctor()
+    {
+        return $this->belongsTo(User::class, 'doctor_id');
+    }
     
     public function scopeGetPrescriptionsByUser($query, $userId)
     {

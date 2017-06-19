@@ -63,9 +63,6 @@
                                 </div>
                             @else
                                 @foreach($medicine->getAllImages as $getAllImagesValue)
-                                        @php
-                                            // dd($medicine);
-                                        @endphp
                                         @if($loop->index==0)
                                         <a href="{{ asset($getAllImagesValue->path_origin) }}" class="gallery-link"><img src="{{ asset($getAllImagesValue->path_origin) }}" alt="" class="img-responsive push-bit"></a>
                                             @if($loop->count <= 1)
@@ -117,9 +114,9 @@
                                 <p>abc</p>
                             <hr>
                             @if (Auth::check()) 
-                                <div class="add-to-box border-heart login" title="{{ __('Add to box') }}" medicine_id="{{ $medicine->id }}" user_id = "{{ Auth::user()->id }}">
+                                <div class="add-to-box border-heart add-medicine-to-box" title="{{ __('Add to box') }}" medicine_id="{{ $medicine->id }}">
                             @else
-                                <div class="add-to-box border-heart notlogin" data-toggle="modal" data-target="#myModal" title="{{ __('Add to box') }}" user_id = "id-not-login">
+                                <div class="add-to-box border-heart" data-toggle="modal" data-target="#showNotLogin" title="{{ __('Add to box') }}">
                             @endif
                                 <span class="span-heart">
                                     @if(empty($check_marked))
@@ -131,19 +128,24 @@
                             </div>
                         </div>
                         <!-- Modal -->
-                        <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal fade" id="showNotLogin" role="dialog">
                             <div class="modal-dialog">
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Notification</h4>
+                                        <h4 class="modal-title">{{ __('Notification') }}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p></p>
+                                        <p>
+                                            {{ __('You have to login to mark medicines!') }}
+                                        </p>
+                                        <a href="{{route('login')}}">{{ __('Login') }}</a>
+                                        <span>{{ __('or') }}</span>
+                                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -241,12 +243,10 @@
 <!-- END Product View -->
 @endsection
 
-{{-- @section('custom-javascript')
 <script src="{!! url('js/frontend/medicine-comment.js') !!}"></script>
 <script>
-    ko.applyBindings(
-        new CommentViewModel().initData('{{ $medicine->id }}'),
-        document.getElementById('area-comment-medicine')
-    );
+    // ko.applyBindings(
+    //     new CommentViewModel().initData('{{ $medicine->id }}'),
+    //     document.getElementById('area-comment-medicine')
+    // );
 </script>
-@endsection --}}

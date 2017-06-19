@@ -2,8 +2,12 @@
 
 namespace App\Eloquent;
 
+use Laravel\Scout\Searchable;
+
 class Medicine extends AbstractEloquent
 {
+    use Searchable;
+
     const ALLOWED_BUY = 1;
     const NOT_ALLOWED_BUY = 0;
     
@@ -33,6 +37,17 @@ class Medicine extends AbstractEloquent
         'unintended_effect',
         'contraindications',
     ];
+
+    public function searchableAs()
+    {
+        return 'name';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
+    }
 
     public static function getOptionAllowedBuy()
     {

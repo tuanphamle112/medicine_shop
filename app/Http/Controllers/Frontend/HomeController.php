@@ -34,24 +34,19 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $items = Medicine::where('name', 'like', '%' . $keyword . '%')
-            ->orWhere('symptom', 'like', '%' . $keyword . '%')
-            ->orderBy('id', 'desc')
+        $items = Medicine::search($keyword)
             ->paginate(config('model.medicine.result_limit'));
-
-        $items->withPath('/search?keyword=' . $keyword);
         
-        return view('frontend.search.result', compact(['items' => $items, 'keyword' => $keyword]));
+        return view('frontend.search.result', compact(['items', 'keyword']));
     }
 
     public function jsonSearch(Request $request)
     {
         $keyword = $request->keyword;
-        $medicines = Medicine::select(['name', 'id'])
-            ->where('name', 'like', '%' . $keyword . '%')
-            ->orWhere('symptom', 'like', '%' . $keyword . '%')
+
+        $medicines = Medicine::search($keyword)
             ->take(config('model.medicine.autocomple_limit'))
-            ->orderBy('id', 'desc')->get();
+            ->get();
         
         return Response::json($medicines);
     }

@@ -69,6 +69,14 @@ Route::group(['middleware' => 'isLogin'], function(){
     // Add comment
     Route::post('/comment/send/data', 'Frontend\DetailMedicinesController@addComment');
 
+    Route::get('/request-prescription', 'Frontend\RequestPrescriptionController@requestIndex')
+    	->name('request-prescription.index');
+    Route::get('/request-prescription/add-new', 'Frontend\RequestPrescriptionController@requestAddnew')
+    	->name('request-prescription.addnew');
+    Route::post('/request-prescription/add-new', 'Frontend\RequestPrescriptionController@requestStore')
+    	->name('request-prescription.store');
+    Route::get('/request-prescription/json/detail', 'Frontend\RequestPrescriptionController@jsonDetail');
+
 });
 
 Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');

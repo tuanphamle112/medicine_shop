@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="text-center">
-        {{ $items->links() }}
+        {{ $items->appends(['keyword' => $keyword])->links() }}
     </div>
 </div>
 @endsection

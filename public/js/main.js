@@ -11,7 +11,6 @@ $(document).ready(function(){
     });
 
     $('#input-reliable').on('rating.change', function(event, value, caption) {
-        console.log(caption);
         $('#hidden-reliable').val(value);
     });
 
@@ -28,30 +27,30 @@ $(document).ready(function(){
 $(document).on('click', '.add-to-box2', function(){
     $.ajax({
         url : window.location.origin + '/detail/add-to-box',
-        type : "get",
-        dateType:"text",
+        type : 'get',
+        dateType: 'text',
         context: this,
         data : {
-            medicine_id: $(this).attr("medicine_id"),
-            user_id: $(this).attr("user_id")
+            medicine_id: $(this).attr('medicine_id'),
+            user_id: $(this).attr('user_id')
         },
         success : function (result){
-            $(".modal-body p").text(result);
+            $('.modal-body p').text(result);
         }
     });
 });
 $(document).on('click', '.detail-link', function(){
     $.ajax({
         url : window.location.origin + '/detail/add-to-box',
-        type : "get",
-        dateType:"text",
+        type : 'get',
+        dateType: 'text',
         context: this,
         data : {
-            medicine_id: $(this).attr("medicine_id"),
-            user_id: $(this).attr("user_id")
+            medicine_id: $(this).attr('medicine_id'),
+            user_id: $(this).attr('user_id')
         },
         success : function (result){
-            $(".modal-body p").text(result);
+            $('.modal-body p').text(result);
         }
     });
 });
@@ -61,33 +60,18 @@ $(document).ready(function() {
         interval: 4000
     })
 });
-$(document).on('click', '.login', function(){
+
+$(document).on('click', '.add-medicine-to-box', function(){
     $.ajax({
         url : window.location.origin + '/detail/add-to-box',
-        type : "get",
-        dateType:"text",
+        type : 'get',
+        dateType: 'text',
         context: this,
         data : {
-            medicine_id: $(this).attr("medicine_id"),
-            user_id: $(this).attr("user_id")
+            medicine_id: $(this).attr('medicine_id')
         },
         success : function (result){
             $(".span-heart").html(result);
-        }
-    });
-});
-$(document).on('click', '.notlogin', function(){
-    $.ajax({
-        url : window.location.origin + '/detail/add-to-box',
-        type : "get",
-        dateType:"text",
-        context: this,
-        data : {
-            medicine_id: $(this).attr("medicine_id"),
-            user_id: $(this).attr("user_id")
-        },
-        success : function (result){
-            $(".modal-body p").text('You have to login to mark medicines');
         }
     });
 });
