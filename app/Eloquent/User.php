@@ -19,7 +19,7 @@ class User extends Authenticatable
     const GENDER_FEMALE = 'female';
     const GENDER_OTHER = 'other';
 
-    const PATH_AVATAR = 'uploads/avatars/';
+    const PATH_AVATAR = '/uploads/avatars/';
 
     /**
      * The attributes that are mass assignable.
@@ -71,6 +71,11 @@ class User extends Authenticatable
             self::GENDER_FEMALE => __('Female'),
             self::GENDER_OTHER => __('Other'),
         ];
+    }
+
+    public function scopegetUserInformations($query, $user_id)
+    {
+        $userInformations= $query->find($user_id);
     }
 
     public function getAllComments()
