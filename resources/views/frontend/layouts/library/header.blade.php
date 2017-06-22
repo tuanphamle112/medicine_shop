@@ -96,6 +96,9 @@
                             <li>
                                 <a href="{{ route('frontend.prescription.index') }}" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
                             </li>
+                            <li>
+                                <a href="{{ route('frontend.user.profiles') }}" title="{{ trans('My profiles') }}">{{ trans('My profiles') }}</a>
+                            </li>
                             @if(Auth::user()->permission == App\Eloquent\User::PERMISSION_ADMIN)
                                 <li>
                                     <a href="{!! url('admin') !!}" title="{{ trans('label.adminpage') }}">{{ trans('label.adminpage') }}</a>
@@ -103,7 +106,7 @@
                             @endif
                             <li>
                                 <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); clickLogoutForm('#logout-form', '{{ __('Are you logout?') }}')">{{ __('Logout') }}</a>
+                                onclick="event.preventDefault(); clickLogoutForm('#logout-form', '{{ __('Do you want to logout?') }}')">{{ __('Logout') }}</a>
                                 {!! Form::open(['route' => 'logout', 'method' => 'post', 'style' => 'display:none', 'id' => 'logout-form']) !!}
                                 {!! Form::close() !!}
                             </li>

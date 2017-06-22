@@ -41,6 +41,18 @@ class Helper
         return $image->save();
     }
 
+    public static function getLinkUserAvatar($path)
+    {
+        if (!$path) {
+            return url('bower_components/AdminLTE/dist/img/avatar.png');
+        }
+        if (strpos($path, 'http')) {
+            return $path;
+        }
+        
+        return url($path);
+    }
+
     public static function formatPrice($price)
     {
         $format = new \NumberFormatter(config('custom.price.locale_format'), \NumberFormatter::CURRENCY);
