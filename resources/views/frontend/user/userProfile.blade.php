@@ -65,7 +65,13 @@
                                             </tr>
                                             <tr>
                                                 <td>{{ __('Gender') }} :</td>
-                                                <td>{{ $option['gender'][Auth::user()->gender] }}</td>
+                                                <td>
+                                                    @if (isset($option['gender'][Auth::user()->gender]))
+                                                        {{ $option['gender'][Auth::user()->gender] }}
+                                                    @else
+                                                        {{ __('Not selected') }}
+                                                    @endif
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>{{ __('Date of birth') }} :</td>
@@ -247,12 +253,12 @@
                                  </div>
                              </div>
                          </div>
-                     </div>
-                     <!-- Modal change password -->
-                     <div class="modal fade" id="change-password" role="dialog">
+                    </div>
+                    <!-- Modal change password -->
+                    <div class="modal fade" id="change-password" role="dialog">
                         <div class="modal-dialog">
                             <!-- Modal content-->
-                            <div class="modal-content">
+                            <div class="modal-content position-relative">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">
@@ -278,6 +284,9 @@
                                         <span class="text-danger noti-confirm-password"></span>
                                     </div>
                                     <button class="btn btn-success user-change-password">{{ __('Change') }}</button>
+                                </div>
+                                <div class="indicator hide" id="change-password-indicator">
+                                    <div class="spinner"></div>
                                 </div>
                             </div>
                         </div>

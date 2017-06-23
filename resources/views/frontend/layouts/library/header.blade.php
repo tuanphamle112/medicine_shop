@@ -91,8 +91,18 @@
                                 <a href="{{ route('frontend.mark-medicine.index') }}" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
                             </li>
                             <li>
-                                <a href="{{ route('request-prescription.index') }}" title="{{ __('Request Presctiption') }}">{{ __('Request Presctiption') }}</a>
+                                <a href="{{ route('request-prescription.index') }}" title="{{ __('Request Presctiption') }}">{{ __('Make Request Presctiption') }}</a>
                             </li>
+                            @if (Auth::user()->permission == App\Eloquent\User::PERMISSION_DOCTER)
+                                <li>
+                                    <a href="{{ route('doctor-request-prescription.index') }}" title="{{ __('Doctor - Request Presctiption') }}">
+                                        {{ __('Doctor - Request Presctiption') }}
+                                        <span class="label label-danger count-new-request-doctor">
+                                            {{ App\Helpers\Helper::countNewRequestPrescriptionDoctor() }}
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{ route('frontend.prescription.index') }}" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
                             </li>

@@ -8,4 +8,8 @@ return [
     'medicine' => [
     	'image_default' => 'images/default-thumbnail.jpg',
     ],
+
+    'user' => [
+    	'avatar_default' => 'bower_components/AdminLTE/dist/img/avatar.png',
+    ],
 ];

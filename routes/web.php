@@ -86,8 +86,20 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::post('/request-prescription/add-new', 'Frontend\RequestPrescriptionController@requestStore')
     	->name('request-prescription.store');
     Route::get('/request-prescription/json/detail', 'Frontend\RequestPrescriptionController@jsonDetail');
+    Route::get('/request-prescription/json/doctorDetail', 'Frontend\RequestPrescriptionController@jsonDoctorDetail');
+
+    Route::get('/doctor-request-prescription', 'Frontend\RequestPrescriptionController@doctorRequestIndex')
+        ->name('doctor-request-prescription.index');
+    Route::get('/doctor/{id}/make-prescrition', 'Frontend\PrescriptionController@doctorMakePrescription')
+        ->name('frontend.doctor.make-prescription');
+    Route::post('/doctor/{id}/make-prescrition', 'Frontend\PrescriptionController@doctorStorePrescription')
+        ->name('frontend.doctor.prescription.store');
 
 });
+
+Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profileDiffUser')
+   ->name('frontend.user.different.profiles');
+
 Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');
 
 // Comment
@@ -95,9 +107,6 @@ Route::get('/comment/json/getList', 'Frontend\DetailMedicinesController@jsonComm
 
 // Detail medicine
 Route::get('detail/{id}/{name}', 'Frontend\DetailMedicinesController@index')->name('detail');
-
-// Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profileDiffUser')
-    // ->name('frontend.user.different.profiles');
 
 Route::get('/{parent}', 'Frontend\MedicinesListController@showParentCategories')->name('nav');
 Route::get('/{parentLink}/{subLink}', 'Frontend\MedicinesListController@showSubCategory')->name('sub_Nav');

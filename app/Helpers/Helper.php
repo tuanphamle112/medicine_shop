@@ -3,8 +3,11 @@
 namespace App\Helpers;
 
 use Session;
+use Auth;
 use App\Eloquent\Image;
 use App\Eloquent\User;
+use App\Eloquent\RelatedDoctorRequest;
+use App\Eloquent\RequestPrescription;
 
 class Helper
 {
@@ -44,7 +47,7 @@ class Helper
     public static function getLinkUserAvatar($path)
     {
         if (!$path) {
-            return url('bower_components/AdminLTE/dist/img/avatar.png');
+            return url(config('custom.user.avatar_default'));
         }
         if (strpos($path, 'http')) {
             return $path;
@@ -106,5 +109,26 @@ class Helper
         }
 
         return $account;
+    }
+
+    public static function countNewRequestPrescriptionDoctor()
+    {
+        $result = 0;
+        $relatedDoctorRequest = new RelatedDoctorRequest;
+        
+        if (Auth::check() && Auth::user()->permission == User::PERMISSION_DOCTER) {
+            $allRequests = $relatedDoctorRequest->with('getRequestPrescription')
+                ->where('doctor_id', Auth::user()->id)->get();
+
+            foreach ($allRequests as $request) {
+                if ($request->getRequestPrescription->status != RequestPrescription::STATUS_NEW) {
+                    continue;
+                }
+
+                $result ++;
+            }
+        }
+
+        return $result;
     }
 }
