@@ -72,6 +72,7 @@ $(document).on('click', '.detail-link', function(){
     });
 });
 $(document).on('click', '.user-change-password', function(){
+    $('#change-password-indicator').removeClass('hide');
     $('.change-password-notification').text('');
     $('.change-password-notification').removeClass('alert alert-success alert-dismissible');
     
@@ -84,6 +85,7 @@ $(document).on('click', '.user-change-password', function(){
     $.ajaxSetup({
         headers: { 'X-CSRF-Token' : tokenParam }
     });
+
     $.ajax({
         url : window.location.origin + '/user/change-password',
         type : 'post',
@@ -100,9 +102,12 @@ $(document).on('click', '.user-change-password', function(){
                 $('.change-password-notification').addClass('alert alert-success alert-dismissible')
                 $('.change-password-notification').text(result.message);
             }
+
+            $('#change-password-indicator').addClass('hide');
         },
         error : function (result){
             var errors = result.responseJSON;
+            $('#change-password-indicator').addClass('hide');
         }
 
     });

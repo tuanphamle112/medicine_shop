@@ -35,7 +35,6 @@ class UserProfilesController extends Controller
         $validator = Validator::make($request->all(), [
             'display_name' => 'required|min:4|max:30',
             'address' => 'required',
-            'phone' => 'required|numeric|regex:/(09)[0-9]{8}/',
             ]);
 
         if ($validator->fails()) {
@@ -88,7 +87,7 @@ class UserProfilesController extends Controller
         }
 
         $data['error']['status'] = false;
-        if (Hash::check($request->old_password, $user->password)) {
+        if (!Hash::check($request->old_password, $user->password)) {
             $data['error']['status'] = true;
             $data['error']['old_password'] = __('Old password not correct!');
         } else {

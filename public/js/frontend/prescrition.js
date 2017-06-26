@@ -95,18 +95,18 @@ var itemPrescription = function(data)
     self.itemId = ko.observable(data.id);
     self.medicineId = ko.observable(data.medicine_id);
     self.amout = ko.observable(data.amount);
-    self.styleRequest = ko.observable(data.styleRequest);
-    self.shortDescriber = ko.observable();
-    self.responeAdmin = ko.observable();
-    
-    if (data.get_request_medicine) {
-        self.shortDescriber(data.get_request_medicine.short_describer);
-        self.responeAdmin(data.get_request_medicine.respone_admin)
-        self.styleRequest('');
+    self.qty_purchased = ko.observable(data.qty_purchased);
+    self.item_guide = ko.observable(data.guide);
+    self.unitMedicine = ko.observable();
+
+    if (data.get_medicine) {
+        self.unitMedicine(data.get_medicine.unit);
     }
 
     self.findMedicineKeyup = function(object, event)
     {
+        $('#over-medicine-full-screen').removeClass('hide');
+
         var elementParent = $(event.target).parent();
         var paramKeyword = event.target.value;
 
@@ -118,9 +118,6 @@ var itemPrescription = function(data)
 
         request.done(function(data){
             self.resultFindMedicines(data);
-            if (data.length){
-                elementParent.parent().find('.request-new-medicine').css('display', 'none');
-            }
         });
     }
 
@@ -129,19 +126,22 @@ var itemPrescription = function(data)
         self.selectedMedicine(data);
         self.medicineName(data.name);
         self.medicineId(data.id);
+        self.unitMedicine(data.unit);
 
         var children = $(event.target).parent().children();
         children.removeClass('active');
         $(event.target).addClass('active');
         $(event.target).parent().parent().addClass('hide');
+        $('#over-medicine-full-screen').addClass('hide');
     }
 
     self.closeNotFoundMedicine = function(data, event)
     {
-        var parent = $(event.target).parent().parent().parent().parent();
-        parent.find('.request-new-medicine').css('display', '');
-        parent.find('.prescrition-search-item').addClass('hide');
+        
+        $('.prescrition-search-item').addClass('hide');
+        $('#over-medicine-full-screen').addClass('hide');
         self.medicineId(null);
+        self.unitMedicine('');
     }
 }
 
@@ -155,7 +155,6 @@ var AddPrescriptionViewModel = function()
     self.initData = function(dataArr, textComfirm)
     {   
         for (i in dataArr) {
-            dataArr[i].styleRequest = 'display:none';
             self.items.push(new itemPrescription(dataArr[i]));
         }
         
@@ -164,10 +163,7 @@ var AddPrescriptionViewModel = function()
     }
     self.addNewItem = function()
     {
-        var data = {
-            styleRequest: 'display:none',
-        };
-        self.items.push(new itemPrescription(data));
+        self.items.push(new itemPrescription({}));
     }
     self.deleteItem = function(data, event)
     {

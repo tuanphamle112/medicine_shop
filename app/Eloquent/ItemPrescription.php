@@ -38,7 +38,7 @@ class ItemPrescription extends AbstractEloquent
 
     public function getMedicine()
     {
-        return $this->belongsTo(Medicine::class);
+        return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 
     public function getRequestMedicine()

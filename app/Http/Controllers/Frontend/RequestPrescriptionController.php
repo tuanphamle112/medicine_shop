@@ -52,6 +52,30 @@ class RequestPrescriptionController extends Controller
         return Response::json($requestPresctiption);
     }
 
+    public function jsonDoctorDetail(Request $request)
+    {
+
+        $requestPresctiption = $this->requestPresctiption
+            ->with('getAllImages', 'getAllPrescription', 'getUser')
+            ->find($request->request_id);
+
+        if ($requestPresctiption->status == RequestPrescription::STATUS_NEW) {
+            $requestPresctiption->status = RequestPrescription::STATUS_WATCHECD;
+            $requestPresctiption->save();
+        }
+
+        $requestPresctiption->getUser->genderLabel = __('Not selected');
+        $optionGender = $this->user->getGenderOption();
+        if (isset($optionGender[$requestPresctiption->getUser->gender])) {
+            $requestPresctiption->getUser->genderLabel = $optionGender[$requestPresctiption->getUser->gender];
+        }
+        
+        $data['data'] = $requestPresctiption;
+        $data['countRequest'] = Helper::countNewRequestPrescriptionDoctor();
+
+        return Response::json($data);
+    }
+
     public function requestStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -118,5 +142,26 @@ class RequestPrescriptionController extends Controller
 
             return redirect()->route('request-prescription.addnew')->withInput($request->input);
         }  
+    }
+
+    public function doctorRequestIndex()
+    {  
+        if (Auth::user()->permission != User::PERMISSION_DOCTER) {
+            return redirect()->route('welcome');
+        }
+
+        $relatedDoctorRequests = RelatedDoctorRequest::where('doctor_id', Auth::user()->id)->get();
+
+        $requestIDs = [];
+        foreach ($relatedDoctorRequests as $relatedRequest) {
+            $requestIDs[$relatedRequest->request_prescription_id] = $relatedRequest->request_prescription_id;
+        }
+
+        $requestPrescriptions = $this->requestPresctiption
+            ->with('getAllImages', 'getAllPrescription', 'getUser')
+            ->whereIn('id', $requestIDs)->orderBy('id', 'desc')
+            ->paginate(config('model.request_prescription.items_limit'));
+
+        return view('frontend.doctor.request-prescription-index', compact(['requestPrescriptions']));
     }
 }

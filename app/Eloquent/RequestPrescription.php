@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class RequestPrescription extends Model
 {
+    const STATUS_NEW = 0;
+    const STATUS_WATCHECD = 1;
+    const STATUS_RESPONSE = 2;
     
     const PATH_REQUEST = 'uploads/request-prescription/';
 
@@ -19,6 +22,20 @@ class RequestPrescription extends Model
         'title',
         'describer',
     ];
+    
+    public function getOptionStatus()
+    {
+        return [
+            self::STATUS_NEW => __('Not seen'),
+            self::STATUS_WATCHECD => __('Watched'),
+            self::STATUS_RESPONSE => __('Has responded'),
+        ];
+    }
+
+    public function getUser()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function getAllImages()
     {

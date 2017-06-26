@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
         $categoryModel = new \App\Eloquent\Category;
         if (Schema::hasTable($categoryModel->getTable())) {
             $parentCategories = $categoryModel->with('getSubCategories')->allParentCategories()->get();
-
             view()->share('frontendAllParentCategories', $parentCategories);
         }
     }

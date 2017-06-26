@@ -17,12 +17,9 @@
     <div class="panel-body">
         <div class="content">
             <div class= "row">
-                @foreach($items as $item)
-                    <div class= "col-sm-3">
-                        @include('frontend.components.item')
-                    </div>
-                @endforeach
 
+                @include('frontend.components.item')
+                
                 @if (count($items) == 0)
                     <div class="text-center v-x2-padding">
                         {{ __('No Item') }}

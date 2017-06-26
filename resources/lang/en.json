@@ -207,5 +207,15 @@
     "Workplace": "Workplace",
     "Edit personal information": "Edit personal information",
     "Personal information": "Personal information",
-    "Type User": "Type User"
+    "Type User": "Type User",
+    "Make Request Presctiption": "Make Request Presctiption",
+    "Doctor - Request Presctiption": "Doctor - Request Presctiption",
+    "Not selected": "Not selected",
+    "Make prescription for this user!": "Make prescription for this user!",
+    "Diagnose": "Diagnose",
+    "How to use medicine.": "How to use medicine.",
+    "Time to use": "Time to use",
+    "day": "day",
+    "Make Prescription for User": "Make Prescription for User",
+    "Amount per day": "Amount per day"
 }
