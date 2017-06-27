@@ -3,6 +3,7 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\User;
 
 class RateMedicine extends Model
 {
@@ -18,7 +19,13 @@ class RateMedicine extends Model
         'title',
         'content',
     ];
-    
+    public function scopeGetRateId($query, $medicine_id)
+    {
+        return $query->where('medicine_id', $medicine_id);
+    }
+    public function scopeStarNumber($query, $id, $point_rate) {
+        return $query->where('medicine_id', $id)->where('point_rate', $point_rate);    
+    }
     public function getUser()
     {
         return $this->belongsTo(User::class, 'user_id');

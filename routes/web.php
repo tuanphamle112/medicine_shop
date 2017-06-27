@@ -62,8 +62,6 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::delete('/mark-medicine/{id}', 'Frontend\HomeController@markMedicineDestroy')
         ->name('frontend.mark-medicine.destroy');
 
-    Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
-    Route::post('detail/{id}/edit', 'Frontend\DetailMedicinesController@editRating')->name('edit_rating');
     Route::get('detail/add-to-box', 'Frontend\DetailMedicinesController@addToBox')->name('add_to_box');
 
     // Add comment
@@ -88,6 +86,9 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::get('/request-prescription/json/detail', 'Frontend\RequestPrescriptionController@jsonDetail');
 
 });
+
+Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
+
 Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');
 
 // Comment

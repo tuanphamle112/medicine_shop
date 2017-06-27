@@ -18,12 +18,24 @@ $(document).ready(function(){
         $('#hidden-quality').val(value);
     });
 
-    $('#star-main').rating({ step: 0.1, stars: 5,showCaption:false, showClear:false,disabled: true});
-
-    $('#attachfile').click(function () {
-    $("#edit_photo").trigger('click'); // or triggerHandler or click()
+    $('#star-main').rating({ step: 0.1, stars: 5,displayOnly: true});
+    $('#star-main2').rating({ step: 1, stars: 5,showCaption:false, showClear:false});
+    $('#star-main2').on('rating.change', function(event, value, caption) {
+        $(".rating-star-hint").css({
+            display: 'none'
+        });
+        $("div").removeClass("div-overlap-active");
     });
 
+    $('#attachfile').click(function () {
+        $("#edit_photo").trigger('click'); // or triggerHandler or click()
+    });
+    
+    // Show form review
+    $(".rating-button").click(function(){
+        $(".wrap-form-rating-review").show(300);
+        $(".rating-button").hide();
+    });
     // preview images
     function readURL(input) {
         if (input.files && input.files[0]) {
