@@ -16,7 +16,8 @@
     <section class="site-content site-section site-slide-content site-userprofile">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6  toppad" >
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 toppad" >
+                <div class="wrap-panel">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">{{ Auth::user()->display_name }}</h3>
@@ -65,13 +66,7 @@
                                             </tr>
                                             <tr>
                                                 <td>{{ __('Gender') }} :</td>
-                                                <td>
-                                                    @if (isset($option['gender'][Auth::user()->gender]))
-                                                        {{ $option['gender'][Auth::user()->gender] }}
-                                                    @else
-                                                        {{ __('Not selected') }}
-                                                    @endif
-                                                </td>
+                                                <td>{{ $option['gender'][Auth::user()->gender] }}</td>
                                             </tr>
                                             <tr>
                                                 <td>{{ __('Date of birth') }} :</td>
@@ -253,12 +248,12 @@
                                  </div>
                              </div>
                          </div>
-                    </div>
-                    <!-- Modal change password -->
-                    <div class="modal fade" id="change-password" role="dialog">
+                     </div>
+                     <!-- Modal change password -->
+                     <div class="modal fade" id="change-password" role="dialog">
                         <div class="modal-dialog">
                             <!-- Modal content-->
-                            <div class="modal-content position-relative">
+                            <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">
@@ -285,12 +280,11 @@
                                     </div>
                                     <button class="btn btn-success user-change-password">{{ __('Change') }}</button>
                                 </div>
-                                <div class="indicator hide" id="change-password-indicator">
-                                    <div class="spinner"></div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                    
                 </div>
             </div>
         </div>
