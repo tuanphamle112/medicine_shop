@@ -19,7 +19,7 @@ class User extends Authenticatable
     const GENDER_FEMALE = 'female';
     const GENDER_OTHER = 'other';
 
-    const PATH_AVATAR = 'uploads/avatars/';
+    const PATH_AVATAR = '/uploads/avatars/';
 
     /**
      * The attributes that are mass assignable.
@@ -53,6 +53,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'provider',
+        'provider_user_id',
     ];
 
     public static function getPermissionOption()
@@ -72,7 +74,7 @@ class User extends Authenticatable
             self::GENDER_OTHER => __('Other'),
         ];
     }
-
+    
     public function getAllDoctorOption()
     {
         $doctors = $this->where('permission', self::PERMISSION_DOCTER)->get();

@@ -5,6 +5,7 @@ return [
         'items_limit' => 8,
         'autocomple_limit' => 12,
         'result_limit' => 8,
+        'review_limit' => 8,
     ],
 
     'prescription' => [

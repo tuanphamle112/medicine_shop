@@ -3,6 +3,7 @@
 <script src="{{ asset('bower_components/slick-carousel/slick/slick.js') }}"> </script>
 <script src="{{ asset('bower_components/jquery-sticky/jquery.sticky.js') }}"> </script>
 <script src="{{ asset('/js/main.js') }}"> </script>
+
 <!-- Knockout JS -->
 <script src="{!! url('bower_components/knockout/dist/knockout.js') !!}"></script>
 <script src="{!! url('bower_components/AdminLTE/plugins/select2/select2.min.js') !!}"></script>
