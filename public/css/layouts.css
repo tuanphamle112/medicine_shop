@@ -120,7 +120,6 @@
         background-color: #f7f7f7 !important;
         padding-top:0 !important;
         padding-bottom:0 !important;
-
     }
     .user-row {
         margin-bottom: 14px;
@@ -1579,6 +1578,10 @@
     padding-top: 15px!important;
     padding-bottom: 15px!important;
 }
+.padding-5px {
+    padding-top: 5px!important;
+    padding-bottom: 5px!important;
+}
 .height-35px {
     height: 35px;
     line-height: 35px;
@@ -1650,7 +1653,9 @@
     background-color: #00c0ef!important;
     border: 1px solid #00c0ef!important;
 }
-
+.height-100px {
+    height: 100px!important;
+}
 .store-item-image img {
     height: 200px;
     margin: auto;
@@ -1665,6 +1670,14 @@
 }
 .padding-right-15px {
     padding-right: 15px !important;
+}
+.padding-bottom-35px{
+    padding-bottom: 35px!important;
+}
+.not-medicine {
+    background-color: #EDEDED;
+    border-bottom: 3px solid #FFFFFF;
+    opacity: 0.6;
 }
 @media screen and (min-width: 992px) {
     .site-nav ul {

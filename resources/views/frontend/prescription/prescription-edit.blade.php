@@ -6,6 +6,14 @@
 @php
     $prescription = $data['prescription'];
 @endphp
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container text-center">
+        <h1 class="animation-slideDown">
+            <i class="fa fa-medkit"></i>
+            <strong>{{ __('Edit Prescription') }}</strong>
+        </h1>
+    </div>
+</section>
 <div class="content position-relative" id="area-edit-prescription">
     <div class= "row">
         <div class="panel panel-success">
@@ -32,19 +40,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('name_doctor', __('Doctor Name'), ['class' => 'col-sm-2 control-label']) !!}
-                        <div class="col-sm-4">
-                            {!! Form::text('name_doctor', $prescription->name_doctor, ['class' => 'form-control', 'placeholder' => __('Doctor Name')]) !!}
-                        </div>
-                        {!! Form::label('frequency', __('Frequency'), ['class' => 'col-sm-1 control-label']) !!}
-                        <div class="col-sm-4">
-                            {!! Form::text('frequency', $prescription->frequency, ['class' => 'form-control', 'placeholder' => __('Frequency')]) !!}
+                        {!! Form::label('diagnose', __('Diagnose'), ['class' => 'col-sm-2 control-label']) !!}
+                        <div class="col-sm-9">
+                            {!! Form::textarea('diagnose', $prescription->diagnose, ['class' => 'form-control', 'rows' => '3', 'placeholder' => __('Diagnose')]) !!}
                         </div>
                     </div>
                     <div class="form-group">
                         {!! Form::label('guide', __('Guide'), ['class' => 'col-sm-2 control-label']) !!}
                         <div class="col-sm-9">
-                            {!! Form::textarea('guide', $prescription->guide, ['class' => 'form-control', 'rows' => '6']) !!}
+                            {!! Form::textarea('guide', $prescription->guide, ['class' => 'form-control', 'rows' => '3']) !!}
                         </div>
                     </div>
                     <div class="form-group">

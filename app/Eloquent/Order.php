@@ -33,4 +33,14 @@ class Order extends Model
             self::STATUS_REFUND => __('Refund'),
         ];
     }
+
+    public function getOrderAddress()
+    {
+        return $this->hasMany(OrderAddress::class, 'order_id');
+    }
+
+    public function getOrderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
+    }
 }

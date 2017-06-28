@@ -48,7 +48,7 @@
             <li class="treeview">
                 <a href="{{ route('rate.index') }}">
                     <i class="fa fa-star"></i>
-                    <span> {{ __('Rate Medicine') }}  </span>
+                    <span> {{ __('Review Medicine') }}  </span>
                 </a>
             </li>
             <li class="treeview">

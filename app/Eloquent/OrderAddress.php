@@ -22,4 +22,19 @@ class OrderAddress extends Model
         'user_gender',
         'user_phone',
     ];
+
+    public function scopeGetBillingOrderAddress($query, $orderId)
+    {
+        return $query->where('order_id', $orderId)->where('address_type', self::TYPE_BILLING);
+    }
+
+    public function scopeGetShippingOrderAddress($query, $orderId)
+    {
+        return $query->where('order_id', $orderId)->where('address_type', self::TYPE_SHIPPING);
+    }
+
+    public function getOrder()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }
