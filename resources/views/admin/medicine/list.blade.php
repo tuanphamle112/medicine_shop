@@ -39,6 +39,7 @@
                             <th>{{ __('Medicine Name') }}</th>
                             <th>{{ __('Symptom') }}</th>
                             <th>{{ __('Price') }}</th>
+                            <th>{{ __('Qty') }}</th>
                             <th>{{ __('Created By') }}</th>
                             <th>{{ __('Allowed buy') }}</th>
                             <th>{{ __('Avg Rate') }}</th>
@@ -64,6 +65,9 @@
                                     <span>
                                         {{ App\Helpers\Helper::formatPrice($medicine->price) }}
                                     </span>
+                                </td>
+                                <td>
+                                    {{ $medicine->quantity }}
                                 </td>
                                 <td>
                                     <span>{{ $medicine->getCreatedUser->display_name }}</span>

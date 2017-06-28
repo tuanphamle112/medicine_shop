@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('test', function(){
+    return view('emails.orders.create-order');
+});
+
 Route::get('/', 'Frontend\HomeController@index')->name('welcome');
 Route::get('/search', 'Frontend\HomeController@search')->name('frontend.search');
 Route::get('/search/json', 'Frontend\HomeController@jsonSearch');
@@ -92,6 +96,14 @@ Route::group(['middleware' => 'isLogin'], function(){
         ->name('frontend.doctor.make-prescription');
     Route::post('/doctor/{id}/make-prescrition', 'Frontend\PrescriptionController@doctorStorePrescription')
         ->name('frontend.doctor.prescription.store');
+
+    Route::get('/convert-prescription/{id}/order', 'Frontend\OrderController@convertToOrder')
+        ->name('frontend.convert.order');
+    Route::get('checkout', 'Frontend\OrderController@checkout')->name('frontend.checkout');
+    Route::post('checkout', 'Frontend\OrderController@checkoutStore')->name('frontend.checkout.store');
+    Route::get('order-view/{id}/detail', 'Frontend\OrderController@detailOrder')
+        ->name('frontend.order.detail');
+    Route::get('checkout/success', 'Frontend\OrderController@orderSuccess')->name('frontend.order.success');
 
 });
 

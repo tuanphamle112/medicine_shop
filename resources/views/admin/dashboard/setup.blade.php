@@ -50,6 +50,27 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            @php
+                                $options = json_decode($setup->options, true);
+                                $ordered = isset($options['ordered_out_stock']) ? $options['ordered_out_stock'] : config('custom.order.ordered_out_stock');
+                                $emailContact = isset($options['contact_email']) ? $options['contact_email'] : config('custom.contact.default_email');
+                            @endphp
+                            <div class="col-sm-6">
+                                {!! Form::label('ordered_out_stock', __('Ordered Out Stock'), ['class' => 'col-sm-4 control-label']) !!}
+                                <div class="col-sm-8">
+                                    {!! Form::select('ordered_out_stock', $optionOrdered, $ordered, ['class' => 'form-control']) !!}
+                                    <span class="text-danger">{!! $errors->first('ordered_out_stock') !!}</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                {!! Form::label('contact_email', __('Email recieve Contact'), ['class' => 'col-sm-2 control-label']) !!}
+                                <div class="col-sm-10">
+                                    {!! Form::text('contact_email', $emailContact, ['class' => 'form-control', 'placeholder' => __('Email recieve Contact')]) !!}
+                                    <span class="text-danger">{!! $errors->first('contact_email') !!}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('logo', __('Logo'), ['class' => 'col-sm-2 control-label']) !!}
                             @if ($setup->logo)
                                 <div class="col-sm-3">

@@ -3,6 +3,14 @@
 @section('title', __('Add New Prescription'))
 
 @section('content')
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container text-center">
+        <h1 class="animation-slideDown">
+            <i class="fa fa-medkit"></i>
+            <strong>{{ __('Add New Prescription') }}</strong>
+        </h1>
+    </div>
+</section>
 <div class="content position-relative" id="area-add-prescription">
     <div class= "row">
         <div class="panel panel-success">

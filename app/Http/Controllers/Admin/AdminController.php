@@ -115,7 +115,9 @@ class AdminController extends Controller
         }
 
         if ($request->isMethod('get')) {
-            return view('admin.dashboard.setup', ['setup' => $setup]);
+            $optionOrdered = InforWebsite::getOptionOrdered();
+
+            return view('admin.dashboard.setup', compact(['setup', 'optionOrdered']));
         }
 
         if ($request->isMethod('post')){
@@ -130,6 +132,10 @@ class AdminController extends Controller
 
             $setup->fill($request->except(['logo']));
             $setup->position = InforWebsite::POSITION_MAIN;
+            $setup->options = json_encode([
+                'ordered_out_stock' => $request->ordered_out_stock,
+                'contact_email' => $request->contact_email,
+            ]);
 
             $linkKeywords = is_array($request->keyword) ? $request->keyword : [];
             $linkValues = is_array($request->link) ? $request->link : [];
