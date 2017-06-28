@@ -24,6 +24,7 @@ class UserProfilesController extends Controller
 
     public function index()
     {
+
         $option['gender'] = $this->user->getGenderOption();
         $option['permission'] = $this->user->getPermissionOption();
 
@@ -97,5 +98,23 @@ class UserProfilesController extends Controller
         }
 
         return Response::json($data);
+    }
+    public function profileDiffUser($user_id)
+    {
+        $userProfiles = User::find($user_id);
+        $option['gender'] = $this->user->getGenderOption();
+        $option['permission'] = $this->user->getPermissionOption();
+        
+        if(Auth::check())
+        {
+            if($userProfiles->id == Auth::user()->id)
+            {
+                return redirect()->route('frontend.user.profiles');
+            }
+        }
+        return view('frontend.user.userProfile',compact([
+            'userProfiles',
+            'option'
+        ]));
     }
 }

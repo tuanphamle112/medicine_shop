@@ -18,10 +18,23 @@ $(document).ready(function(){
         $('#hidden-quality').val(value);
     });
 
-    $('#star-main').rating({ step: 0.1, stars: 5,showCaption:false, showClear:false,disabled: true});
+    $('#star-main').rating({ step: 0.1, stars: 5, displayOnly: true});
+    $('#star-main2').rating({ step: 1, stars: 5, showCaption:false, showClear:false});
+    $('#star-main2').on('rating.change', function(event, value, caption) {
+        $(".rating-star-hint").css({
+            display: 'none'
+        });
+        $("div").removeClass("div-overlap-active");
+    });
 
     $('#attachfile').click(function () {
-    $("#edit_photo").trigger('click'); // or triggerHandler or click()
+        $("#edit_photo").trigger('click'); // or triggerHandler or click()
+    });
+    
+    // Show form review
+    $(".rating-button").click(function(){
+        $(".wrap-form-rating-review").show(300);
+        $(".rating-button").hide();
     });
 
     // preview images
@@ -85,7 +98,6 @@ $(document).on('click', '.user-change-password', function(){
     $.ajaxSetup({
         headers: { 'X-CSRF-Token' : tokenParam }
     });
-
     $.ajax({
         url : window.location.origin + '/user/change-password',
         type : 'post',
@@ -102,7 +114,6 @@ $(document).on('click', '.user-change-password', function(){
                 $('.change-password-notification').addClass('alert alert-success alert-dismissible')
                 $('.change-password-notification').text(result.message);
             }
-
             $('#change-password-indicator').addClass('hide');
         },
         error : function (result){
@@ -133,4 +144,3 @@ $(document).on('click', '.add-medicine-to-box', function(){
         }
     });
 });
-
