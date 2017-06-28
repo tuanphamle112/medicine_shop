@@ -62,8 +62,6 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::delete('/mark-medicine/{id}', 'Frontend\HomeController@markMedicineDestroy')
         ->name('frontend.mark-medicine.destroy');
 
-    Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
-    Route::post('detail/{id}/edit', 'Frontend\DetailMedicinesController@editRating')->name('edit_rating');
     Route::get('detail/add-to-box', 'Frontend\DetailMedicinesController@addToBox')->name('add_to_box');
 
     // Add comment
@@ -98,7 +96,9 @@ Route::group(['middleware' => 'isLogin'], function(){
 });
 
 Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profileDiffUser')
-   ->name('frontend.user.different.profiles');
+    ->name('frontend.user.different.profiles');
+
+Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
 
 Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');
 
@@ -107,6 +107,7 @@ Route::get('/comment/json/getList', 'Frontend\DetailMedicinesController@jsonComm
 
 // Detail medicine
 Route::get('detail/{id}/{name}', 'Frontend\DetailMedicinesController@index')->name('detail');
+
 
 Route::get('/{parent}', 'Frontend\MedicinesListController@showParentCategories')->name('nav');
 Route::get('/{parentLink}/{subLink}', 'Frontend\MedicinesListController@showSubCategory')->name('sub_Nav');
