@@ -105,7 +105,7 @@
     "Enable": "Enable",
     "Comment not found!": "Comment not found!",
     "Delete comment from :medicine of :user successfully!": "Delete comment from :medicine of :user successfully!",
-    "Rate Medicine": "Rate Medicine",
+    "Review Medicine": "Review Medicine",
     "Updated At": "Updated At",
     "Prescription Name": "Prescription Name",
     "Doctor Name": "Doctor Name",
@@ -250,7 +250,36 @@
     " Us": " Us",
     "Contact": "Contact",
     " Form": " Form",
-
-
-
+    "Created By": "Created By",
+    "Yourself": "Yourself",
+    "Doctor": "Doctor",
+    "Convert Prescription to Order.": "Convert Prescription to Order.",
+    "Grand Total": "Grand Total",
+    "Qty": "Qty",
+    "Row Total": "Row Total",
+    "Checkout": "Checkout",
+    "User Information": "User Information",
+    "Address": "Address",
+    "Payment method": "Payment method",
+    "Confirm order": "Confirm order",
+    "Phone number": "Phone number",
+    "Billing Address": "Billing Address",
+    "Shipping Address": "Shipping Address",
+    "Previous Step": "Previous Step",
+    "Next Step": "Next Step",
+    "Confirm Order": "Confirm Order",
+    "No products to order!": "No products to order!",
+    "Ordered Out Stock": "Ordered Out Stock",
+    "Allow ordered when out stock!": "Allow ordered when out stock!",
+    "Not allow ordered when out stock!": "Not allow ordered when out stock!",
+    "Successfully": "Successfully",
+    "Created order successfully!": "Created order successfully!",
+    "Your order has been received.": "Your order has been received.",
+    "Thank you for your purchase!": "Thank you for your purchase!",
+    "Your order # is:": "Your order # is:",
+    "You will receive an order confirmation email with details of your order and a link to track its progress.":
+    "You will receive an order confirmation email with details of your order and a link to track its progress.",
+    "You are only allowed to place a maximum of :maxnumber for each medicines.": 
+    "You are only allowed to place a maximum of :maxnumber for each medicines.",
+    "The medicine :name you have placed exceeds the quantity!": "The medicine :name you have placed exceeds the quantity!"
 }

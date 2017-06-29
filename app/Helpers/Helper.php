@@ -8,6 +8,10 @@ use App\Eloquent\Image;
 use App\Eloquent\User;
 use App\Eloquent\RelatedDoctorRequest;
 use App\Eloquent\RequestPrescription;
+use App\Eloquent\InforWebsite;
+use App\Eloquent\Order;
+use App\Eloquent\OrderAddress;
+use App\Eloquent\Medicine;
 
 class Helper
 {
@@ -24,6 +28,64 @@ class Helper
         $messages = Session::get('flash_frontend_messages', []);
         $messages[] = ['title' => $title, 'message' => $message, 'type' => $type];
         Session::flash('flash_frontend_messages', $messages);
+    }
+
+    public static function addItemToCart($itemId, $qtyOrder, $price, $rowTotal, $mediId = '', $mediName = '')
+    {
+        $carts = Session::get('frontend_cart', []);
+        $carts[$itemId] = [
+            'qty_ordered' => $qtyOrder,
+            'price' => $price,
+            'row_total' => $rowTotal,
+            'medicine_id' => $mediId,
+            'medicine_name' => $mediName,
+        ];
+        Session::put('frontend_cart', $carts);
+    }
+
+    public static function getCarts()
+    {
+        return Session::get('frontend_cart', []);
+    }
+
+    public static function emptyCarts()
+    {
+        return Session::put('frontend_cart', []);
+    }
+
+    public static function saveOrderAddress($orderId, $data, $typeAddress = OrderAddress::TYPE_BILLING)
+    {
+        $orderAddress = new OrderAddress;
+        $orderAddress->order_id = $orderId;
+        $orderAddress->address_type = $typeAddress;
+        $orderAddress->user_email = isset($data['user_email']) ? $data['user_email'] : 'guest';
+        $orderAddress->user_display_name = isset($data['user_display_name']) ? $data['user_display_name'] : 'guest';
+        $orderAddress->user_address = isset($data['user_address']) ? $data['user_address'] : 'guest';
+        $orderAddress->user_phone = isset($data['user_phone']) ? $data['user_phone'] : 'guest';
+        $orderAddress->user_gender = User::GENDER_OTHER;
+
+        return $orderAddress->save();
+    }
+
+    public static function getSetupAllowOrder()
+    {
+        $setup = InforWebsite::getInfoWebsite()->first();
+        $allowOrdered = config('custom.order.ordered_out_stock');
+        if ($setup) {
+            $options = json_decode($setup->options, true);
+            if (isset($options['ordered_out_stock'])) $allowOrdered = $options['ordered_out_stock'];
+        }
+
+        return $allowOrdered;
+    }
+
+    public static function changeQuantityMedicine($medicineId, $quantity = 0)
+    {
+        $medicine = Medicine::find($medicineId);
+        if ($medicine && $quantity != 0) {
+            $medicine->quantity = $medicine->quantity - $quantity;
+            $medicine->save();
+        }
     }
 
     public static function deleteFile($path)

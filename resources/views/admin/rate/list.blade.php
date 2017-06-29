@@ -1,17 +1,17 @@
 @extends('admin.layouts.admin-layout')
 
-@section('pageAdminTitle', __('Rate Medicine'))
+@section('pageAdminTitle', __('Review Medicine'))
 
 @section('content')
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        {{ __('Rate Medicine') }}
+        {{ __('Review Medicine') }}
         <small>{{ __('List') }}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{!! url('admin') !!}"><i class="fa fa-dashboard"></i>{{ __('Home') }}</a></li>
-        <li class="active">{{ __('Rate Medicine') }}</li>
+        <li class="active">{{ __('Review Medicine') }}</li>
     </ol>
 </section>
 
@@ -22,7 +22,7 @@
             <div class="box">
                 <div class="box-header">
                     <div class="col-md-10">
-                        <h3 class="box-title">{{ __('Rate Medicine') }}</h3>
+                        <h3 class="box-title">{{ __('Review Medicine') }}</h3>
                     </div>
                     <div class="col-md-2 text-right">
                         <a href="" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="{{ __('Rebuild') }}"><i class="fa fa-refresh"></i></a>
@@ -35,9 +35,10 @@
                             <th>{{ __('ID #') }}</th>
                             <th>{{ __('Medicine') }}</th>
                             <th>{{ __('User') }}</th>
+                            <th>{{ __('Title') }}</th>
                             <th>{{ __('Point') }}</th>
+                            <th>{{ __('Content') }}</th>
                             <th>{{ __('Created At') }}</th>
-                            <th>{{ __('Updated At') }}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -57,14 +58,13 @@
                                 <td>
                                     <span>{{ $rate->getUser->display_name }}</span>
                                 </td>
+                                <td>{{ $rate->title }}</td>
                                 <td>
                                     <span>{{ $rate->point_rate }}</span>
                                 </td>
+                                <td>{{ $rate->content }}</td>
                                 <td>
                                     <span>{{ $rate->created_at }}</span>
-                                </td>
-                                <td>
-                                    <span>{{ $rate->updated_at }}</span>
                                 </td>
                             </tr>
                         @endforeach

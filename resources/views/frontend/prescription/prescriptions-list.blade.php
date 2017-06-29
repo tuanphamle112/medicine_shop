@@ -3,19 +3,17 @@
 @section('title', __('Prescription List'))
 
 @section('content')
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container text-center">
+        <h1 class="animation-slideDown">
+            <i class="fa fa-medkit"></i>
+            <strong>{{ __('Prescription List') }}</strong>
+        </h1>
+    </div>
+</section>
 <div class="content position-relative" id="area-prescription-list">
 
-    @php
-        $messages = Session::get('flash_frontend_messages', []) 
-    @endphp
-
-    @foreach ($messages as $message)
-        <div class="alert alert-{{ $message['type'] }} alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>{{ $message['title'] }}</h4>
-            <p>{{ $message['message'] }}</p>
-        </div>
-    @endforeach
+    @include('frontend.components.show-message')
 
     <div class= "row">
         <div class="panel panel-success">
@@ -37,8 +35,7 @@
                         <tr class="warning">
                             <th>{{ __('ID #') }}</th>
                             <th>{{ __('Prescription Name') }}</th>
-                            <th>{{ __('Doctor Name') }}</th>
-                            <th>{{ __('Frequency') }}</th>
+                            <th>{{ __('Created By') }}</th>
                             <th>{{ __('Created At') }}</th>
                             <th>{{ __('Updated At') }}</th>
                             <th class="text-center">{{ __('Action') }}</th>
@@ -53,10 +50,13 @@
                                 <span data-bind="text: name_prescription"></span>
                             </td>
                             <td>
-                                <span data-bind="text: name_doctor"></span>
-                            </td>
-                            <td>
-                                <span data-bind="text: frequency"></span>
+                                <!-- ko ifnot: doctor_id -->
+                                    <span>{{ __('Yourself') }}</span>
+                                <!-- /ko -->
+                                <!-- ko if: doctor_id -->
+                                    <span>{{ __('Doctor') }}:</span>
+                                    <a target="_blank" data-bind="text: get_doctor.display_name, attr:{href: '/user/' + get_doctor.id + '/' + str_slug(get_doctor.display_name)}"></a>
+                                <!-- /ko -->
                             </td>
                             <td>
                                 <span data-bind="text: created_at"></span>
@@ -64,18 +64,20 @@
                             <td>
                                 <span data-bind="text: updated_at"></span>
                             </td>
-                            <td class="text-center">
+                            <td class="text-right">
                                 {!! Form::open(['url' => '/', 'method' => 'DELETE', 'data-bind' => 'attr:{action: "/prescription/" + id}']) !!}
                                     <span class="text-right" data-toggle="modal" data-target="#showDetailPrescription" data-bind="click: $root.viewDetailPrescription">
                                         <a href="#" class="btn btn-primary" data-toggle="tooltip" title="{{ __('View Detail') }}">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </span>
-                                    <span class="text-right">
-                                        <a href="#" data-toggle="tooltip" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}" data-bind="attr:{href: '/prescription/' + id + '/edit'}">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </span>
+                                    <!-- ko ifnot: doctor_id -->
+                                        <span class="text-right">
+                                            <a href="#" data-toggle="tooltip" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}" data-bind="attr:{href: '/prescription/' + id + '/edit'}">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </span>
+                                    <!-- /ko -->
                                     <button type="button" data-toggle="tooltip" class="btn btn-danger"
                                         onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
                                         title="{{ __('Delete') }}"
@@ -118,21 +120,41 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title" data-bind="">
-                                    <span class="label label-info">{{ __('Prescription Name') }}</span>
-                                    <span data-bind="text: prescriptionDetail().name_prescription"></span>
+                            <div class="panel-heading well">
+                                <h3 class="panel-title text-center">
+                                    <span>{{ __('Prescription Name') }} : </span>
+                                    <strong data-bind="text: prescriptionDetail().name_prescription"></strong>
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <div class="row">
+                                <div class="row well">
                                     <div class="col-sm-6">
-                                        <span class="label label-info">{{ __('Doctor Name') }}</span>
-                                        <span data-bind="text: prescriptionDetail().name_doctor"></span>
+                                        <span class="">{{ __('Created By') }} : </span>
+                                        <!-- ko ifnot: prescriptionDetail().doctor_id -->
+                                            <strong>{{ __('Yourself') }}</strong>
+                                        <!-- /ko -->
+                                        <!-- ko if: prescriptionDetail().doctor_id -->
+                                            <span>{{ __('Doctor') }} : </span>
+                                            <strong>
+                                                <a target="_blank" data-bind="text: prescriptionDetail().get_doctor.display_name, attr:{href: '/user/' + prescriptionDetail().get_doctor.id + '/' + str_slug(prescriptionDetail().get_doctor.display_name)}"></a>
+                                            </strong>
+                                        <!-- /ko -->
                                     </div>
                                     <div class="col-sm-6">
-                                        <span class="label label-info">{{ __('Frequency') }}</span>
-                                        <span data-bind="text: prescriptionDetail().frequency"></span>
+                                        <span>{{ __('Created At') }} : </span>
+                                        <strong data-bind="text: prescriptionDetail().created_at"></strong>
+                                    </div>
+                                </div>
+                                <div class="row well">
+                                    <div class="col-sm-12">
+                                        <strong>{{ __('Diagnose') }} : </strong>
+                                        <span data-bind="text: prescriptionDetail().diagnose"></span>
+                                    </div>
+                                </div>
+                                <div class="row well">
+                                    <div class="col-sm-12">
+                                        <strong>{{ __('Guide') }} : </strong>
+                                        <span data-bind="text: prescriptionDetail().guide"></span>
                                     </div>
                                 </div>
                                 <div class="row padding-15px">
@@ -140,7 +162,7 @@
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
-                                                    <td colspan="7" class="text-center success">
+                                                    <td colspan="5" class="text-center success">
                                                         {{ __('Items List') }}
                                                     </td>
                                                 </tr>
@@ -162,6 +184,15 @@
                                                     </td>
                                                     <td>
                                                         <span data-bind="text: amount"></span>
+                                                        <!-- ko if: medicine_id -->
+                                                            <span data-bind="text: get_medicine.unit"></span>
+                                                        <!-- /ko -->
+                                                        <span> / {{ __('day') }}</span><br/>
+                                                        <!-- ko if: qty_purchased -->
+                                                            <span>{{ __('Uses in')  }}</span>
+                                                            <span data-bind="text: qty_purchased"></span>
+                                                            <span>{{ __('day') }}</span>
+                                                        <!-- /ko -->
                                                     </td>
                                                     <td>
                                                         <span data-bind="text: $parent.statusItem[status]"></span>
@@ -170,11 +201,18 @@
                                                         <span data-bind="text: created_at"></span>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td colspan="5">
+                                                        <strong>{{ __('Instruction') }} :</strong>
+                                                        <span data-bind="text: guide"></span>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                             
                                             <tbody data-bind="if: prescriptionDetail().get_all_item_prescriptions.length === 0">
                                                 <tr>
-                                                    <td colspan="4" class="text-center">
+                                                    <td colspan="5" class="text-center">
                                                         {{ __('No Item') }}
                                                     </td>
                                                 </tr>
@@ -183,7 +221,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer" data-bind="text: prescriptionDetail().guide"></div>
+                            <div class="panel-footer text-right">
+                                <a class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="{{ __('Convert Prescription to Order.') }}" data-bind="attr:{href: '/convert-prescription/'+ prescriptionDetail().id +'/order'}">
+                                    <i class="fa fa-share-square-o"></i>
+                                    {{ __('Convert Prescription to Order.') }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

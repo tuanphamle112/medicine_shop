@@ -20,7 +20,7 @@ var PrescriptionViewModel = function()
     {
         $('.indicator').removeClass('hide');
 
-        var tmpDetail = {get_all_item_prescriptions: []};
+        var tmpDetail = {get_all_item_prescriptions: [], get_doctor: {}};
         self.prescriptionDetail(tmpDetail);
         self.statusItem = statusItem;
 
