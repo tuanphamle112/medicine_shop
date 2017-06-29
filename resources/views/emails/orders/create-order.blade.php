@@ -65,6 +65,7 @@
                     @if (isset($order))
                         <small>{{ __('Your order # is:') }}</small>
                         <a href="{{route('frontend.order.detail', [$order->id])}}">#{{ $order->id }}</a>
+                        <br><small>{{ __('Status: :status', ['status' => $option_status[$order->status]]) }}</small>
                     @endif
                 </td>
             </tr>

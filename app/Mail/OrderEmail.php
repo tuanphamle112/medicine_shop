@@ -41,6 +41,7 @@ class OrderEmail extends Mailable
             ->with([
                 'order' => $order,
                 'address' => $address,
+                'option_status' => Order::getOptionStatus(),
             ]);
     }
 }

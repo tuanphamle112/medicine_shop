@@ -37,4 +37,14 @@ class Comment extends AbstractEloquent
     {
         return $this->belongsTo(Medicine::class, 'medicine_id');
     }
+
+    public function scopeGetQuestionByUserId($query, $user_id)
+    {
+        return $query->whereNull('parent_id')->where('user_id', $user_id);
+    }
+
+    public function scopeGetAnswerByUserId($query, $user_id)
+    {
+        return $query->whereNotNull('parent_id')->where('user_id', $user_id);
+    }
 }

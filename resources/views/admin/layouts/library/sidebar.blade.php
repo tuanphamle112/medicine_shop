@@ -24,37 +24,43 @@
             <li class="treeview">
                 <a href="{{ route('users.index') }}">
                     <i class="fa fa-users"></i>
-                    <span> {{ __('List Users') }}  </span>
+                    <span> {{ __('List Users') }} </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('category.index') }}">
                     <i class="fa fa-list-ul"></i>
-                    <span> {{ __('Category') }}  </span>
+                    <span> {{ __('Category') }} </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('medicine.index') }}">
                     <i class="fa fa-medkit"></i>
-                    <span> {{ __('Medicine') }}  </span>
+                    <span> {{ __('Medicine') }} </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('comment.index') }}">
                     <i class="fa fa-facebook-f"></i>
-                    <span> {{ __('Comment') }}  </span>
+                    <span> {{ __('Comment') }} </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('rate.index') }}">
                     <i class="fa fa-star"></i>
-                    <span> {{ __('Review Medicine') }}  </span>
+                    <span> {{ __('Review Medicine') }} </span>
                 </a>
             </li>
             <li class="treeview">
                 <a href="{{ route('request.index') }}">
                     <i class="fa  fa-question"></i>
-                    <span> {{ __('Request Medicine') }}  </span>
+                    <span> {{ __('Request Medicine') }} </span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="{{ route('admin.orders.index') }}">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span> {{ __('Orders') }} </span>
                 </a>
             </li>
             <li class="treeview">
