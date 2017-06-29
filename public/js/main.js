@@ -36,7 +36,14 @@ $(document).ready(function(){
         $(".wrap-form-rating-review").show(300);
         $(".rating-button").hide();
     });
-
+    //Show form contact
+    $(".send-email-circle").click(function(){
+        $(".contact-content").show().animate({
+            display: 'block',
+            top:'-100px',
+            opacity:'1',
+        },'slow');
+    });
     // preview images
     function readURL(input) {
         if (input.files && input.files[0]) {

@@ -15,7 +15,6 @@ use Session;
 use Response;
 use Auth;
 use DB;
-
 class HomeController extends Controller
 {
     /**
@@ -83,6 +82,10 @@ class HomeController extends Controller
 
         return redirect()->route('frontend.mark-medicine.index');
     }
+    public function indexSendEmail()
+    {
+        return view('frontend.contact.sendEmail');
+    }
 
     public function sendEmail(Request $request)
     {
@@ -94,8 +97,8 @@ class HomeController extends Controller
         $data['content'] = $request->message;
         Mail::send('emails.contact', $data, function($message) use ($info, $data) {
             $message->from($data['email'], $info->title);
-            $message->subject($info->title);
-            $message->to('tai.dinhvan2702@gmail.com');
+            $message->subject('test email yo');
+            $message->to('tuanphamle112@gmail.com');
         });
         Session::flash('sent_email_contact', 'true');
 

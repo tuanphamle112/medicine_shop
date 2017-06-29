@@ -100,6 +100,8 @@ Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profi
 
 Route::post('detail/{id}', 'Frontend\DetailMedicinesController@avg')->name('avg');
 
+Route::get('/contact/sendemail', 'Frontend\HomeController@indexSendEmail');
+
 Route::post('/contact/sendemail', 'Frontend\HomeController@sendEmail')->name('frontend.sendemail');
 
 // Comment

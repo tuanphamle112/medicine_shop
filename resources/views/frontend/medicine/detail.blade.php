@@ -323,20 +323,7 @@
                                                             {!! Form::open(array('method' => 'post', 'route' => array('avg', $medicine->id))) 
                                                             !!}
                                                                 
-                                                            @if (!empty($check_rated->id))
-                                                                <div class="star-onrating">
-                                                                    {{ Form::text('star-main', $check_rated->point_rate, array('class' => ' rating rating-loading', 'id' => 'star-main2', 'data-min' => '0', 'data-max' => '5', 'data-step' => '1')) }}
-                                                                </div>
-                                                            <div class="form-group">
-                                                                {{ Form::label('review-title', __('Title'), array('class' => 'rating-title')) }}
-                                                                {{ Form::text('review-title', $check_rated->title, array('class' => 'form-control review-title ', 'placeholder' => 'Your title')) }}
-                                                            </div>
-                                                            <div class="form-group">
-                                                                {{ Form::label('review-content', __('Review'), array('class' => 'rating-title')) }}
-                                                                {{ Form::textarea('review-content', $check_rated->content,  array('rows' => '6', 'class' => 'form-control review-content', 'placeholder' => 'Your review...')) }}
-                                                            </div>
-                                                            {{ Form::submit('Send', array('class' => 'btn btn-success rating-send-form')) }}
-                                                            @else
+                                                            
                                                             {{ Form::text('star-main', '', array('class' => 'rating rating-loading', 'id' => 'star-main2', 'data-min' => '0', 'data-max' => '5', 'data-step' => '1')) }}
                                                             <span class="rating-star-hint">
                                                                 {{ __('Click here to start rating') }}
@@ -351,7 +338,6 @@
                                                                 {{ Form::textarea('review-content', '',  array('class' => 'form-control review-content', 'placeholder' => 'Your review...', 'required' => '')) }}
                                                             </div>
                                                             {{ Form::submit('Send', array('class' => 'btn btn-success rating-send-form')) }}
-                                                            @endif
                                                             {{ Form::close() }}
                                                         </div>
                                                     </div>
