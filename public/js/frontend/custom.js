@@ -63,5 +63,26 @@ var SearchMedicineViewModel = function()
 
 ko.applyBindings(
     new SearchMedicineViewModel(),
-    document.getElementById('area-search-header-form')
+    document.getElementById('area-search-header-form-id')
 );
+
+function confirmBeforeSubmit(selectorID, element) {
+    swal({
+        title: $(element).attr('data-text'),
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $(selectorID).submit();
+        } else {
+            swal('Cancelled', '', 'error');
+            return false;
+        }
+    });
+}

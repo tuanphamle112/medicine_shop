@@ -35,9 +35,10 @@
                             <th>{{ __('ID #') }}</th>
                             <th class="text-center">{{ __('Customer Name') }}</th>
                             <th class="text-center">{{ __('Total Items') }}</th>
-                            <th>{{ __('Grand Total') }}</th>
+                            <th class="text-right">{{ __('Grand Total') }}</th>
                             <th class="text-center">{{ __('Status') }}</th>
-                            <th class="text-center">{{ __('Created At') }}</th>
+                            <th class="text-center">{{ __('Order Date') }}</th>
+                            <th class="text-center">{{ __('Updated At') }}</th>
                             <th class="text-center">{{ __('Action') }} </th>
                         </tr>
                         </thead>
@@ -83,6 +84,9 @@
                                 </td>
                                 <td class="text-center">
                                     <span>{{ $order->created_at }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span>{{ $order->updated_at }}</span>
                                 </td>
                                 <td class="text-center">
                                     <span class="text-right">

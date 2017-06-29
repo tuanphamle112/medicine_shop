@@ -298,5 +298,7 @@
     "Create Invoice for order successfully!": "Create Invoice for order successfully!",
     "You canceled the order successfully!": "You canceled the order successfully!",
     "You have successfully refunded the order!": "You have successfully refunded the order!",
-    "Can not perform your action!": "Can not perform your action!"
+    "Can not perform your action!": "Can not perform your action!",
+    "Orders List": "Orders List",
+    "Last change": "Last change"
 }

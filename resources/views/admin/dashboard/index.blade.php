@@ -232,12 +232,18 @@
                                     <th class="text-center">{{ __('Total Items') }}</th>
                                     <th class="text-center">{{ __('Status') }}</th>
                                     <th class="text-right">{{ __('Grand Total') }}</th>
+                                    <th class="text-center">{{ __('Order Date') }}</th>
+                                    <th class="text-center">{{ __('Updated At') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data['orders']['list'] as $order)
                                     <tr>
-                                        <td>{{ $order->id }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.orders.detail', [$order->id]) }}">
+                                                #{{ $order->id }}
+                                            </a>
+                                        </td>
                                         <td class="text-center">{{ $order->user_display_name }}</td>
                                         <td class="text-center">
                                             {{ App\Helpers\Helper::numberIntegerFormat($order->total_items) }}
@@ -273,6 +279,12 @@
                                         </td>
                                         <td class="text-right">
                                             {{ App\Helpers\Helper::formatPrice($order->grand_total) }}
+                                        </td>
+                                        <td class="text-right">
+                                            {{ $order->created_at }}
+                                        </td>
+                                        <td class="text-right">
+                                            {{ $order->updated_at }}
                                         </td>
                                     </tr>
                                 @endforeach

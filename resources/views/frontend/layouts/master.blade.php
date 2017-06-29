@@ -22,6 +22,7 @@
     <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
     <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/themes.css') }}">
     <!-- END Stylesheets -->
+    <link rel="stylesheet" href="{!! url('bower_components/bootstrap-sweetalert/dist/sweetalert.css') !!}"/>
 
     {{-- end template css --}}
 </head>

@@ -5,7 +5,7 @@
             <i class="gi gi-flash"></i> <strong>{{ __('Framgia') }}</strong>{{ __('Medicines') }}
         </a>
         <!-- End Site Logo -->
-        <div class="col-md-3" id="area-search-header-form">
+        <div class="col-md-3" id="area-search-header-form-id">
             {!! Form::open(['route' => 'frontend.search', 'method' => 'get'], ['class' => 'search-form']) !!}
                 <div class="form-group input-group search-form margin-bottom-0px">
                     {!! Form::text('keyword', '', ['class' => 'form-control z-index-100', 'placeholder' => trans('label.search'), 'autocomplete' => 'off', 'data-bind' => 'event:{keyup: searchHeaderMedicine, focus: searchHeaderMedicine}']) !!}
@@ -108,6 +108,9 @@
                             </li>
                             <li>
                                 <a href="{{ route('frontend.user.profiles') }}" title="{{ trans('My profiles') }}">{{ trans('My profiles') }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('frontend.order.list') }}" title="{{ __('Orders List') }}">{{ __('Orders List') }}</a>
                             </li>
                             @if(Auth::user()->permission == App\Eloquent\User::PERMISSION_ADMIN)
                                 <li>

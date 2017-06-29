@@ -1,25 +1,23 @@
-@extends('admin.layouts.admin-layout')
+@extends('frontend.layouts.master')
 
-@section('pageAdminTitle', __('Order detail'))
+@section('title', __('Order detail'))
 
 @section('content')
-<!-- Content Header (Page header) -->
-<section class="content-header">
-    <h1>
-        {{ __('Order') }}
-        <small>{{ __('Detail') }}</small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="{!! url('admin') !!}"><i class="fa fa-dashboard"></i>{{ __('Home') }}</a></li>
-        <li class="active">{{ __('Order detail') }}</li>
-    </ol>
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container text-center">
+        <h1 class="animation-slideDown">
+            <i class="fa fa-shopping-cart"></i>
+            <strong>{{ __('Order detail') }}</strong>
+        </h1>
+    </div>
 </section>
+<div class="content position-relative padding-15px" id="area-prescription-list">
 
-<!-- Main content -->
-<section class="content">
-    <div class="row">
+    @include('frontend.components.show-message')
+
+    <div class= "row">
         <div class="col-xs-12">
-            <div class="box">
+            <div class="box block">
                 <div class="box-header">
                     <div class="col-md-8">
                         <h3 class="box-title">
@@ -40,29 +38,13 @@
                             <a class="btn btn-warning" onclick="confirmBeforeSubmit('#order-change-cancel', this)" data-text="{{ __('Do you want to cancel this order?') }}">{{ __('Cancel') }}</a>
                         @endif
 
-                        @if ($status == App\Eloquent\Order::STATUS_PENDING)
-                            <a class="btn btn-primary" onclick="confirmBeforeSubmit('#order-change-complete', this)" data-text="{{ __('Do you want to create Invoice this order?') }}">{{ __('Invoice') }}</a>
-                        @endif
-
-                        @if ($status == App\Eloquent\Order::STATUS_COMPLETE)
-                            <a class="btn btn-danger" onclick="confirmBeforeSubmit('#order-change-refund', this)" data-text="{{ __('Do you want to Refund this order?') }}">{{ __('Refund') }}</a>
-                        @endif
-
-                        <a href="{!! route('admin.orders.index') !!}" data-toggle="tooltip" class="btn btn-default" data-original-title="{{ __('Back') }}">
+                        <a href="{!! route('frontend.order.list') !!}" data-toggle="tooltip" class="btn btn-default" data-original-title="{{ __('Back') }}">
                             <i class="fa fa-reply"></i>
                         </a>
                     </div>
 
-                    {!! Form::open(['route' => ['admin.orders.change', $data['order']->id], 'id' => 'order-change-cancel', 'class' => 'form-horizontal', 'method' => 'put']) !!}
+                    {!! Form::open(['route' => ['frontend.order.change', $data['order']->id], 'id' => 'order-change-cancel', 'class' => 'form-horizontal', 'method' => 'put']) !!}
                         {!! Form::hidden('status', App\Eloquent\Order::STATUS_CANCEL) !!}
-                    {!! Form::close() !!}
-
-                    {!! Form::open(['route' => ['admin.orders.change', $data['order']->id], 'id' => 'order-change-complete', 'class' => 'form-horizontal', 'method' => 'put']) !!}
-                        {!! Form::hidden('status', App\Eloquent\Order::STATUS_COMPLETE) !!}
-                    {!! Form::close() !!}
-
-                    {!! Form::open(['route' => ['admin.orders.change', $data['order']->id], 'id' => 'order-change-refund', 'class' => 'form-horizontal', 'method' => 'put']) !!}
-                        {!! Form::hidden('status', App\Eloquent\Order::STATUS_REFUND) !!}
                     {!! Form::close() !!}
                 </div><!-- /.box-header -->
                
@@ -210,7 +192,7 @@
                 </div>
                 <!-- END Addresses -->
 
-                <div class="table-responsive">
+                <div class="table-responsive block">
                     <table class="table table-bordered table-vcenter">
                         <thead>
                             <tr>
@@ -224,7 +206,11 @@
                             @foreach ($data['order']->getOrderItems as $item)
                                 <tr>
                                     <td class="text-center">
-                                        <strong>{{ $item->medicine_name }}</strong><br/>
+                                        <strong>
+                                            <a href="{{ route('detail', [$item->medicine_id, str_slug($item->medicine_name)]) }}" target="_blank">
+                                                {{ $item->medicine_name }}
+                                            </a>
+                                        </strong>
                                     </td>
                                     <td class="text-center">
                                         {{ App\Helpers\Helper::numberIntegerFormat($item->qty_ordered) }}
@@ -255,7 +241,6 @@
 
             </div><!-- /.box -->
         </div><!-- /.col -->
-    </div><!-- /.row -->
-
-</section><!-- /.content -->
+    </div>
+</div>
 @endsection

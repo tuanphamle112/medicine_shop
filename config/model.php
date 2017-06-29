@@ -20,4 +20,8 @@ return [
     'request_prescription' => [
         'items_limit' => 5,
     ],
+
+    'order' => [
+        'items_limit' => 10,
+    ],
 ];

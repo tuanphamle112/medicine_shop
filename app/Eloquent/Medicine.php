@@ -6,7 +6,7 @@ use Laravel\Scout\Searchable;
 
 class Medicine extends AbstractEloquent
 {
-    use Searchable;
+    // use Searchable;
 
     const ALLOWED_BUY = 1;
     const NOT_ALLOWED_BUY = 0;
