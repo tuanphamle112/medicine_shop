@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Eloquent\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Eloquent\User;
+use App\Eloquent\Order;
+use App\Eloquent\RateMedicine;
+use App\Eloquent\RequestMedicine;
+use App\Eloquent\Comment;
+use App\Helpers\Helper;
 use Validator;
 use Session;
-use App\Helpers\Helper;
 
 class UserController extends Controller
 {
@@ -110,7 +114,22 @@ class UserController extends Controller
 
         $permissionOption = $this->user->getPermissionOption();
 
-        return view('admin.user.user-detail', ['user' => $user, 'permissionOption' => $permissionOption]);
+        $orderCollection = Order::where('user_id', $user->id)->orderBy('id', 'desc')->get();
+        $data['orders']['list'] = $orderCollection;
+        $data['orders']['pending'] = $orderCollection->where('status', Order::STATUS_PENDING);
+        $data['orders']['complete'] = $orderCollection->where('status', Order::STATUS_COMPLETE);
+        $data['orders']['cancel'] = $orderCollection->where('status', Order::STATUS_CANCEL);
+        $data['orders']['refund'] = $orderCollection->where('status', Order::STATUS_REFUND);
+        $data['orders']['options'] = Order::getOptionStatus();
+
+        $data['review']['count'] = RateMedicine::select('id')->where('user_id', $user->id)->get()->count();
+        $data['comment']['question'] = Comment::select('id')->getQuestionByUserId($user->id)->get()->count();
+        $data['comment']['answer'] = Comment::select('id')->getAnswerByUserId($user->id)->get()->count();
+        $data['request']['medicine'] = RequestMedicine::select('id')->where('user_id', $user->id)->get()->count();
+
+        $data['user']['optionGender'] = $this->user->getGenderOption();
+
+        return view('admin.user.user-detail', compact(['user', 'permissionOption', 'data']));
     }
 
     /**

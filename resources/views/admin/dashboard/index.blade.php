@@ -228,9 +228,9 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('ID #') }}</th>
-                                    <th>{{ __('User') }}</th>
-                                    <th>{{ __('Total Items') }}</th>
-                                    <th>{{ __('Status') }}</th>
+                                    <th class="text-center">{{ __('User') }}</th>
+                                    <th class="text-center">{{ __('Total Items') }}</th>
+                                    <th class="text-center">{{ __('Status') }}</th>
                                     <th class="text-right">{{ __('Grand Total') }}</th>
                                 </tr>
                             </thead>
@@ -238,10 +238,42 @@
                                 @foreach ($data['orders']['list'] as $order)
                                     <tr>
                                         <td>{{ $order->id }}</td>
-                                        <td>{{ $order->user_display_name }}</td>
-                                        <td>{{ $order->total_items }}</td>
-                                        <td>{{ $data['orders']['options'][$order->status] }}</td>
-                                        <td class="text-right">{{ App\Helpers\Helper::formatPrice($order->grand_total) }}</td>
+                                        <td class="text-center">{{ $order->user_display_name }}</td>
+                                        <td class="text-center">
+                                            {{ App\Helpers\Helper::numberIntegerFormat($order->total_items) }}
+                                        </td>
+                                        <td class="text-center">
+                                            @php
+                                                $status = $order->status;
+                                            @endphp
+
+                                            @if ($status == App\Eloquent\Order::STATUS_PENDING)
+                                                <span class="label label-info">
+                                                    {{ $data['orders']['options'][$order->status] }}
+                                                </span>
+                                            @endif
+
+                                            @if ($status == App\Eloquent\Order::STATUS_COMPLETE)
+                                                <span class="label label-success">
+                                                    {{ $data['orders']['options'][$order->status] }}
+                                                </span>
+                                            @endif
+
+                                            @if ($status == App\Eloquent\Order::STATUS_CANCEL)
+                                                <span class="label label-danger">
+                                                    {{ $data['orders']['options'][$order->status] }}
+                                                </span>
+                                            @endif
+
+                                            @if ($status == App\Eloquent\Order::STATUS_REFUND)
+                                                <span class="label label-default">
+                                                    {{ $data['orders']['options'][$order->status] }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td class="text-right">
+                                            {{ App\Helpers\Helper::formatPrice($order->grand_total) }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

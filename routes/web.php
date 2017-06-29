@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('test', function(){
-    return view('emails.orders.create-order');
-});
-
 Route::get('/', 'Frontend\HomeController@index')->name('welcome');
 Route::get('/search', 'Frontend\HomeController@search')->name('frontend.search');
 Route::get('/search/json', 'Frontend\HomeController@jsonSearch');
@@ -41,6 +37,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'isAdmin'], function () {
     Route::resource('rate', 'Admin\RateController');
 
     Route::resource('request', 'Admin\RequestMedicineController');
+
+    Route::get('orders', 'Admin\OrderController@index')->name('admin.orders.index');
+    Route::get('orders/{id}/detail', 'Admin\OrderController@orderDetail')->name('admin.orders.detail');
+    Route::put('orders/{id}/detail', 'Admin\OrderController@changeStatus')->name('admin.orders.change');
 });
 
 Route::group(['middleware' => 'isLogin'], function(){

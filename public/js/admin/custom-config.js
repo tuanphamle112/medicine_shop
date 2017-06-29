@@ -37,3 +37,24 @@ function showSimpleTinyWithFileManager(paramSelector)
         external_plugins: { "filemanager" : "/bower_components/responsive-filemanager/filemanager/plugin.min.js"},
     });
 }
+
+function confirmBeforeSubmit(selectorID, element) {
+    swal({
+        title: $(element).attr('data-text'),
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        closeOnConfirm: true,
+        closeOnCancel: true
+    },
+    function(isConfirm) {
+        if (isConfirm) {
+            $(selectorID).submit();
+        } else {
+            swal('Cancelled', '', 'error');
+            return false;
+        }
+    });
+}
