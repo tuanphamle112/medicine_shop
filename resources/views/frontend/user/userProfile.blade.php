@@ -96,7 +96,13 @@
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Gender') }} :</td>
-                                                        <td>{{ $option['gender'][$userProfiles->gender] }}</td>
+                                                        <td>
+                                                            @if (isset($option['gender'][$userProfiles->gender]))
+                                                                {{ $option['gender'][$userProfiles->gender] }}
+                                                           @else
+                                                               {{ __('Not selected') }}
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Date of birth') }} :</td>
