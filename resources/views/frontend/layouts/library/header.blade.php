@@ -64,7 +64,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="">{{ __('Contact') }}</a>
+                    <a href="{{ route('frontend.contact.index') }}">{{ __('Contact') }}</a>
                 </li>
                 <li>
                     <a href="">{{ __('About') }}</a>
