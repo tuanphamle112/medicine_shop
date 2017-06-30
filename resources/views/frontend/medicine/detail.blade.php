@@ -146,7 +146,7 @@
                     <!-- END Info -->
 
                     <!-- More Info Tabs -->
-                    <div class="col-xs-12 site-block">
+                    <div class="col-xs-12 site-block boder-1px">
                         <ul class="nav nav-tabs push-bit" data-toggle="tabs">
                             <li class="active"><a href="#product-detail">{{ __('Details') }}</a></li>
                             <li><a href="#product-guide">{{ __('Guide') }}</a></li>
@@ -192,51 +192,151 @@
                             <div class="tab-pane" id="product-guide">
                                 {!! $medicine->guide !!}
                             </div>
+
                             <div class="tab-pane" id="product-description">
-                                {{-- Comment and reply --}}
-                                <div class="comments-container">
-                                    <ul id="comments-list" class="comments-list">
-                                        <li>
-                                            <div class="comment-main-level">
-                                                <!-- Avatar -->
-                                                <div class="comment-avatar"><img src="" alt=""></div>
-                                                <!-- Contenedor del Comentario -->
-                                                <div class="comment-box">
-                                                    <div class="comment-head">
-                                                        <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">Agustin Ortiz</a></h6>
-                                                        <span>20 {{ __('minutes ago') }}</span>
-                                                        <i class="fa fa-reply"></i>
-                                                        <i class="fa fa-heart"></i>
+                                <!-- Comment -->
+                                <div class="container position-relative" id="area-comment-medicine">
+                                    @if (!Auth::check())
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="alert alert-warning" role="alert">
+                                                    <p>{{ __('You are not logged in. Please login to question or answer!') }}</p>
+                                                    <a href="{{route('login')}}">{{ __('Login') }}</a>
+                                                    <span>{{ __('or') }}</span>
+                                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="row">
+                                            <div class="col-sm-12 text-right margin-bottom-30px">
+                                                {!! Form::textarea('', '', ['rows' => '4', 'class' => 'form-control', 'placeholder' => __('Please write a question here...'), 'id' => 'comment-content-textarea']) !!}
+                                                {!! Form::button(__('Add question'), ['data-toggle' => 'tooltip', 'class' => 'btn btn-primary', 'title' => __('Add question'), 'data-bind' => 'click: sendComment']) !!}
+                                            </div><!-- /col-sm-12 -->
+                                        </div><!-- /row -->
+                                    @endif
+                                    <div class="row" data-bind="foreach: commentDataArray">
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-white post panel-shadow">
+                                                <div class="post-heading">
+                                                    <div class="pull-left image">
+                                                        <img class="img-circle avatar" data-bind="attr:{src: $root.getLinkAvatarUser(itemData().get_user.avatar)}">
                                                     </div>
-                                                    <div class="comment-content">
-                                                        This is a comment of some  doctor
+                                                    <div class="pull-left meta">
+                                                        <div class="title h5">
+                                                            <a data-bind="attr:{href: $root.getLinkProfileUser(itemData().get_user.id, itemData().get_user.display_name)}" target="_blank">
+                                                                <b data-bind="text: itemData().get_user.display_name"></b>
+                                                            </a>
+                                                            <span class="label label-warning" data-bind="text: $root.getLabelPermission(itemData().get_user.permission)"></span>
+                                                        </div>
+                                                        <h6 class="text-muted time" data-bind="text: itemData().updated_at"></h6>
+                                                    </div>
+                                                </div> 
+                                                <div class="post-description text-right">
+                                                    <p data-bind="text: itemData().content, attr:{id: 'cm-show-parent-' + itemData().id}" class="text-left margin-bottom-0px"></p>
+                                                    {!! Form::textarea('', '', ['rows' => '3', 'class' => 'form-control hide', 'data-bind' => 'attr:{id: "cm-parent-textarea-" + itemData().id}']) !!}
+                                                    <!-- ko if: $root.currentUserId() == itemData().get_user.id -->
+                                                        <a href="javascript:void(0)" class="text-primary" data-bind="event: {click: $root.editParentComment}, attr:{id: 'cm-parent-button-edit-' + itemData().id}">
+                                                            <i class="fa fa-edit"></i>
+                                                            {{ __('Edit') }}
+                                                        </a>
+                                                    <!-- /ko -->
+                                                    <a href="javascript:void(0)" class="text-primary hide" data-bind="event: {click: $root.saveParentComment}, attr:{id: 'cm-parent-button-save-' + itemData().id}">
+                                                        <i class="fa fa-save"></i>
+                                                        {{ __('Save') }}
+                                                    </a>
+                                                </div>
+                                                <div class="post-footer position-relative">
+                                                    <div class="input-group padding-left-30px">
+                                                        @if (Auth::check())
+                                                            <input class="form-control" placeholder="{{ __('Add a answer or a comment!') }}" type="text" data-bind="attr:{id: 'cm-children-input-' + itemData().id}">
+                                                            <span class="input-group-addon" data-bind="click: $root.addChidrenComment">
+                                                                <a href="javascript:void(0)" class="text-primary stat-item">
+                                                                    <i class="fa fa-plus-circle"></i>
+                                                                </a>  
+                                                            </span>
+                                                        @else
+                                                            <input class="form-control" placeholder="{{ __('Please login to add a answer or a comment!') }}" type="text" disabled>
+                                                            <span class="input-group-addon">
+                                                                <a href="javascript:void(0)" class="text-danger stat-item" disabled><i class="fa fa-ban"></i></a>  
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                    <ul class="comments-list padding-left-30px" data-bind="foreach: childrenItems()">
+                                                        <li class="comment">
+                                                            <a class="pull-left" href="javascrip:void
+                                                            (0)">
+                                                                <img class="avatar" data-bind="attr:{src: $root.getLinkAvatarUser(get_user.avatar)}">
+                                                            </a>
+                                                            <div class="comment-body">
+                                                                <div class="comment-heading">
+                                                                    <h4 class="user">
+                                                                        <a href="javascript:void(0)" data-bind="text: get_user.display_name, attr:{href: $root.getLinkProfileUser(get_user.id, get_user.display_name)}" target="_blank"></a>
+                                                                    </h4>
+                                                                    <span class="label label-warning" data-bind="text: $root.getLabelPermission(get_user.permission)"></span>
+                                                                    <h5 class="time" data-bind="text: updated_at"></h5>
+                                                                    <!-- ko if: $root.currentUserId() == get_user.id -->
+                                                                        <a href="javascript:void(0)" class="text-primary stat-item padding-left-30px" data-bind="click: $root.editChildrenComment">
+                                                                            <i class="fa fa-pencil icon"></i>
+                                                                        </a>
+                                                                        <a href="javascript:void(0)" class="text-danger stat-item padding-left-30px" data-bind="click: $root.deleteChildrenComment">
+                                                                            <i class="fa fa-trash-o icon"></i>
+                                                                        </a>
+                                                                    <!-- /ko -->
+                                                                </div>
+                                                                <p class="margin-bottom-0px" data-bind="text: content, attr:{id: 'cm-children-show-content-' + id}"></p>
+                                                                <div class="input-group hide" data-bind="attr:{id: 'cm-children-area-edit-' + id}">
+                                                                    <input class="form-control" placeholder="{{ __('Add a answer or a comment!') }}" type="text">
+                                                                    <span class="input-group-addon" data-bind="click: $root.saveChildrenComment">
+                                                                        <a href="javascript:void(0)" class="text-primary"><i class="fa fa-save icon"></i></a>  
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+    
+                                                    </ul>
+                                                    <div class="indicator hide" data-bind="attr:{id: 'comment-children-indicatora-' + itemData().id}">
+                                                        <div class="spinner"></div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- Button trigger modal -->
+
+                                        <button type="button" id="comment-button-show-emty" class="hide" data-toggle="modal" data-target="#modal-require-text-comment">
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal-require-text-comment" tabindex="-1" role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title">{{ __('Please enter text to question or answer!') }}</h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Respuestas de los comentarios -->
-                                            <ul class="comments-list reply-list">
-                                                <li>
-                                                    <!-- Avatar -->
-                                                    <div class="comment-avatar"><img src="" alt=""></div>
-                                                    <!-- Contenedor del Comentario -->
-                                                    <div class="comment-box">
-                                                        <div class="comment-head">
-                                                            <h6 class="comment-name"><a href="http://creaticode.com/blog">TPL</a></h6>
-                                                            <span>15 {{ __('minutes ago') }}</span>
-                                                            <i class="fa fa-reply"></i>
-                                                            <i class="fa fa-heart"></i>
-                                                        </div>
-                                                        <div class="comment-content">
-                                                            This is a reply comment :>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                    <ul class="pager">
+                                        <li data-bind="if: currentPage() > 1">
+                                            <a href="javascript:void(0)" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
+                                        </li>
+                                        <li data-bind="if: currentPage() < totalPage()">
+                                            <a href="javascript:void(0)" data-bind="click: nextPage"><i class="fa  fa-angle-double-right"></i></a>
                                         </li>
                                     </ul>
+
+                                    <div class="indicator hide" id="comment-indicator">
+                                        <div class="spinner"></div>
+                                    </div>
                                 </div>
-                                {{-- End comment and reply --}}
                             </div>
+
                             <div class="tab-pane" id="product-reviews">
                                 <div class="row">
                                     <div class="col-sm-12 col-xs-12">
@@ -421,6 +521,12 @@
 @endsection
 
 @section('custom-javascript')
-    <script src="{!! url('js/frontend/medicine-comment.js') !!}"></script>
     <script src="{!! url('js/frontend/pagination.js') !!}"> </script>
+    <script src="{!! url('js/frontend/medicine-comment.js') !!}"></script>
+    <script>
+        ko.applyBindings(
+            new CommentViewModel().initData('{{ $medicine->id }}'),
+            document.getElementById('area-comment-medicine')
+        );
+    </script>
 @endsection

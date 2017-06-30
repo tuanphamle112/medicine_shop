@@ -3,15 +3,16 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use View;
 use App\Eloquent\Category;
 use App\Eloquent\Image;
 use App\Eloquent\Medicine;
 use App\Eloquent\RateMedicine;
 use App\Eloquent\MarkMedicine;
 use App\Eloquent\Comment;
-use Auth;
+use App\Eloquent\User;
 use Response;
+use View;
+use Auth;
 
 class DetailMedicinesController extends Controller
 {
@@ -86,7 +87,6 @@ class DetailMedicinesController extends Controller
 
         $check_added = MarkMedicine::checkMarkMedicine($user_id, $medicine_id)->first();
 
-
         if (!empty($check_added->id))
         {
             $check_added->delete();
@@ -112,37 +112,101 @@ class DetailMedicinesController extends Controller
         $medicineId = $request->medicineId;
 
         $comments = Comment::with('getUser')
-        ->where('medicine_id', $medicineId)
-        ->where('status', Comment::STATUS_ENABLE)
-        ->orderBy('id', 'desc')
-        ->paginate(5);
+            ->with('getChildrenComment.getUser')
+            ->with(['getChildrenComment' => function ($query) {
+                $query->where('status', Comment::STATUS_ENABLE)->orderBy('id', 'desc');
+            }])
+            ->whereNull('parent_id')
+            ->where('medicine_id', $medicineId)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.comment.items_limit'));
 
         $data['comments'] = $comments;
         $data['currentUserId'] = $user_id;
+        $data['optionPermission'] = User::getPermissionOption();
 
         return Response::json($data);
     }
 
-    public function addComment(Request $request)
+    public function addEditComment(Request $request)
     {
-        $user_id = Auth::user()->id;
+        $comment_id = $request->id;
         $medicine_id = $request->medicineId;
-        $content = $request->content;
+        $user_id = Auth::user()->id;
 
-        $comment = new Comment;
-        $comment->user_id = $user_id;
-        $comment->medicine_id = $medicine_id;
-        $comment->content = $content;
+        if (!$comment_id) {
+            $comment = new Comment;
+            $comment->user_id = $user_id;
+            $comment->medicine_id = $medicine_id;
+        } else {
+            $comment = Comment::find($comment_id);
+        }
+        
+        $comment->content = $request->content;
         $comment->save();
 
-        $comments = Comment::with('getUser')
-        ->where('medicine_id', $medicine_id)
-        ->where('status', Comment::STATUS_ENABLE)
-        ->orderBy('id', 'desc')->paginate(5);
+        $comments = Comment::with('getUser')->with('getChildrenComment.getUser')
+            ->with(['getChildrenComment' => function ($query) {
+                $query->where('status', Comment::STATUS_ENABLE)->orderBy('id', 'desc');
+            }])
+            ->whereNull('parent_id')
+            ->where('medicine_id', $medicine_id)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.comment.items_limit'));
 
         $data['comments'] = $comments;
         $data['currentUserId'] = $user_id;
+        $data['optionPermission'] = User::getPermissionOption();
 
         return Response::json($data);
+    }
+
+    public function addEditChildrenComment(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $medicine_id = $request->medicineId;
+        $parent_id = $request->parent_id;
+        $comment_id = $request->id;
+
+        if (!$comment_id) {
+            $comment = new Comment;
+            $comment->user_id = $user_id;
+            $comment->medicine_id = $medicine_id;
+            $comment->parent_id = $parent_id;
+        } else {
+            $comment = Comment::find($comment_id);
+        }
+
+        $comment->content = $request->content;
+        $comment->save();
+
+        $response = Comment::with('getUser')
+            ->where('parent_id', $parent_id)
+            ->where('medicine_id', $medicine_id)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')->get();
+
+        return Response::json($response);
+    }
+
+    public function deleteChildrenComment(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $medicine_id = $request->medicineId;
+        $parent_id = $request->parent_id;
+        $comment_id = $request->id;
+      
+        $comment = Comment::find($comment_id);
+        if ($comment) $comment->delete();
+
+        $response = Comment::with('getUser')
+            ->where('parent_id', $parent_id)
+            ->where('medicine_id', $medicine_id)
+            ->where('status', Comment::STATUS_ENABLE)
+            ->orderBy('id', 'desc')->get();
+
+        return Response::json($response);
     }
 }

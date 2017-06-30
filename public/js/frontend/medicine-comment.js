@@ -1,3 +1,12 @@
+var CommentData = function(object)
+{
+    this.itemData = ko.observableArray([]);
+    this.childrenItems = ko.observableArray([]);
+
+    this.itemData(object);
+    this.childrenItems(object.get_children_comment);
+}
+
 var CommentViewModel = function()
 {
     var self = this;
@@ -8,13 +17,21 @@ var CommentViewModel = function()
     self.totalPage = ko.observable();
     self.commentDataArray = ko.observableArray([]);
     self.currentUserId = ko.observable(0);
+    self.optionPermission = ko.observableArray([]);
 
     self.completeLoadData = function(data)
     {
         self.currentPage(data.comments.current_page);
         self.totalPage(data.comments.last_page);
-        self.commentDataArray(data.comments.data);
         self.currentUserId(data.currentUserId);
+        self.optionPermission(data.optionPermission);
+
+        var dataItems = [];
+        for (i in data.comments.data) {
+            dataItems.push(new CommentData(data.comments.data[i]));
+        }
+        self.commentDataArray(dataItems);
+
         $('#comment-indicator').addClass('hide');
     }
 
@@ -37,6 +54,29 @@ var CommentViewModel = function()
         return self;
     }
 
+    self.getLinkProfileUser = function(user_id, name)
+    {
+        return '/user/'+ user_id + '/' + str_slug(name);
+    }
+
+    self.getLinkAvatarUser = function(path)
+    {
+        if (!path) return '/images/no-avatar.png';
+        if (path.search('http') != -1) return path;
+        return '/' + path;
+    }
+
+    self.getLabelPermission = function(id)
+    {
+        return self.optionPermission()[id];
+    }
+
+    self.showEmptyContent = function()
+    {
+        $('#comment-indicator').addClass('hide');
+        swal('Please enter text to question or answer!');
+    }
+
     self.sendComment = function(data, event)
     {
         var paramUrl = '/comment/send/data';
@@ -45,8 +85,7 @@ var CommentViewModel = function()
         var paramContent = $('#comment-content-textarea').val();
         if (!paramContent) {
             $('#comment-content-textarea').focus();
-            $('#comment-indicator').addClass('hide');
-            $('#comment-button-show-emty').click();
+            self.showEmptyContent();
             return;
         }
 
@@ -57,7 +96,7 @@ var CommentViewModel = function()
            headers: { 'X-CSRF-Token' : tokenParam }
         });
 
-        var params = { medicineId: self.medicineId(), content: paramContent };
+        var params = {page: self.currentPage(), medicineId: self.medicineId(), content: paramContent };
         
         var request = $.ajax({method: 'POST', url: paramUrl, data: params});
         request.done(function(data){
@@ -106,6 +145,164 @@ var CommentViewModel = function()
         });
         request.fail(function(jqXHR, textStatus){
             $('#comment-indicator').addClass('hide');
+        });
+    }
+
+    self.saveParentComment = function(data, event)
+    {
+        var paramUrl = '/comment/send/data';
+
+        var itemId = data.itemData().id;
+        $('#comment-indicator').removeClass('hide');
+
+        var paramContent = $('#cm-parent-textarea-' + itemId).val();
+
+        if (!paramContent) {
+            self.showEmptyContent();
+            return;
+        }
+
+        var tokenParam = $('meta[name=_token]').attr('content');
+        $.ajaxSetup({
+           headers: { 'X-CSRF-Token' : tokenParam }
+        });
+
+        var params = {page: self.currentPage(), medicineId: self.medicineId(), content: paramContent, id: itemId};
+        
+        var request = $.ajax({method: 'POST', url: paramUrl, data: params});
+        request.done(function(data){
+            self.completeLoadData(data);
+        });
+        request.fail(function(jqXHR, textStatus){
+            $('#comment-indicator').addClass('hide');
+            $('#comment-content-textarea').val(paramContent);
+        });
+    }
+
+    self.editParentComment = function(data, event)
+    {
+        var itemId = data.itemData().id;
+        $('#cm-show-parent-' + itemId).addClass('hide')
+        $('#cm-parent-textarea-' + itemId).removeClass('hide');
+        $('#cm-parent-textarea-' + itemId).val(data.itemData().content);
+        $('#cm-parent-button-edit-' + itemId).addClass('hide');
+        $('#cm-parent-button-save-' + itemId).removeClass('hide');
+    }
+
+    self.addChidrenComment = function(data, event)
+    {
+        var paramUrl = '/comment/send/data/children';
+        var itemId = data.itemData().id;
+
+        var paramContent = $('#cm-children-input-' + itemId).val();
+        if (!paramContent) {
+            self.showEmptyContent();
+            return;
+        }
+
+        $('#comment-children-indicatora-' + itemId).removeClass('hide');
+        $('#cm-children-input-' + itemId).val('');
+
+        var tokenParam = $('meta[name=_token]').attr('content');
+        $.ajaxSetup({
+           headers: { 'X-CSRF-Token' : tokenParam }
+        });
+
+        var params = {medicineId: self.medicineId(), content: paramContent, parent_id: itemId};
+        
+        var request = $.ajax({method: 'POST', url: paramUrl, data: params});
+        request.done(function(result){
+            data.childrenItems(result);
+            $('#comment-children-indicatora-' + itemId).addClass('hide');
+        });
+        request.fail(function(jqXHR, textStatus){
+            $('#comment-content-textarea').val(paramContent);
+            $('#comment-children-indicatora-' + itemId).addClass('hide');
+        });
+    }
+
+    self.saveChildrenComment = function(data, event)
+    {
+        var paramUrl = '/comment/send/data/children';
+        var comment_id = data.id;
+        var itemId = data.parent_id;
+        var paramContent = $('#cm-children-area-edit-' + comment_id).find('input').val();
+        if (!paramContent) {
+            self.showEmptyContent();
+            return;
+        }
+        $('#comment-children-indicatora-' + itemId).removeClass('hide');
+
+        var tokenParam = $('meta[name=_token]').attr('content');
+        $.ajaxSetup({
+           headers: { 'X-CSRF-Token' : tokenParam }
+        });
+        var params = {medicineId: self.medicineId(), parent_id: itemId, id: comment_id, content: paramContent};
+        var request = $.ajax({method: 'POST', url: paramUrl, data: params});
+        request.done(function(result){
+            var dataTmp = self.commentDataArray();
+            for (var key in dataTmp) {
+                if (dataTmp[key].itemData().id == itemId) {
+                    dataTmp[key].childrenItems(result);
+                    break;
+                }
+            }
+            $('#comment-children-indicatora-' + itemId).addClass('hide');
+        });
+        request.fail(function(jqXHR, textStatus){
+            $('#comment-children-indicatora-' + itemId).addClass('hide');
+        });
+    }
+
+    self.editChildrenComment = function(data, event)
+    {
+        var comment_id = data.id;
+        $('#cm-children-area-edit-' + comment_id).removeClass('hide');
+        $('#cm-children-show-content-' + comment_id).addClass('hide');
+        $('#cm-children-area-edit-' + comment_id).find('input').val(data.content);
+        $(event.target).addClass('hide');
+    }
+
+    self.deleteChildrenComment = function(data, event)
+    {
+        var paramUrl = '/comment/delete/children';
+
+        swal({
+            title: 'Do you want to delete?',
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+        }, function(isConfirm) {
+            if (isConfirm) {
+                var comment_id = data.id;
+                var itemId = data.parent_id;
+                $('#comment-children-indicatora-' + itemId).removeClass('hide');
+                var tokenParam = $('meta[name=_token]').attr('content');
+                $.ajaxSetup({
+                   headers: { 'X-CSRF-Token' : tokenParam }
+                });
+                var params = {medicineId: self.medicineId(), parent_id: itemId, id: comment_id};
+                var request = $.ajax({method: 'POST', url: paramUrl, data: params});
+                request.done(function(result){
+                    var dataTmp = self.commentDataArray();
+                    for (var key in dataTmp) {
+                        if (dataTmp[key].itemData().id == itemId) {
+                            dataTmp[key].childrenItems(result);
+                            break;
+                        }
+                    }
+                    $('#comment-children-indicatora-' + itemId).addClass('hide');
+                });
+                request.fail(function(jqXHR, textStatus){
+                    $('#comment-children-indicatora-' + itemId).addClass('hide');
+                });
+
+            } else {
+                swal('Cancelled', '', 'error');
+                return false;
+            }
         });
     }
 }

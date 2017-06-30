@@ -24,4 +24,8 @@ return [
     'order' => [
         'items_limit' => 10,
     ],
+
+    'comment' => [
+        'items_limit' => 5,
+    ],
 ];
