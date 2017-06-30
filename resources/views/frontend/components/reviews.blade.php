@@ -1,9 +1,11 @@
 @foreach ($reviewInformation as $valueReview)
 <li class="media">
-    <a href="javascript:void(0)" class="pull-left">
+    
         @if ($valueReview->getUser)
+            <a href="{{ route('frontend.user.different.profiles', [$valueReview->getUser->id, str_slug($valueReview->getUser->display_name)]) }}" class="pull-left">
             <img src="{{ App\Helpers\Helper::getLinkUserAvatar($valueReview->getUser->avatar) }}" alt="{{ __('Avatar') }}" class="img-circle">
         @else
+            <a href="javascript:void(0)" class="pull-left">
             <img src="{{ App\Helpers\Helper::getLinkUserAvatar('') }}" alt="{{ __('Avatar') }}" class="img-circle">
         @endif
     </a>

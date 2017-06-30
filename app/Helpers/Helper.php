@@ -79,6 +79,18 @@ class Helper
         return $allowOrdered;
     }
 
+    public static function getEmailContactTo()
+    {
+        $setup = InforWebsite::getInfoWebsite()->first();
+        $email = config('custom.contact.default_email');
+        if ($setup) {
+            $options = json_decode($setup->options, true);
+            if (isset($options['contact_email'])) $email = $options['contact_email'];
+        }
+
+        return $email;
+    }
+
     public static function changeQuantityMedicine($medicineId, $quantity = 0)
     {
         $medicine = Medicine::find($medicineId);

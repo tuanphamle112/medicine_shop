@@ -53,7 +53,7 @@ class Medicine extends AbstractEloquent
     {
         return [
             self::NOT_ALLOWED_BUY => __('Not allowed to buy'),
-            self::ALLOWED_BUY => __('Allowed buy'),
+            self::ALLOWED_BUY => __('Allowed to buy'),
         ];
     }
     public function scopeGetAllFieldById($query, $id)

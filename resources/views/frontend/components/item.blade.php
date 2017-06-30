@@ -18,7 +18,6 @@
         <div class="store-item-info clearfix">
             <span class="store-item-price themed-color-dark pull-right">{{ App\Helpers\Helper::formatPrice($item->price) }}</span>
             <a href="{{ route('detail', [$item->id, str_slug($item->name)]) }}"><strong>{{ $item->name }}</strong></a><br>
-            <small><i class="fa fa-shopping-cart text-muted"></i> <a href="javascript:void(0)" class="text-muted">{{ __('Add to cart') }}</a></small>
         </div>
     </div>
 </div>

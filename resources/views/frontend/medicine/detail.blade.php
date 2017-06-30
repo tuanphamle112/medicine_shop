@@ -58,7 +58,7 @@
                             @foreach($medicine->getAllImages as $getAllImagesValue)
                                 @if($loop->index==0)
                                     <a href="{{ asset($getAllImagesValue->path_origin) }}" class="gallery-link"><img src="{{ asset($getAllImagesValue->path_origin) }}" alt="" class="img-responsive push-bit"></a>
-                                    @if($loop->count <= 1)
+                                    @if($loop->count == 1)
                                         <div class="row push-bit">
                                     @endif
                                 @else
@@ -67,7 +67,6 @@
                                             <div class="col-xs-4">
                                                 <a href="{{ asset($getAllImagesValue->path_origin) }}" class="gallery-link"><img src="{{ asset($getAllImagesValue->path_origin) }}" alt="" class="img-responsive"></a>
                                             </div>
-                                        </div>
                                     @else
                                         <div class="col-xs-4">
                                             <a href="{{ asset($getAllImagesValue->path_origin) }}" class="gallery-link"><img src="{{ asset($getAllImagesValue->path_origin) }}" alt="" class="img-responsive"></a>
@@ -103,7 +102,32 @@
                             </span>
                         </div>
                         <hr>
-                        <p>abc</p>
+                        <div class= "short-description">
+                            <span>
+                                <h3><strong>{{ __('Product informations') }}</strong></h3>
+                            </span>
+                            <div class="info-left-margin">
+                                <span>
+                                    @if($medicine->allowed_buy == App\Eloquent\Medicine::ALLOWED_BUY)
+                                        <i class="text-success fa fa-check" aria-hidden="true"></i>
+                                        <strong class="text-success h4-left">{{ $option['allowedToBuy'][App\Eloquent\Medicine::ALLOWED_BUY] }}</strong>
+                                    @else
+                                        <i class="text-danger fa fa-times" aria-hidden="true"></i>
+                                        <strong class="text-danger h4-left">{{ $option['allowedToBuy'][App\Eloquent\Medicine::NOT_ALLOWED_BUY] }}</strong>
+                                    @endif
+                                </span>
+                                <ul class="short-info">
+                                    <li>
+                                        <h4><strong>{{ __('Symptom :') }}</strong></h4>
+                                        <span>{{ $medicine->symptom }}</span>
+                                    </li>
+                                     <li>
+                                        <h4><strong>{{ __('Short describe :') }}</strong></h4>
+                                        <span>{{ $medicine->short_describer }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <hr>
                         @if (Auth::check()) 
                             <div class="add-to-box border-heart add-medicine-to-box" title="{{ __('Add to box') }}" medicine_id="{{ $medicine->id }}">
@@ -119,29 +143,6 @@
                             </span>
                         </div>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="showNotLogin" role="dialog">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">{{ __('Notification') }}</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>
-                                        {{ __('You have to login to mark medicines!') }}
-                                    </p>
-                                    <a href="{{route('login')}}">{{ __('Login') }}</a>
-                                    <span>{{ __('or') }}</span>
-                                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- END Info -->
 
                     <!-- More Info Tabs -->
@@ -153,8 +154,40 @@
                             <li><a href="#product-reviews">{{ __('Reviews') }}</a></li>
                         </ul>
                         <div class="tab-content">
+                            
                             <div class="tab-pane active" id="product-detail">
-                                {!! $medicine->detail !!}
+                                
+                                <div class= "short-description">
+                                    <div class="info-left-margin">
+                                        <ul class="info-detail">
+                                            <li>
+                                                @if($medicine->allowed_buy == App\Eloquent\Medicine::ALLOWED_BUY)
+                                                <span>{{ $option['allowedToBuy'][App\Eloquent\Medicine::ALLOWED_BUY] }}</span>
+                                                @else
+                                                <span>{{ $option['allowedToBuy'][App\Eloquent\Medicine::NOT_ALLOWED_BUY] }}</span>
+                                                @endif
+                                            </li>
+                                            <li>
+                                                <h4><strong>{{ __('Made in : ')}}</strong><span>{{ $medicine->made_in }}</span></h4>
+                                            </li>
+                                            <li>
+                                                <h4><strong>{{ __('Unit : ')}}</strong><span>{{ $medicine->unit }}</span></h4>
+                                            </li>
+                                            <li>
+                                                <h4><strong>{{ __('Symptom :') }}</strong></h4>
+                                                <span>{{ $medicine->symptom }}</span>
+                                            </li>
+                                            <li>
+                                                <h4><strong>{{ __('Ingredient :') }}</strong></h4>
+                                                <span>{{ $medicine->ingredient }}</span>
+                                            </li>
+                                            <li>
+                                                <h4><strong>{{ __('Main information :') }}</strong></h4>
+                                                {!! $medicine->detail !!}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane" id="product-guide">
                                 {!! $medicine->guide !!}
@@ -220,6 +253,7 @@
                                                    </div>
                                                </div>
                                             </div>
+                                                
                                             @for ($i=0; $i <5 ; $i++)
                                                 @php
                                                     if(!$medicine->total_rate) {
@@ -235,7 +269,7 @@
                                                         <div class="row wrap-avg-rating">
                                                             <div class="col-sm-6 col-xs-6">
                                                                 <div class="star-input-rating">
-                                                                    <input id="star-main" name="star-main" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $medicine->avg_rate }}">
+                                                                    <input data-readonly="true"  data-show-clear="false" data-show-caption="false" id="star-main" name="star-main" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $medicine->avg_rate }}">
                                                                     <span class="rating-info">
                                                                         <em>
                                                                             {{ App\Helpers\Helper::numberFloatFormat($medicine->avg_rate) }}
@@ -245,7 +279,6 @@
                                                                     <span class="rating-number-text"> {{ $medicine->total_rate . __(' ratings and reviews') }}</span>
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-sm-6 col-xs-6">
                                                                 <div class="bar-div-rating">
                                                                     <span class="rating-bar-label">
@@ -356,8 +389,31 @@
                     </div>
                     <!-- END More Info Tabs -->
                 </div>
-            </div>
             <!-- END Product Details -->
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="showNotLogin" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ __('Notification') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {{ __('You have to login to mark medicines!') }}
+                    </p>
+                    <a href="{{route('login')}}">{{ __('Login') }}</a>
+                    <span>{{ __('or') }}</span>
+                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('Close') }}</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>

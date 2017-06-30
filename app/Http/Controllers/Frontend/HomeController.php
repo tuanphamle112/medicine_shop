@@ -11,11 +11,11 @@ use App\Eloquent\Category;
 use App\Eloquent\MarkMedicine;
 use App\Eloquent\InforWebsite;
 use App\Helpers\Helper;
+use App\Mail\ContactAdmin;
 use Session;
 use Response;
 use Auth;
 use DB;
-
 class HomeController extends Controller
 {
     /**
@@ -86,23 +86,21 @@ class HomeController extends Controller
 
         return redirect()->route('frontend.mark-medicine.index');
     }
+    public function indexSendEmail()
+    {
+        return view('frontend.contact.sendEmail');
+    }
 
     public function sendEmail(Request $request)
     {
-
-        $info = InforWebsite::getInfoWebsite()->first();
-
-        $data['firstname'] = $request->firstname;
+        $data['name'] = $request->firstname;
         $data['email'] = $request->email;
-        $data['content'] = $request->message;
-        Mail::send('emails.contact', $data, function($message) use ($info, $data) {
-            $message->from($data['email'], $info->title);
-            $message->subject($info->title);
-            $message->to('tai.dinhvan2702@gmail.com');
-        });
-        Session::flash('sent_email_contact', 'true');
+        $data['message'] = $request->message;
+        Mail::to(Helper::getEmailContactTo())->send(new ContactAdmin($data));
 
-        return redirect()->route('welcome');
+        Helper::addMessageFlashFrontendSession(__('Success'), __('Send email to Admin successfully!'), 'success');
+
+        return redirect()->route('frontend.contact.index');
     }
     
 }

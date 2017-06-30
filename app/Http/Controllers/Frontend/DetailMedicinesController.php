@@ -38,7 +38,9 @@ class DetailMedicinesController extends Controller
         if ($request->ajax()) {
             return view('frontend.components.reviews', array('reviewInformation' => $reviewInformation));
         }
-
+        $option['allowedToBuy'] = $medicine->getOptionAllowedBuy();
+        // dd($medicine->id);
+        // dd($option['allowedToBuy'][0]);
         $check_marked = [];
         if (Auth::check()) {
             $user_id = Auth::user()->id;
@@ -51,7 +53,8 @@ class DetailMedicinesController extends Controller
             'check_marked' => $check_marked,
             'collectionRate' => $collectionRate,
             'countStar' => $countStar,
-            'reviewInformation' => $reviewInformation
+            'reviewInformation' => $reviewInformation,
+            'option' => $option
             ]);
     }
     public function avg(Request $request, $id) {

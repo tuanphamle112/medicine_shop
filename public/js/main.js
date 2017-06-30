@@ -18,7 +18,7 @@ $(document).ready(function(){
         $('#hidden-quality').val(value);
     });
 
-    $('#star-main').rating({ step: 0.1, stars: 5, displayOnly: true});
+    $('#star-main').rating({ step: 1, stars: 5, displayOnly: true});
     $('#star-main2').rating({ step: 1, stars: 5, showCaption:false, showClear:false});
     $('#star-main2').on('rating.change', function(event, value, caption) {
         $(".rating-star-hint").css({
@@ -36,7 +36,14 @@ $(document).ready(function(){
         $(".wrap-form-rating-review").show(300);
         $(".rating-button").hide();
     });
-
+    //Show form contact
+    $(".send-email-circle").click(function(){
+        $(".contact-content").show().animate({
+            display: 'block',
+            top:'-100px',
+            opacity:'1',
+        },'slow');
+    });
     // preview images
     function readURL(input) {
         if (input.files && input.files[0]) {
