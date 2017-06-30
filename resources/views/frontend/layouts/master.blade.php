@@ -15,12 +15,12 @@
     <link href="{{ asset('bower_components/bootstrap-star-rating/css/theme-krajee-fa.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{!! url('bower_components/AdminLTE/plugins/select2/select2.min.css') !!}"/>
     {{-- template css --}}
-    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/plugins.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/template/plugins.css') }}">
     <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
-    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/template/main.css') }}">
 
     <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
-    <link rel="stylesheet" href="{{ asset('bower_components/template/template/front-end/css/themes.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/template/themes.css') }}">
     <!-- END Stylesheets -->
 
     {{-- end template css --}}

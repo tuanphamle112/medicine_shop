@@ -17,6 +17,9 @@
         margin:0;
         padding:0;
     } 
+    .site-content {
+        background-color: rgb(249, 249, 249) !important;
+    }
     header {
         z-index: 4 !important;
     }
@@ -104,6 +107,18 @@
         height: 120px !important;
     }
     /*End edit css template*/
+    /*Contact page*/
+    .contact-content {
+        display: none;
+        /*border: 1px solid black;*/
+        position: relative;
+        top :100px;
+        opacity: 0.1;
+    }
+    .wrap-page-contact {
+        background-color: #fff !important;
+    }
+    /*End contact page*/
     /*user profile css*/
     .span-edit-password {
         position: absolute;
@@ -534,6 +549,22 @@
         color: #fff;
         text-decoration: none;
 
+    }
+    .info-detail>li{
+        list-style-type: square !important;
+        margin-left: 20px;
+    }
+    .short-info  {
+        margin-left: 20px;
+    }
+    .short-info li{
+        list-style-type: disc !important;
+    }
+    .info-left-margin>span>strong {
+        margin-left:0px !important;
+    }
+    .info-left-margin {
+        margin-left: 10px;
     }
     .add-to-links:hover {
         color: #ED6D12;
