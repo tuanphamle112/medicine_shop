@@ -237,11 +237,9 @@
                                                                 <div class="star-input-rating">
                                                                     <input id="star-main" name="star-main" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $medicine->avg_rate }}">
                                                                     <span class="rating-info">
-                                                                        @if(empty($tmp))
-                                                                            <em>0</em>
-                                                                        @else
-                                                                            <em>{{ App\Helpers\Helper::numberFloatFormat($medicine->avg_rate) }}</em>
-                                                                        @endif
+                                                                        <em>
+                                                                            {{ App\Helpers\Helper::numberFloatFormat($medicine->avg_rate) }}
+                                                                        </em>
                                                                         {{ __('per 5') }}
                                                                     </span><br>
                                                                     <span class="rating-number-text"> {{ $medicine->total_rate . __(' ratings and reviews') }}</span>

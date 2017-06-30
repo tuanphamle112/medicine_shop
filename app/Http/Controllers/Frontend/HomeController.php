@@ -34,7 +34,9 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->keyword;
-        $items = Medicine::search($keyword)
+        $items = Medicine::where('name', 'like', '%' . $keyword . '%')
+            ->orWhere('symptom', 'like', '%' . $keyword . '%')
+            ->orderBy('id', 'desc')
             ->paginate(config('model.medicine.result_limit'));
         
         return view('frontend.search.result', compact(['items', 'keyword']));
@@ -44,10 +46,11 @@ class HomeController extends Controller
     {
         $keyword = $request->keyword;
 
-        $medicines = Medicine::search($keyword)
+        $medicines = Medicine::where('name', 'like', '%' . $keyword . '%')
+            ->orWhere('symptom', 'like', '%' . $keyword . '%')
             ->take(config('model.medicine.autocomple_limit'))
-            ->get();
-        
+            ->orderBy('id', 'desc')->get();
+       
         return Response::json($medicines);
     }
 

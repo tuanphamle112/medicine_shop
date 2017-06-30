@@ -103,7 +103,13 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::post('checkout', 'Frontend\OrderController@checkoutStore')->name('frontend.checkout.store');
     Route::get('order-view/{id}/detail', 'Frontend\OrderController@detailOrder')
         ->name('frontend.order.detail');
-    Route::get('checkout/success', 'Frontend\OrderController@orderSuccess')->name('frontend.order.success');
+    Route::put('order-view/{id}/detail', 'Frontend\OrderController@changeStatus')
+        ->name('frontend.order.change');
+    Route::get('checkout/success', 'Frontend\OrderController@orderSuccess')
+        ->name('frontend.order.success');
+    Route::get('user/order-list', 'Frontend\OrderController@orderList')
+        ->name('frontend.order.list');
+
 
 });
 

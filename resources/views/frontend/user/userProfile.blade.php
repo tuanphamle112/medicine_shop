@@ -99,7 +99,7 @@
                                                         <td>
                                                             @if (isset($option['gender'][$userProfiles->gender]))
                                                                 {{ $option['gender'][$userProfiles->gender] }}
-                                                           @else
+                                                            @else
                                                                {{ __('Not selected') }}
                                                             @endif
                                                         </td>
@@ -173,7 +173,13 @@
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Gender') }} :</td>
-                                                        <td>{{ $option['gender'][Auth::user()->gender] }}</td>
+                                                        <td>
+                                                            @if (isset($option['gender'][Auth::user()->gender]))
+                                                                {{ $option['gender'][Auth::user()->gender] }}
+                                                            @else
+                                                               {{ __('Not selected') }}
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Date of birth') }} :</td>

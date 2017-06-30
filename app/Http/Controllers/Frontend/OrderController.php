@@ -181,4 +181,55 @@ class OrderController extends Controller
 
         return view('frontend.order.success', compact(['order']));
     }
+
+    public function orderList()
+    {
+        $data['orders'] = $this->order->where('user_id', Auth::user()->id)
+            ->orderBy('id', 'desc')
+            ->paginate(config('model.order.items_limit'));
+        $data['optionStatus'] = $this->order->getOptionStatus();
+
+        return view('frontend.order.list', compact(['data']));
+    }
+
+    public function detailOrder($orderId)
+    {
+        $data['order'] = $this->order->with('getOrderItems')->find($orderId);
+        if (!$data['order'] || $data['order']->user_id != Auth::user()->id) {
+            Helper::addMessageFlashFrontendSession(__('Error'), __('Order not found!'), 'danger');
+
+            return redirect()->route('frontend.order.list');
+        }
+
+        $data['optionStatus'] = Order::getOptionStatus();
+        $data['address']['billing'] = OrderAddress::getBillingOrderAddress($orderId)->first();
+        $data['address']['shipping'] = OrderAddress::getShippingOrderAddress($orderId)->first();
+
+        return view('frontend.order.detail', compact(['data']));
+    }
+
+    public function changeStatus(Request $request, $orderId)
+    {
+        $order = $this->order->find($orderId);
+        if (!$order || $order->user_id != Auth::user()->id) {
+            Helper::addMessageFlashFrontendSession(__('Error'), __('Order not found!'), 'danger');
+
+            return redirect()->route('frontend.order.list');
+        }
+
+        $status = $request->status;
+        switch ($status) {
+            case Order::STATUS_CANCEL:
+                if ($order->status == Order::STATUS_PENDING) {
+                    $order->status = Order::STATUS_CANCEL;
+                    $order->save();
+                    Helper::addMessageFlashFrontendSession(__('Success'), __('You canceled the order successfully!'), 'success');
+                }
+                break;
+            default:
+                Helper::addMessageFlashFrontendSession(__('Error'), __('Can not perform your action!'), 'error');
+        }
+
+        return redirect()->route('frontend.order.detail', [$orderId]);
+    }
 }
