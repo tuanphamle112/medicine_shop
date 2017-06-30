@@ -69,7 +69,9 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::get('detail/add-to-box', 'Frontend\DetailMedicinesController@addToBox')->name('add_to_box');
 
     // Add comment
-    Route::post('/comment/send/data', 'Frontend\DetailMedicinesController@addComment');
+    Route::post('/comment/send/data', 'Frontend\DetailMedicinesController@addEditComment');
+    Route::post('/comment/send/data/children', 'Frontend\DetailMedicinesController@addEditChildrenComment');
+    Route::post('/comment/delete/children', 'Frontend\DetailMedicinesController@deleteChildrenComment');
 
     Route::post('/user/edit', 'Frontend\UserProfilesController@editUserInformations')
         ->name('frontend.user.edit.personal');
@@ -126,7 +128,6 @@ Route::get('/comment/json/getList', 'Frontend\DetailMedicinesController@jsonComm
 
 // Detail medicine
 Route::get('detail/{id}/{name}', 'Frontend\DetailMedicinesController@index')->name('detail');
-
 
 Route::get('/{parent}', 'Frontend\MedicinesListController@showParentCategories')->name('nav');
 Route::get('/{parentLink}/{subLink}', 'Frontend\MedicinesListController@showSubCategory')->name('sub_Nav');

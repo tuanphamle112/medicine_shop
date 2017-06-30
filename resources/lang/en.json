@@ -145,7 +145,7 @@
     "This medicine already in your box!": "This medicine already in your box!",
     " has been added": " has been added",
     "Search Medicine": "Search Medicine",
-    "You are not logged in. Please login to comment!": "You are not logged in. Please login to comment!",
+    "You are not logged in. Please login to question or answer!": "You are not logged in. Please login to question or answer!",
     "or": "or",
     "Please enter text to comment!": "Please enter text to comment!",
     "You receive a message from the :url website!": "You receive a message from the :url website!",
@@ -315,4 +315,10 @@
     "Symptom": "Symptom",
     "Short describe": "Short describe",
     "Orders List": "Orders List",
-    "Last change": "Last change"
+    "Last change": "Last change",
+    "Please write a question here...": "Please write a question here...",
+    "Please enter text to question or answer!": "Please enter text to question or answer!",
+    "Add a answer or a comment!": "Add a answer or a comment!",
+    "Please login to add a answer or a comment!": "Please login to add a answer or a comment!",
+    "Add question": "Add question"
+}
