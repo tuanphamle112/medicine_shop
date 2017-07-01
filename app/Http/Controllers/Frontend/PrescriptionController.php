@@ -10,6 +10,7 @@ use App\Eloquent\Medicine;
 use App\Eloquent\ItemPrescription;
 use App\Eloquent\RequestMedicine;
 use App\Eloquent\RequestPrescription;
+use App\Eloquent\RelatedDoctorRequest;
 use App\Helpers\Helper;
 use Response;
 use Auth;
@@ -217,6 +218,14 @@ class PrescriptionController extends Controller
                     $item->status = ItemPrescription::STATUS_OUT_STORE;
                 }
                 $item->save();
+            }
+
+            $related = RelatedDoctorRequest::where('doctor_id', Auth::user()->id)
+                ->where('request_prescription_id', $requestId)->first();
+
+            if ($related) {
+                $related->status = RelatedDoctorRequest::STATUS_RESPONSE;
+                $related->save();
             }
 
             DB::commit();

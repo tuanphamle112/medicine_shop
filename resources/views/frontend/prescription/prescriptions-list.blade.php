@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel-body">
+            <div class="panel-body position-relative">
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr class="warning">
@@ -71,19 +71,16 @@
                                             <i class="fa fa-eye"></i>
                                         </a>
                                     </span>
-                                    <!-- ko ifnot: doctor_id -->
+                                    <!-- ko ifnot: (doctor_id && doctor_id != user_id) -->
                                         <span class="text-right">
                                             <a href="#" data-toggle="tooltip" class="btn btn-primary" data-toggle="tooltip" title="{{ __('Edit') }}" data-bind="attr:{href: '/prescription/' + id + '/edit'}">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         </span>
                                     <!-- /ko -->
-                                    <button type="button" data-toggle="tooltip" class="btn btn-danger"
-                                        onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
-                                        title="{{ __('Delete') }}"
-                                    >
+                                    <a data-text="{{ __('Do you want to delete?') }}" data-toggle="tooltip" class="btn btn-danger" onclick="confirmButtonBeforeSubmit(this)" title="{{ __('Delete') }}">
                                         <i class="fa fa-trash-o"></i>
-                                    </button>
+                                    </a>
                                 {!! Form::close() !!}
                             </td>
                         </tr>
@@ -96,19 +93,25 @@
                         </tr>
                     </tbody>
                 </table>
-                <ul class="pager">
+                <div class="indicator hide">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <ul class="pagination">
                     <li data-bind="if: currentPage() > 1">
-                        <a href="#" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
+                        <a href="javascript:void(0)" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:void(0)" data-bind="text: currentPage() + '/' + totalPage()">
+                        </a>
                     </li>
                     <li data-bind="if: currentPage() < totalPage()">
-                        <a href="#" data-bind="click: nextPage"><i class="fa  fa-angle-double-right"></i></a>
+                        <a href="javascript:void(0)" data-bind="click: nextPage"><i class="fa  fa-angle-double-right"></i></a>
                     </li>
                 </ul>
             </div>
         </div>
-    </div>
-    <div class="indicator hide">
-        <div class="spinner"></div>
     </div>
     <!-- ko if: (prescriptionDetail()) -->
         <div class="modal fade" id="showDetailPrescription" tabindex="-1" role="dialog" aria-labelledby="detailPrescriptionLabel">

@@ -68,8 +68,7 @@
                                         </ul>
                                         <div class="col-sm-3 padding-15px text-right">
                                             {!! Form::open(['route' => ['frontend.mark-medicine.destroy', $mark->id], 'method' => 'DELETE']) !!}
-                                                <button type="button" data-toggle="tooltip" class="btn btn-danger"
-                                                    onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
+                                                <button type="button" data-toggle="tooltip" class="btn btn-danger" onclick="confirmButtonBeforeSubmit(this)" data-text="{{ __('Do you want to delete?') }}"
                                                     title="{{ __('Delete') }}"
                                                 >
                                                     <i class="fa fa-trash-o"></i>

@@ -38,6 +38,8 @@
                             <a class="btn btn-warning" onclick="confirmBeforeSubmit('#order-change-cancel', this)" data-text="{{ __('Do you want to cancel this order?') }}">{{ __('Cancel') }}</a>
                         @endif
 
+                        <a class="btn btn-success" onclick="resendEmailOrder('{{ $data['order']->id }}', this)" data-text="{{ __('Do you want to resend email this order?') }}">{{ __('Send Email') }}</a>
+
                         <a href="{!! route('frontend.order.list') !!}" data-toggle="tooltip" class="btn btn-default" data-original-title="{{ __('Back') }}">
                             <i class="fa fa-reply"></i>
                         </a>

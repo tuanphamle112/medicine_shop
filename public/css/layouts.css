@@ -1580,10 +1580,10 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: #EDEDED;
+    background: #FFF;
     text-align: center;
     position: absolute;
-    opacity: .3;
+    opacity: .7;
     z-index: 200;
 }
 .indicator .spinner {
@@ -1595,6 +1595,7 @@
     width: 32px;
     height: 32px;
     background: url(../images/AjaxLoader.gif) no-repeat center;
+    background-size: cover;
 }
 .position-relative {
     position: relative;

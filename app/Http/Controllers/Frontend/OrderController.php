@@ -8,11 +8,13 @@ use App\Eloquent\Prescription;
 use App\Eloquent\ItemPrescription;
 use App\Eloquent\InforWebsite;
 use App\Eloquent\Order;
+use App\Eloquent\User;
 use App\Eloquent\Medicine;
 use App\Eloquent\OrderItem;
 use App\Eloquent\OrderAddress;
 use App\Helpers\Helper;
 use App\Mail\OrderEmail;
+use Response;
 use Session;
 use Auth;
 use DB;
@@ -180,6 +182,34 @@ class OrderController extends Controller
         }
 
         return view('frontend.order.success', compact(['order']));
+    }
+
+    public function resendEmail(Request $request)
+    {
+        $order_id = $request->order_id;
+
+        $data['status'] = false;
+        $order = $this->order->find($order_id);
+        if (!$order) {
+            $data['message'] = __('Order not found!');
+            return Response::json($data);
+        }
+
+        $user = Auth::user();
+        if ($user->id != $order->user_id || $user->permission != User::PERMISSION_ADMIN) {
+            $data['message'] = __('You do not have permission to this action!');
+            return Response::json($data);
+        }
+        try {
+            Mail::to($order->user_email)
+                ->send(new OrderEmail($order->id, __('Order from Framgia Medicine.')));
+            $data['status'] = true;
+            $data['message'] = __('Send email successfully!');
+        } catch (Exception $e) {
+            $data['message'] = $e->getMessage();
+        }
+
+        return Response::json($data);
     }
 
     public function orderList()

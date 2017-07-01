@@ -29,9 +29,10 @@
                     </div>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <table id="user_list_table" class="table table-bordered table-hover">
+                    <table id="user_list_table" class="table table-bordered">
                         <thead>
                         <tr>
+                            <th class="width-20px"></th>
                             <th>{{ __('ID #') }}</th>
                             <th>{{ __('Content') }}</th>
                             <th>{{ __('User') }}</th>
@@ -49,7 +50,8 @@
                         @endphp
 
                         @foreach ($comments as $comment)
-                            <tr>
+                            <tr class="bg-info">
+                                <td class="width-20px padding-left-10px"></td>
                                 <td>
                                     <span>{{ $comment->id }}</span>
                                 </td>
@@ -88,15 +90,65 @@
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         </span>
-                                        <button type="button" data-toggle="tooltip" class="btn btn-danger"
-                                            onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
-                                            data-original-title="{{ __('Delete') }}"
-                                        >
+                                        <a href="javascript:void(0)" data-text="{{ __('Do you want to delete?') }}" data-toggle="tooltip" class="btn btn-danger" onclick="confirmButtonBeforeSubmit(this)" data-original-title="{{ __('Delete') }}">
                                             <i class="fa fa-trash-o"></i>
-                                        </button>
+                                        </a>
                                     {!! Form::close() !!}
                                 </td>
                             </tr>
+
+                            @foreach ($comment->getChildrenComment as $chidrenCm)
+                                <tr>
+                                    <td class="bg-info"></td>
+                                    <td>
+                                        <span>{{ $chidrenCm->id }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{!! str_limit($chidrenCm->content, 120) !!}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{ $chidrenCm->getUser->display_name }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{ $chidrenCm->getMedicine->name }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{ $chidrenCm->created_at }}</span>
+                                    </td>
+                                    <td>
+                                        <span>{{ $chidrenCm->updated_at }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        @if ($chidrenCm->status === App\Eloquent\Comment::STATUS_ENABLE)
+                                            <div class="btn btn-primary text-center">
+                                                <i class="fa fa-eye"></i>
+                                                <span>{{ __('Enable') }}</span>
+                                            </div>
+                                        @else
+                                            <div class="btn btn-danger text-center">
+                                                <i class="fa fa-ban"></i>
+                                                <span>{{ __('Disable') }}</span>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class="text-right">
+                                        {!! Form::open(['route' =>['comment.destroy', $chidrenCm->id], 'method' => 'DELETE']) !!}
+                                            <span class="text-right">
+                                                <a href="{{ route('comment.edit', [$chidrenCm->id]) }}" data-toggle="tooltip" class="btn btn-primary" data-original-title="{{ __('Edit') }}">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            </span>
+                                            <button type="button" data-toggle="tooltip" class="btn btn-danger"
+                                                onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
+                                                data-original-title="{{ __('Delete') }}"
+                                            >
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        {!! Form::close() !!}
+                                    </td>
+                                </tr>
+                            @endforeach
+
                         @endforeach
                         </tbody>
                     </table>

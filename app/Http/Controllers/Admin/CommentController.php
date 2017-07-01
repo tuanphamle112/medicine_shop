@@ -24,7 +24,13 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = $this->comment->with('getUser', 'getMedicine')->orderBy('id', 'desc')->paginate(15);
+        $comments = $this->comment->with('getUser', 'getMedicine')
+            ->with('getChildrenComment.getUser', 'getChildrenComment.getMedicine')
+            ->with(['getChildrenComment' => function($query){
+                $query->orderBy('id', 'desc');
+            }])
+            ->whereNull('parent_id')
+            ->orderBy('id', 'desc')->paginate(5);
         $data['comments'] = $comments;
 
         return view('admin.comment.list', ['data' => $data]);
@@ -99,7 +105,7 @@ class CommentController extends Controller
             return redirect()->route('comment.index');
         }
 
-        $comment->fill($request->only(['content', 'status']));
+        $comment->fill($request->only(['status']));
         try {
             $comment->save();
             $message = __('Save successfully!');

@@ -3,8 +3,9 @@
 namespace App\Eloquent;
 
 use App\Eloquent\Medicine;
+use Illuminate\Database\Eloquent\Model;
 
-class Category extends AbstractEloquent
+class Category extends Model
 {
     
     const PATH_CATEGORIES = 'uploads/categories/';

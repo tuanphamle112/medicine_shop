@@ -47,6 +47,8 @@
                         @if ($status == App\Eloquent\Order::STATUS_COMPLETE)
                             <a class="btn btn-danger" onclick="confirmBeforeSubmit('#order-change-refund', this)" data-text="{{ __('Do you want to Refund this order?') }}">{{ __('Refund') }}</a>
                         @endif
+                        
+                        <a class="btn btn-success" onclick="resendEmailOrder('{{ $data['order']->id }}', this)" data-text="{{ __('Do you want to resend email this order?') }}">{{ __('Send Email') }}</a>
 
                         <a href="{!! route('admin.orders.index') !!}" data-toggle="tooltip" class="btn btn-default" data-original-title="{{ __('Back') }}">
                             <i class="fa fa-reply"></i>

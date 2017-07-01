@@ -320,5 +320,11 @@
     "Please enter text to question or answer!": "Please enter text to question or answer!",
     "Add a answer or a comment!": "Add a answer or a comment!",
     "Please login to add a answer or a comment!": "Please login to add a answer or a comment!",
-    "Add question": "Add question"
+    "Add question": "Add question",
+    "Send Email": "Send Email",
+    "Do you want to resend email this order?": "Do you want to resend email this order?",
+    "You do not have permission to this action!": "You do not have permission to this action!",
+    "Order from Framgia Medicine.": "Order from Framgia Medicine.",
+    "Send email successfully!": "Send email successfully!",
+    "Do you want to delete?": "Do you want to delete?"
 }

@@ -167,7 +167,20 @@ var AddPrescriptionViewModel = function()
     }
     self.deleteItem = function(data, event)
     {
-        if (!confirm(self.textComfirm)) return;
-        self.items.remove(data);
+        swal({
+            title: self.textComfirm,
+            type: 'info',
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger',
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+                self.items.remove(data);
+            } else {
+                return false;
+            }
+        });
     }
 }

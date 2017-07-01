@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>{{ __('Created order successfully!') }}</title>
+        <title>{{ $subject }}</title>
         <meta name="viewport" content="width=device-width" />
            <style type="text/css">
                 @media only screen and (max-width: 550px), screen and (max-device-width: 550px) {
@@ -49,7 +49,7 @@
         <table align="center" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; border: 1px solid #CDCDCD" class="content">
             <tr>
                 <td align="center" bgcolor="#ff6b6b" class="table-head-td" style="font-weight: bold;">
-                    {{ __('Created order successfully!') }}
+                    {{ $subject }}
                 </td>
             </tr>
             <tr>
@@ -141,7 +141,7 @@
             </tr>
             <tr>
                 <td align="center" bgcolor="#dddddd" style="padding: 15px 10px 15px 10px; color: #555555; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px;">
-                    <b>{{ __('Framgia Medicne') }}</b>
+                    <b>{{ __('Framgia Medicine') }}</b>
                 </td>
             </tr>
         </table>

@@ -1,6 +1,16 @@
 function clickLogoutForm(selectorID, textCormfirm) {
-	if (!confirm(textCormfirm)) return;
-	$(selectorID).submit();
+    swal({
+        title: textCormfirm,
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    },
+    function(isConfirm) {
+        if (!isConfirm) return false; 
+        $(selectorID).submit();
+    });
 }
 
 function str_slug(str)
@@ -66,6 +76,22 @@ ko.applyBindings(
     document.getElementById('area-search-header-form-id')
 );
 
+function confirmButtonBeforeSubmit(element)
+{
+    swal({
+        title: $(element).attr('data-text'),
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonClass: 'btn-danger',
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+    },
+    function(isConfirm) {
+        if (!isConfirm) return false;
+        $(element).parent().submit();
+    });
+}
+
 function confirmBeforeSubmit(selectorID, element) {
     swal({
         title: $(element).attr('data-text'),
@@ -74,15 +100,37 @@ function confirmBeforeSubmit(selectorID, element) {
         confirmButtonClass: 'btn-danger',
         confirmButtonText: 'Yes',
         cancelButtonText: 'No',
-        closeOnConfirm: true,
-        closeOnCancel: true
     },
     function(isConfirm) {
-        if (isConfirm) {
-            $(selectorID).submit();
-        } else {
-            swal('Cancelled', '', 'error');
-            return false;
-        }
+        if (!isConfirm) return false;
+        $(selectorID).submit();
+    });
+}
+
+function resendEmailOrder(paramOrderId, element)
+{
+    swal({
+        title: $(element).attr('data-text'),
+        type: "info",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+    }, function () {
+        var paramUrl = '/order/resend/email';
+
+        var tokenParam = $('meta[name=_token]').attr('content');
+        $.ajaxSetup({
+           headers: { 'X-CSRF-Token' : tokenParam }
+        });
+        var params = {order_id: paramOrderId};
+        
+        var request = $.ajax({method: 'POST', url: paramUrl, data: params});
+        request.done(function(data){
+            if (data.status) {
+                swal('Successfully!', data.message, 'success');
+            } else {
+                swal('Error!', data.message, 'error');
+            }
+        });
     });
 }
