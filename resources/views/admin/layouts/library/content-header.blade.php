@@ -55,11 +55,9 @@
                         <li class="user-footer">
                             <div class="pull-right">
                                 {!! Form::open(['url' => url('logout'), 'method' => 'post']) !!}
-                                    <button type="submit" data-toggle="tooltip" class="btn btn-danger"
-                                            onclick="return confirm('{{ __('Are you logout?') }}') ? $(this).parent().submit(): false;"
-                                            data-original-title="{{ __('Logout') }}">
+                                    <a data-toggle="tooltip" class="btn btn-danger" onclick="confirmButtonBeforeSubmit(this)" data-text="{{ __('Do you want to delete?') }}" data-original-title="{{ __('Logout') }}">
                                         {{ __('Logout') }}
-                                    </button>
+                                    </a>
                                 {!! Form::close() !!}
                             </div>
                         </li>

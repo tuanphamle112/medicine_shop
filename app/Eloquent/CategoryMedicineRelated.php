@@ -2,7 +2,9 @@
 
 namespace App\Eloquent;
 
-class CategoryMedicineRelated extends AbstractEloquent
+use Illuminate\Database\Eloquent\Model;
+
+class CategoryMedicineRelated extends Model
 {
     /**
      * The attributes that are mass assignable.

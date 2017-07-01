@@ -31,7 +31,6 @@ var CommentViewModel = function()
             dataItems.push(new CommentData(data.comments.data[i]));
         }
         self.commentDataArray(dataItems);
-
         $('#comment-indicator').addClass('hide');
     }
 
@@ -80,7 +79,7 @@ var CommentViewModel = function()
     self.sendComment = function(data, event)
     {
         var paramUrl = '/comment/send/data';
-        $('#comment-indicator').removeClass('hide');
+        $('#comment-indicator-add-question').removeClass('hide');
 
         var paramContent = $('#comment-content-textarea').val();
         if (!paramContent) {
@@ -101,10 +100,12 @@ var CommentViewModel = function()
         var request = $.ajax({method: 'POST', url: paramUrl, data: params});
         request.done(function(data){
             self.completeLoadData(data);
+            $('#comment-indicator-add-question').addClass('hide');
         });
         request.fail(function(jqXHR, textStatus){
             $('#comment-indicator').addClass('hide');
             $('#comment-content-textarea').val(paramContent);
+            $('#comment-indicator-add-question').addClass('hide');
         });
     }
 
@@ -153,11 +154,12 @@ var CommentViewModel = function()
         var paramUrl = '/comment/send/data';
 
         var itemId = data.itemData().id;
-        $('#comment-indicator').removeClass('hide');
+        $('#comment-parent-indicator-edit-' + itemId).removeClass('hide');
 
         var paramContent = $('#cm-parent-textarea-' + itemId).val();
 
         if (!paramContent) {
+            $('#comment-parent-indicator-edit-' + itemId).addClass('hide');
             self.showEmptyContent();
             return;
         }
@@ -172,21 +174,37 @@ var CommentViewModel = function()
         var request = $.ajax({method: 'POST', url: paramUrl, data: params});
         request.done(function(data){
             self.completeLoadData(data);
+            $('#comment-parent-indicator-edit-' + itemId).addClass('hide');
         });
         request.fail(function(jqXHR, textStatus){
-            $('#comment-indicator').addClass('hide');
+            $('#comment-parent-indicator-edit-' + itemId).addClass('hide');
             $('#comment-content-textarea').val(paramContent);
         });
     }
 
     self.editParentComment = function(data, event)
     {
+        if (data.itemData().user_id != self.currentUserId()) return;
+
         var itemId = data.itemData().id;
         $('#cm-show-parent-' + itemId).addClass('hide')
         $('#cm-parent-textarea-' + itemId).removeClass('hide');
         $('#cm-parent-textarea-' + itemId).val(data.itemData().content);
+        $('#cm-parent-textarea-' + itemId).focus();
         $('#cm-parent-button-edit-' + itemId).addClass('hide');
         $('#cm-parent-button-save-' + itemId).removeClass('hide');
+    }
+
+    self.pressEscParentComment = function(data, event)
+    {
+        // Press ESC
+        if (event.keyCode === 27) {
+            var itemId = data.itemData().id;
+            $('#cm-show-parent-' + itemId).removeClass('hide')
+            $('#cm-parent-textarea-' + itemId).addClass('hide');
+            $('#cm-parent-button-edit-' + itemId).removeClass('hide');
+            $('#cm-parent-button-save-' + itemId).addClass('hide');
+        }
     }
 
     self.addChidrenComment = function(data, event)
@@ -221,6 +239,29 @@ var CommentViewModel = function()
         });
     }
 
+    self.enterAddChildrenComment = function (data, event)
+    {  
+        if (event.keyCode === 13) {
+            self.addChidrenComment(data, event);
+        }
+        
+    }
+
+    self.enterEditChildrenComment = function(data, event)
+    {   
+        // Press Enter
+        if (event.keyCode === 13) {
+            self.saveChildrenComment(data, event);
+        }
+
+        // Press ESC
+        if (event.keyCode === 27) {
+            var comment_id = data.id;
+            $('#cm-children-show-content-' + comment_id).removeClass('hide');
+            $('#cm-children-area-edit-' + comment_id).addClass('hide');
+        }
+    }
+
     self.saveChildrenComment = function(data, event)
     {
         var paramUrl = '/comment/send/data/children';
@@ -231,7 +272,7 @@ var CommentViewModel = function()
             self.showEmptyContent();
             return;
         }
-        $('#comment-children-indicatora-' + itemId).removeClass('hide');
+        $('#comment-children-indicatora-update-' + comment_id).removeClass('hide');
 
         var tokenParam = $('meta[name=_token]').attr('content');
         $.ajaxSetup({
@@ -247,20 +288,22 @@ var CommentViewModel = function()
                     break;
                 }
             }
-            $('#comment-children-indicatora-' + itemId).addClass('hide');
+            $('#comment-children-indicatora-update-' + comment_id).addClass('hide');
         });
         request.fail(function(jqXHR, textStatus){
-            $('#comment-children-indicatora-' + itemId).addClass('hide');
+            $('#comment-children-indicatora-update-' + comment_id).addClass('hide');
         });
     }
 
     self.editChildrenComment = function(data, event)
     {
         var comment_id = data.id;
+        if (data.user_id != self.currentUserId()) return;
         $('#cm-children-area-edit-' + comment_id).removeClass('hide');
         $('#cm-children-show-content-' + comment_id).addClass('hide');
         $('#cm-children-area-edit-' + comment_id).find('input').val(data.content);
-        $(event.target).addClass('hide');
+        $('#cm-children-area-edit-' + comment_id).find('input').focus();
+        // $(event.target).addClass('hide');
     }
 
     self.deleteChildrenComment = function(data, event)
@@ -278,7 +321,7 @@ var CommentViewModel = function()
             if (isConfirm) {
                 var comment_id = data.id;
                 var itemId = data.parent_id;
-                $('#comment-children-indicatora-' + itemId).removeClass('hide');
+                $('#comment-children-indicatora-update-' + comment_id).removeClass('hide');
                 var tokenParam = $('meta[name=_token]').attr('content');
                 $.ajaxSetup({
                    headers: { 'X-CSRF-Token' : tokenParam }
@@ -293,10 +336,10 @@ var CommentViewModel = function()
                             break;
                         }
                     }
-                    $('#comment-children-indicatora-' + itemId).addClass('hide');
+                    $('#comment-children-indicatora-update-' + comment_id).addClass('hide');
                 });
                 request.fail(function(jqXHR, textStatus){
-                    $('#comment-children-indicatora-' + itemId).addClass('hide');
+                    $('#comment-children-indicatora-update-' + comment_id).addClass('hide');
                 });
 
             } else {

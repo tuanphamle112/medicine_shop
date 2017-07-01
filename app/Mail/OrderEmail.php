@@ -14,15 +14,17 @@ class OrderEmail extends Mailable
     use Queueable, SerializesModels;
 
     protected $orderId;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($orderId)
+    public function __construct($orderId, $subject = '')
     {
         $this->orderId = $orderId;
+        $this->subject = $subject;
     }
 
     /**
@@ -35,10 +37,12 @@ class OrderEmail extends Mailable
         $order = Order::with('getOrderItems')->find($this->orderId);
         $address['billing'] = OrderAddress::getBillingOrderAddress($this->orderId)->first();
         $address['shipping'] = OrderAddress::getShippingOrderAddress($this->orderId)->first();
+        $subject = $this->subject ?: __('Created order successfully!');
         return $this->from(config('custom.email.from'), config('custom.email.from_name'))
-            ->subject(__('Created order successfully!'))
+            ->subject($subject)
             ->view('emails.orders.create-order')
             ->with([
+                'subject' => $subject,
                 'order' => $order,
                 'address' => $address,
                 'option_status' => Order::getOptionStatus(),

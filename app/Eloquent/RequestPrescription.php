@@ -42,6 +42,11 @@ class RequestPrescription extends Model
         return $this->hasMany(Image::class, 'request_prescription_id');
     }
 
+    public function getRelatedRequetDoctor()
+    {
+        return $this->hasOne(RelatedDoctorRequest::class, 'request_prescription_id');
+    }
+
     public function getAllPrescription()
     {
         return $this->hasMany(Prescription::class, 'request_prescription_id');

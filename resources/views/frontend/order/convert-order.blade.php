@@ -72,7 +72,7 @@
                                     <div class="padding-5px">
                                         <span>{{ __('Amount') }}</span>
                                         <span class="pull-right-container">
-                                            <small class="label pull-right bg-green">
+                                            <small class="pull-right">
                                                 {{ $items->amount }} {{ $items->getMedicine->unit }} / {{ __('day') }}
                                             </small>
                                         </span>
@@ -80,7 +80,7 @@
                                     <div class="padding-5px">
                                         <span>{{ __('Uses in') }}</span>
                                         <span class="pull-right-container">
-                                            <small class="label pull-right bg-green">{{ $items->qty_purchased }} {{ __('day') }}</small>
+                                            <small class="pull-right">{{ $items->qty_purchased }} {{ __('day') }}</small>
                                         </span>
                                     </div>
                                     @php
@@ -89,7 +89,7 @@
                                     <div class="padding-5px">
                                         <span>{{ __('Qty ordered') }}</span>
                                         <span class="pull-right-container">
-                                            <strong class="pull-right">
+                                            <strong class="pull-right text-danger">
                                                 {{ App\Helpers\Helper::numberIntegerFormat($qtyOrdered) }}
                                                 {{ $items->getMedicine->unit }}
                                             </strong>

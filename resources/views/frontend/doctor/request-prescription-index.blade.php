@@ -18,9 +18,11 @@
         <div class="row">
             <div class="col-xs-12" id="frontend-area-request-prescition">
                 <div class="row store-items">
-                    @forelse ($requestPrescriptions as $requestPrescription)
+                    @forelse ($relatedDoctorRequests as $relatedDoctorRequest)
 
                         @php
+                            $requestPrescription = $relatedDoctorRequest->getRequestPrescription;
+
                             $imagesCollection = $requestPrescription->getAllImages();
                             $image = $imagesCollection->orderBy('is_main', 'desc')->first();
                             $image_show = config('custom.medicine.image_default'); //default Image
@@ -53,6 +55,29 @@
                                                     {{ $requestPrescription->getUser->display_name }}
                                                 </a>
                                             </li>
+                                            <li class="col-sm-12">
+                                                {{ __('Status') }} :
+                                                @if ($relatedDoctorRequest->status == App\Eloquent\RelatedDoctorRequest::STATUS_NEW)
+                                                    <span class="text-success">
+                                                        <i class="fa fa-envelope"></i>
+                                                        {{ $optionStatus[$relatedDoctorRequest->status] }}
+                                                    </span>
+                                                @endif
+
+                                                @if ($relatedDoctorRequest->status == App\Eloquent\RelatedDoctorRequest::STATUS_WATCHECD)
+                                                    <span class="text-primary">
+                                                        <i class="fa fa-eye-slash"></i>
+                                                        {{ $optionStatus[$relatedDoctorRequest->status] }}
+                                                    </span>
+                                                @endif
+
+                                                @if ($relatedDoctorRequest->status == App\Eloquent\RelatedDoctorRequest::STATUS_RESPONSE)
+                                                    <span class="text-danger">
+                                                        <i class="fa fa-reply"></i>
+                                                        {{ $optionStatus[$relatedDoctorRequest->status] }}
+                                                    </span>
+                                                @endif
+                                            </li>
                                         </ul>
                                     </div>
                                     
@@ -69,7 +94,7 @@
                 </div>
                 <!-- Pagination -->
                 <div class="text-center">
-                    {{ $requestPrescriptions->links() }}
+                    {{ $relatedDoctorRequests->links() }}
                 </div>
                 <!-- END Pagination -->
                 

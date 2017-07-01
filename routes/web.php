@@ -111,8 +111,7 @@ Route::group(['middleware' => 'isLogin'], function(){
         ->name('frontend.order.success');
     Route::get('user/order-list', 'Frontend\OrderController@orderList')
         ->name('frontend.order.list');
-
-
+    Route::post('/order/resend/email', 'Frontend\OrderController@resendEmail');
 });
 
 Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profileDiffUser')

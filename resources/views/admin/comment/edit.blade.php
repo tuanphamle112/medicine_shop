@@ -38,7 +38,7 @@
                                 {!! Form::label('content', __('Content'), ['class' => 'col-sm-1 control-label']) !!}
 
                                 <div class="col-sm-11">
-                                    {!! Form::textarea('content', $comment->content, ['class' => 'form-control', 'placeholder' => __('Content'), 'rows' => 6]) !!}
+                                    {{ $comment->content }}
                                     <span class="text-danger">{!! $errors->first('content') !!}</span>
                                 </div>
                             </div>

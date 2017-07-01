@@ -188,19 +188,12 @@ class Helper
     public static function countNewRequestPrescriptionDoctor()
     {
         $result = 0;
-        $relatedDoctorRequest = new RelatedDoctorRequest;
         
         if (Auth::check() && Auth::user()->permission == User::PERMISSION_DOCTER) {
-            $allRequests = $relatedDoctorRequest->with('getRequestPrescription')
-                ->where('doctor_id', Auth::user()->id)->get();
+            $allRequests = RelatedDoctorRequest::where('doctor_id', Auth::user()->id)
+                ->where('status', RelatedDoctorRequest::STATUS_NEW)->get();
 
-            foreach ($allRequests as $request) {
-                if ($request->getRequestPrescription->status != RequestPrescription::STATUS_NEW) {
-                    continue;
-                }
-
-                $result ++;
-            }
+            $result = $allRequests->count();
         }
 
         return $result;

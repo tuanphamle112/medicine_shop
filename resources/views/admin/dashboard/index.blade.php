@@ -244,7 +244,15 @@
                                                 #{{ $order->id }}
                                             </a>
                                         </td>
-                                        <td class="text-center">{{ $order->user_display_name }}</td>
+                                        <td class="text-center">
+                                            @if ($order->user_id)
+                                                <a href="{{ route('users.show', [$order->user_id]) }}">
+                                                    {{ $order->user_display_name }}
+                                                </a>
+                                            @else
+                                                {{ $order->user_display_name }}
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             {{ App\Helpers\Helper::numberIntegerFormat($order->total_items) }}
                                         </td>
