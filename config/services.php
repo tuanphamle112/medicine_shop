@@ -36,28 +36,14 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => '138792040026231',
-        'client_secret' => '0fc6a7d2fed575e3b3205cce02ad8680',
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('APP_URL') . 'callback/facebook',
     ],
 
-    // API for Hosting
-    // 'facebook' => [
-    //     'client_id' => '316547422130910',
-    //     'client_secret' => '0c1324f1af172940b311a032c8e26933',
-    //     'redirect' => env('APP_URL') . 'callback/facebook',
-    // ],
-
     'google' => [
-        'client_id' => '733547052003-2ltnfps007hdntsej5vsalf9cla212ns.apps.googleusercontent.com',
-        'client_secret' => 'VQKaxzEY_lqLox_C03j9k3MA',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('APP_URL') . 'callback/google',
     ],
-
-    // API for Hosting
-    // 'google' => [
-    //     'client_id' => '219505973432-43up07mneju6jfj6qtqpb47cjbjvdju9.apps.googleusercontent.com',
-    //     'client_secret' => 'KyV9mm6BS-_9nFy_AfhWSkpc',
-    //     'redirect' => env('APP_URL') . 'callback/google',
-    // ],
 ];
