@@ -17,9 +17,6 @@ $(document).ready(function(){
     $('#input-quality').on('rating.change', function(event, value, caption) {        // return $medicine_name->name
         $('#hidden-quality').val(value);
     });
-
-    $('#star-main').rating({ step: 1, stars: 5, displayOnly: true});
-    $('#star-main2').rating({ step: 1, stars: 5, showCaption:false, showClear:false});
     $('#star-main2').on('rating.change', function(event, value, caption) {
         $(".rating-star-hint").css({
             display: 'none'

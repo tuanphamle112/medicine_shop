@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Eloquent\Medicine;
+use App\Eloquent\User;
 use App\Eloquent\Image;
 use App\Eloquent\Category;
 use App\Eloquent\MarkMedicine;
@@ -25,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $newestProducts = Medicine::orderBy('created_at', 'desc')->take(5)->get();
-        $subCategories = Category::with('getParentFromSubCategory')->whereNotNull('parent_id')->get();
+        $doctor_list = User::where('permission', User::PERMISSION_DOCTER)->orderBy('id', 'desc')->take(5)->get();
         
-        return view('frontend.home.index', compact(['newestProducts', 'subCategories']));
+        return view('frontend.home.index', compact([
+            'doctor_list'
+        ]));
     }
 
     public function search(Request $request)
