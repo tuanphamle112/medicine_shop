@@ -23,7 +23,9 @@
                                 <h2 class="h-ultra">{{ __('Framgia Medicines') }}</h2>
                             </div>
                             <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.1s">
-                                <h4 class="h-light">{{ __('Provide best quality healthcare for you') }}</h4>
+                                <h4 class="h-light">
+                                    {{ __('Provide best quality healthcare for you') }}
+                                </h4>
                             </div>
                             <div class="well well-trans">
                                 <div class="wow fadeInRight" data-wow-delay="0.1s">
@@ -150,7 +152,7 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
-                            <img src="/images/template_medicio/img/dummy/img-1.jpg" class="img-responsive" alt="" />
+                            <img src="{{ asset('images/template_medicio/img/dummy/img-1.jpg') }}" class="img-responsive" alt="" />
                         </div>
                     </div>
                     <div class="col-sm-3 col-md-3">
@@ -225,80 +227,11 @@
         <!-- /Section: services -->
 
         <!-- Section: team -->
-        <section id="doctor" class="home-section bg-gray paddingbot-60">
-            <div class="container marginbot-50">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="wow fadeInDown" data-wow-delay="0.1s">
-                            <div class="section-heading text-center">
-                                <h2 class="h-bold">{{ __('Doctors') }}</h2>
-                                <p>{{ __('Doctors with high trust') }}</p>
-                            </div>
-                        </div>
-                        <div class="divider-short"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                        <div id="filters-container" class="cbp-l-filters-alignLeft">
-                            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">{{ __('All') }} (<div class="cbp-filter-counter"></div>)</div>
-                            @php
-                                $check = [];
-                            @endphp
-                            @foreach($doctor_list as $value_doctor_list)
-                                @if( !empty($value_doctor_list->specialize))
-                                    @if(in_array($value_doctor_list->specialize, $check))
-                                        @continue;
-                                    @else
-                                        @php
-                                            $check[] = $value_doctor_list->specialize ;
-                                        @endphp
-                                    @endif
-                                    
-                                    <div data-filter=".{{ str_slug($value_doctor_list->specialize) }}" class="cbp-filter-item">{{ $value_doctor_list->specialize }}(<div class="cbp-filter-counter"></div>)</div>
-                                @else
-                                    @continue;
-                                @endif
-                            @endforeach
-                        </div>
-
-                        <div id="grid-container" class="cbp-l-grid-team">
-                            <ul>
-                            @foreach($doctor_list as $value_doctor_list)
-                           
-                                @if(empty($value_doctor_list->specialize))
-                                    @continue;
-                                @else
-                                    <li class="cbp-item {{ str_slug($value_doctor_list->specialize) }}">
-                                        <a href="{{ route('frontend.user.different.profiles',[$value_doctor_list->id, str_slug($value_doctor_list->display_name)]) }}" class="cbp-caption">
-                                            <div class="cbp-caption-defaultWrap">
-                                                <img src="{{ App\Helpers\Helper::getLinkUserAvatar($value_doctor_list->avatar) }}" alt="" width="100%">
-                                            </div>
-                                            <div class="cbp-caption-activeWrap">
-                                                <div class="cbp-l-caption-alignCenter">
-                                                    <div class="cbp-l-caption-body">
-                                                        <div class="cbp-l-caption-text">{{ __('VIEW PROFILE') }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('frontend.user.different.profiles', [$value_doctor_list->id, str_slug($value_doctor_list->display_name)]) }}" class="cbp-l-grid-team-name">{{ $value_doctor_list->display_name }}</a>
-                                        <div class="cbp-l-grid-team-position">{{ $value_doctor_list->specialize }}</div>
-                                    </li>
-                                @endif
-                            @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+        <section id="doctor" class="home-section bg-gray">
+            {{-- @include('frontend.home.components.view-doctor') --}} 
         </section>
         <!-- /Section: team -->
+
         <!-- Section: testimonial -->
         <section id="testimonial" class="home-section parallax" data-stellar-background-ratio="0.5">
 
@@ -307,89 +240,30 @@
                     <div class="row">
                         <div id="carousel-reviews" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="item active">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Emergency Contraception</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">                    
-                                            <img src="/images/template_medicio/img/testimonials/1.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Anna</a>
-                                            <span>Chicago, Illinois</span>
-                                        </div>
+                                @foreach ($data['review'] as $key => $reviews)
+                                    <div class="item {{ $key == 0 ? 'active':'' }}">
+                                        @foreach ($reviews as $review)
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="block-text rel zmin">
+                                                    <a title="{{ $review->getMedicine->name }}" href="{{ route('detail', [$review->getMedicine->id, str_slug($review->getMedicine->name)]) }}">{{ str_limit($review->getMedicine->name, 30) }}</a>
+                                                    <div class="mark text-right">
+                                                        <input data-readonly="true" data-show-clear="false" data-show-caption="false" class="home-rating-star rating-loading" data-min="0" data-max="5" data-step="1" value="{{ $review->point_rate }}">
+                                                    </div>
+                                                    <p class="review-homepage-title">
+                                                        <strong>{{ $review->title }}</strong>
+                                                    </p>
+                                                    <p class="review-homepage-content">{{ $review->content }}</p>
+                                                    <ins class="ab zmin sprite sprite-i-triangle"></ins>
+                                                </div>
+                                                <div class="person-text rel text-light">                    
+                                                    <img src="{{ App\Helpers\Helper::getLinkUserAvatar($review->getUser->avatar) }}" class="person img-circle" />
+                                                    <a title="{{ $review->getUser->display_name }}" href="{{ route('frontend.user.different.profiles', [$review->getUser->id, str_slug($review->getUser->display_name)]) }}">{{ $review->getUser->display_name }}</a>
+                                                    <span>{{ $review->getUser->address }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <div class="col-md-4 col-sm-6 hidden-xs">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Orthopedic Surgery</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star-empty"></span><span data-value="3" class="glyphicon glyphicon-star-empty"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">
-                                            <img src="/images/template_medicio/img/testimonials/2.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Matthew G</a>
-                                            <span>San Antonio, Texas</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Medical consultation</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star"></span><span data-value="5" class="glyphicon glyphicon-star"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">
-                                            <img src="/images/template_medicio/img/testimonials/3.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Scarlet Smith</a>
-                                            <span>Dallas, Texas</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Birth control pills</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">
-                                            <img src="/images/template_medicio/img/testimonials/4.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Lucas Thompson</a>
-                                            <span>Austin, Texas</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 hidden-xs">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Radiology</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star-empty"></span><span data-value="3" class="glyphicon glyphicon-star-empty"></span><span data-value="4" class="glyphicon glyphicon-star-empty"></span><span data-value="5" class="glyphicon glyphicon-star-empty"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">
-                                            <img src="/images/template_medicio/img/testimonials/5.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Ella Mentree</a>
-                                            <span>Fort Worth, Texas</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6 hidden-sm hidden-xs">
-                                        <div class="block-text rel zmin">
-                                            <a title="" href="#">Cervical Lesions</a>
-                                            <div class="mark">My rating: <span class="rating-input"><span data-value="0" class="glyphicon glyphicon-star"></span><span data-value="1" class="glyphicon glyphicon-star"></span><span data-value="2" class="glyphicon glyphicon-star"></span><span data-value="3" class="glyphicon glyphicon-star"></span><span data-value="4" class="glyphicon glyphicon-star"></span><span data-value="5" class="glyphicon glyphicon-star"></span>  </span></div>
-                                            <p>Ne eam errem semper. Laudem detracto phaedrum cu vim, pri cu errem fierent fabellas. Quis magna in ius, pro vidit nonumy te, nostrud ...</p>
-                                            <ins class="ab zmin sprite sprite-i-triangle"></ins>
-                                        </div>
-                                        <div class="person-text rel text-light">
-                                            <img src="/images/template_medicio/img/testimonials/6.jpg" alt="" class="person img-circle" />
-                                            <a title="" href="#">Suzanne Adam</a>
-                                            <span>Detroit, Michigan</span>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                @endforeach
                             </div>
 
                             <a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
@@ -404,7 +278,7 @@
             </div>
         </section>
         <!-- /Section: testimonial -->
-        <section id="partner" class="home-section paddingbot-60">   
+        <section id="partner" class="home-section">   
         </section>  
     </div>  
 </body>

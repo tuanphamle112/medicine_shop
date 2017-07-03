@@ -5,8 +5,12 @@
 @section('content')
 <section class="site-section site-section-detail site-section-light site-section-top themed-background-dark">
     <div class="container text-center">
-        <h1 class="animation-slideDown"><strong>{{ __('Antibiotics') }}</strong></h1>
-        <h3 class="animation-slideDown"><strong> {{ __('Destroy or slow down the growth of bacteria') }}</strong></h3>
+        <h1 class="animation-slideDown">
+            <strong>{{ $medicine->name }}</strong>
+        </h1>
+        <h3 class="animation-slideDown">
+            <strong>{{ $medicine->symptom }}</strong>
+        </h3>
     </div>
 </section>
 <!-- Product View -->
@@ -331,7 +335,7 @@
                                             <li data-bind="if: currentPage() > 1">
                                                 <a href="javascript:void(0)" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
                                             </li>
-                                            <li class="active">
+                                            <li class="active" data-bind="if: totalPage() > 0">
                                                 <a href="javascript:void(0)" data-bind="text: currentPage() + '/' + totalPage()">
                                                 </a>
                                             </li>

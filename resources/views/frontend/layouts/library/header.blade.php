@@ -64,10 +64,10 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('frontend.contact.index') }}">{{ __('Contact') }}</a>
+                    <a href="{{ route('frontend.doctor.list') }}">{{ __('Doctors List') }}</a>
                 </li>
                 <li>
-                    <a href="">{{ __('About') }}</a>
+                    <a href="{{ route('frontend.contact.index') }}">{{ __('Contact') }}</a>
                 </li>
                 @if (!Auth::check())
                     <li>

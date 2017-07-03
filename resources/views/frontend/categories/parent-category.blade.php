@@ -7,10 +7,9 @@
 <div class="media-container media2">
     <!-- For best results use an image with a resolution of 2560x279 pixels -->
     <div class="container banner-title">
-        <h1 class="text-center animation-slideDown"><strong>{{ __('Our Work') }}</strong></h1>
-        <h2 class="h3 text-center animation-slideUp">{{ __('We will be happy to work together and bring your ideas to life!') }}</h2>
+        <h1 class="text-center animation-slideDown"><strong>{{ $parentCategory->name }}</strong></h1>
     </div>
-    <img src="/images/mountain.jpg" alt="Image" class="media-image animation-pulseSlow">
+    <img src="{{ asset('/images/mountain.jpg') }}" alt="Image" class="media-image animation-pulseSlow">
 </div>
 <!-- END Media Container -->
 <section class="site-content site-section">

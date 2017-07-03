@@ -13,9 +13,12 @@
                 </ul>
             </div>
             <div class="col-sm-6 col-md-6 left">
-                <h4 class="footer-heading"><span id="year-copy">2014</span> &copy; <a href="http://goo.gl/TDOSuC">{{ __('Framgia Medicines') }}</a></h4>
+                <h4 class="footer-heading">2014 - {{ date('Y') }} &copy; 
+                <a href="{{ url('') }}">{{ __('Framgia Medicines') }}</a></h4>
                 <ul class="footer-nav list-inline">
-                    <li>{{ __('Copy right') }} <i class="fa fa-heart text-danger"></i> by <a href="http://goo.gl/vNS3I">{{ __('TPL') }}</a></li>
+                    <li>
+                        {{ __('Provide best quality healthcare for you') }}
+                    </li>
                 </ul>
             </div>
         </div>

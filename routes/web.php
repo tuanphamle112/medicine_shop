@@ -117,6 +117,9 @@ Route::group(['middleware' => 'isLogin'], function(){
 Route::get('/user/{user_id}/{user_name}', 'Frontend\UserProfilesController@profileDiffUser')
     ->name('frontend.user.different.profiles');
 
+Route::get('/doctor/list-all', 'Frontend\HomeController@doctorList')->name('frontend.doctor.list');
+Route::get('/doctor/json/getList', 'Frontend\HomeController@jsonDoctorList');
+
 Route::post('/detail/{id}/review', 'Frontend\DetailMedicinesController@reviewMedicine');
 
 Route::get('/contact/sendemail', 'Frontend\HomeController@indexSendEmail')->name('frontend.contact.index');

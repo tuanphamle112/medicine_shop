@@ -28,7 +28,7 @@ var App = function() {
         $('[data-toggle="popover"], .enable-popover').popover({container: 'body', animation: true});
 
         // Initialize single image lightbox
-        $('[data-toggle="lightbox-image"]').magnificPopup({type: 'image', image: {titleSrc: 'title'}});
+        // $('[data-toggle="lightbox-image"]').magnificPopup({type: 'image', image: {titleSrc: 'title'}});
 
         // Initialize image gallery lightbox
         $('[data-toggle="lightbox-gallery"]').each(function(){
@@ -48,7 +48,7 @@ var App = function() {
         });
 
         // Initialize Placeholder
-        $('input, textarea').placeholder();
+        // $('input, textarea').placeholder();
 
         // Toggle animation class when an element appears with Jquery Appear plugin
         $('[data-toggle="animation-appear"]').each(function(){
@@ -79,14 +79,14 @@ var App = function() {
         });
 
         // With jquery.videoBG, Check out examples and documentation at https://github.com/sydlawrence/jquery.videoBG
-         $('.js-video-bg').videoBG({
-            mp4: 'img/placeholders/videos/placeholder_video.mp4',
-            ogv: 'img/placeholders/videos/placeholder_video.ogv',
-            webm: 'img/placeholders/videos/placeholder_video.webm',
-            poster: 'img/placeholders/videos/placeholder_video.jpg',
-            scale: true,
-            zIndex: 0
-        });
+        // $('.js-video-bg').videoBG({
+        //     mp4: 'img/placeholders/videos/placeholder_video.mp4',
+        //     ogv: 'img/placeholders/videos/placeholder_video.ogv',
+        //     webm: 'img/placeholders/videos/placeholder_video.webm',
+        //     poster: 'img/placeholders/videos/placeholder_video.jpg',
+        //     scale: true,
+        //     zIndex: 0
+        // });
 
         // Toggles 'open' class on store menu
         $('.store-menu .submenu').on('click', function(){

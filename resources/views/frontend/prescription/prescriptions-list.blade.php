@@ -102,7 +102,7 @@
                     <li data-bind="if: currentPage() > 1">
                         <a href="javascript:void(0)" data-bind="click: prePage"><i class="fa  fa-angle-double-left"></i></a>
                     </li>
-                    <li class="active">
+                    <li class="active" data-bind="if: totalPage() > 0">
                         <a href="javascript:void(0)" data-bind="text: currentPage() + '/' + totalPage()">
                         </a>
                     </li>

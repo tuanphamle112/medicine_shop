@@ -3,20 +3,22 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 use App\Eloquent\Medicine;
 use App\Eloquent\User;
 use App\Eloquent\Image;
 use App\Eloquent\Category;
 use App\Eloquent\MarkMedicine;
 use App\Eloquent\InforWebsite;
+use App\Eloquent\RateMedicine;
 use App\Helpers\Helper;
 use App\Mail\ContactAdmin;
 use Session;
 use Response;
 use Auth;
 use DB;
+
 class HomeController extends Controller
 {
     /**
@@ -26,11 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $doctor_list = User::where('permission', User::PERMISSION_DOCTER)->orderBy('id', 'desc')->take(5)->get();
-        
-        return view('frontend.home.index', compact([
-            'doctor_list'
-        ]));
+        $queryRate = RateMedicine::with('getUser', 'getMedicine')->whereNotNull('user_id')
+            ->orderBy('point_rate', 'desc')->orderBy('id', 'desc');
+        for ($i = 0; $i < 3; $i++) {
+            $data['review'][$i] = $queryRate->take(3)->skip(3*$i)->get();
+        }
+
+        return view('frontend.home.index', compact(['data']));
     }
 
     public function search(Request $request)
@@ -88,6 +92,7 @@ class HomeController extends Controller
 
         return redirect()->route('frontend.mark-medicine.index');
     }
+
     public function indexSendEmail()
     {
         return view('frontend.contact.sendEmail');
@@ -104,5 +109,21 @@ class HomeController extends Controller
 
         return redirect()->route('frontend.contact.index');
     }
-    
+
+    public function doctorList()
+    {
+        $genderOption = User::getGenderOption();
+
+        return view('frontend.doctor.list-doctor', compact(['genderOption']));
+    }
+
+    public function jsonDoctorList(Request $request)
+    {
+        $keyword = $request->keyword;
+        $doctors = User::search($keyword)
+            ->where('permission', User::PERMISSION_DOCTER)
+            ->paginate(config('model.user.doctor_limit'));
+            
+        return  Response::json($doctors);
+    }
 }
