@@ -461,7 +461,7 @@
                                                         <div class="form-reviews">
                                                             {!! Form::open(array('method' => 'post', 'route' => array('avg', $medicine->id))) 
                                                             !!}
-                                                                {{ Form::text('star-main', '', array('class' => 'rating rating-loading', 'id' => 'star-main2', 'data-min' => '0', 'data-max' => '5', 'data-step' => '1')) }}
+                                                                {{ Form::text('star-main', '', array('class' => 'rating rating-loading', 'data-show-caption' => 'false' , 'data-show-clear' => 'false', 'id' => 'star-main2', 'data-min' => '0', 'data-max' => '5', 'data-step' => '1')) }}
                                                                 <span class="rating-star-hint">
                                                                     {{ __('Click here to start rating') }}
                                                                 </span>

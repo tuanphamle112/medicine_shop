@@ -24,6 +24,8 @@
     <!-- END Stylesheets -->
     <link rel="stylesheet" href="{!! url('bower_components/bootstrap-sweetalert/dist/sweetalert.css') !!}"/>
 
+    @yield('custom-css')
+
     {{-- end template css --}}
 </head>
 <body>
@@ -39,11 +41,13 @@
         @include('frontend.layouts.library.footer')
         <!-- End footer -->
     </div>
-
-
-    @include('frontend.layouts.library.footer-js')
-
+    @section('frontend-js')
+        <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+        @include('frontend.layouts.library.footer-js')
+        <script src="{{ asset('/js/template/plugins.js') }}"></script>
+    @show
     @yield('custom-javascript')
+    
 </body>
 </html>
 
