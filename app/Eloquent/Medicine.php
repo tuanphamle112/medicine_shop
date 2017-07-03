@@ -3,10 +3,12 @@
 namespace App\Eloquent;
 
 use Laravel\Scout\Searchable;
+use App\Eloquent\Relations\MedicineRelation;
 
 class Medicine extends AbstractEloquent
 {
     // use Searchable;
+    use MedicineRelation;
 
     const ALLOWED_BUY = 1;
     const NOT_ALLOWED_BUY = 0;
@@ -55,36 +57,5 @@ class Medicine extends AbstractEloquent
             self::NOT_ALLOWED_BUY => __('Not allowed to buy'),
             self::ALLOWED_BUY => __('Allowed to buy'),
         ];
-    }
-    public function scopeGetAllFieldById($query, $id)
-    {
-        return $query->find($id);
-    }
-    public function scopeGetImagesById($query)
-    {
-        return $query->getAllImages;
-    }
-    public function getAllCategories()
-    {
-        return $this->belongsToMany(Medicine::class, 'category_medicine_related', 'medicine_id', 'category_id');
-    }
-    public function getAllImages()
-    {
-        return $this->hasMany(Image::class, 'medicine_id');
-    }
-
-    public function getAllRateMedicines()
-    {
-        return $this->hasMany(RateMedicine::class);
-    }
-
-    public function getAllComments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-    
-    public function getCreatedUser()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }

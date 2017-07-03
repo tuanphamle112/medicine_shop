@@ -2,12 +2,13 @@
 
 namespace App\Eloquent;
 
-use App\Eloquent\Medicine;
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\CategoryRelation;
 
 class Category extends Model
 {
-    
+    use CategoryRelation;
+
     const PATH_CATEGORIES = 'uploads/categories/';
 
     /**
@@ -27,21 +28,6 @@ class Category extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    public function getAllMedicines()
-    {
-        return $this->belongsToMany(Medicine::class, 'category_medicine_related', 'category_id', 'medicine_id');
-    }
-
-    public function getSubCategories()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    public function getParentFromSubCategory()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
 
     public function scopeGetParentCategoryByLink($query, $link)
     {

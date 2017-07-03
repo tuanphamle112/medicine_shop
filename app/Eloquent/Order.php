@@ -3,9 +3,13 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\OrderRelation;
 
 class Order extends Model
 {
+
+    use OrderRelation;
+
     const STATUS_PENDING = 'pending';
     const STATUS_COMPLETE = 'complete';
     const STATUS_CANCEL = 'cancel';
@@ -32,15 +36,5 @@ class Order extends Model
             self::STATUS_CANCEL => __('Cancel'),
             self::STATUS_REFUND => __('Refund'),
         ];
-    }
-
-    public function getOrderAddress()
-    {
-        return $this->hasMany(OrderAddress::class, 'order_id');
-    }
-
-    public function getOrderItems()
-    {
-        return $this->hasMany(OrderItem::class, 'order_id');
     }
 }

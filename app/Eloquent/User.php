@@ -5,11 +5,11 @@ namespace App\Eloquent;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Eloquent\Relations\UserRelation;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use SoftDeletes;
+    use Notifiable, SoftDeletes, UserRelation;
 
     const PERMISSION_USER = 0;
     const PERMISSION_ADMIN = 1;
@@ -93,20 +93,5 @@ class User extends Authenticatable
         }
 
         return $result;
-    }
-
-    public function getAllComments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    public function getAllMarkMedicines()
-    {
-        return $this->hasMany(MarkMedicine::class);
-    }
-    
-    public function getAllPrescriptions()
-    {
-        return $this->hasMany(Prescription::class);
     }
 }

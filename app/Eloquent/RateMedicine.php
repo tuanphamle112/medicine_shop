@@ -3,10 +3,13 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Eloquent\User;
+use App\Eloquent\Relations\RateMedicineRelation;
 
 class RateMedicine extends Model
 {
+
+    use RateMedicineRelation;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +22,7 @@ class RateMedicine extends Model
         'title',
         'content',
     ];
+    
     public function scopeGetRateId($query, $medicine_id)
     {
         return $query->where('medicine_id', $medicine_id);
@@ -27,16 +31,6 @@ class RateMedicine extends Model
     public function scopeStarNumber($query, $id, $point_rate) 
     {
         return $query->where('medicine_id', $id)->where('point_rate', $point_rate);    
-    }
-    
-    public function getUser()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function getMedicine()
-    {
-        return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 
     public function scopeCheckRated($query, $user_id, $id) 

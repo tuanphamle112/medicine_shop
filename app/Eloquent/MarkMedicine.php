@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Eloquent;
+
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\MarkMedicineRelation;
 
 class MarkMedicine extends Model
 {
+    
+    use MarkMedicineRelation;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,15 +25,6 @@ class MarkMedicine extends Model
     public function scopeCheckMarkMedicine($query, $userId, $medicineId) {
 
         return $query->where('user_id', $userId)->where('medicine_id', $medicineId);
-    }
-    public function getUser()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-    
-    public function getMedicine()
-    {
-        return $this->belongsTo(Medicine::class, 'medicine_id');
     }
 
     public function scopeGetMarkByUser($query, $userId)

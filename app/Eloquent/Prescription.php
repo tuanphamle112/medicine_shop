@@ -2,8 +2,13 @@
 
 namespace App\Eloquent;
 
+use App\Eloquent\Relations\PrescriptionRelation;
+
 class Prescription extends AbstractEloquent
 {
+    
+    use PrescriptionRelation;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,21 +26,6 @@ class Prescription extends AbstractEloquent
         'request_prescription_id',
     ];
 
-    public function getAllItemPrescriptions()
-    {
-        return $this->hasMany(ItemPrescription::class, 'prescription_id');
-    }
-
-    public function getUser()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function getDoctor()
-    {
-        return $this->belongsTo(User::class, 'doctor_id');
-    }
-    
     public function scopeGetPrescriptionsByUser($query, $userId)
     {
         return $query->where('user_id', $userId);
