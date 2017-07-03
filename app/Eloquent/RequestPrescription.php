@@ -3,9 +3,13 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\RequestPrescriptionRelation;
 
 class RequestPrescription extends Model
 {
+
+    use RequestPrescriptionRelation;
+
     const STATUS_NEW = 0;
     const STATUS_WATCHECD = 1;
     const STATUS_RESPONSE = 2;
@@ -30,26 +34,6 @@ class RequestPrescription extends Model
             self::STATUS_WATCHECD => __('Watched'),
             self::STATUS_RESPONSE => __('Has responded'),
         ];
-    }
-
-    public function getUser()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function getAllImages()
-    {
-        return $this->hasMany(Image::class, 'request_prescription_id');
-    }
-
-    public function getRelatedRequetDoctor()
-    {
-        return $this->hasOne(RelatedDoctorRequest::class, 'request_prescription_id');
-    }
-
-    public function getAllPrescription()
-    {
-        return $this->hasMany(Prescription::class, 'request_prescription_id');
     }
 
     public function scopeGetRequestByUser($query ,$user_id)

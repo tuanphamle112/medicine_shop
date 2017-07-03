@@ -2,8 +2,13 @@
 
 namespace App\Eloquent;
 
+use App\Eloquent\Relations\ItemPrescriptionRelation;
+
 class ItemPrescription extends AbstractEloquent
 {
+
+    use ItemPrescriptionRelation;
+
     const STATUS_IN_STORE = 1;
     const STATUS_OUT_STORE = 0;
 
@@ -28,21 +33,5 @@ class ItemPrescription extends AbstractEloquent
             self::STATUS_OUT_STORE => __('Out Store'),
             self::STATUS_IN_STORE => __('In Store'),
         ];
-    }
-
-    public function getPrescription()
-    {
-    
-        return $this->belongsTo(Prescription::class, 'prescription_id');
-    }
-
-    public function getMedicine()
-    {
-        return $this->belongsTo(Medicine::class, 'medicine_id');
-    }
-
-    public function getRequestMedicine()
-    {
-        return $this->hasOne(RequestMedicine::class, 'item_prescription_id');
     }
 }

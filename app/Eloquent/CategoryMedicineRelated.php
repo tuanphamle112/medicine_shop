@@ -3,9 +3,13 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\CategoryMedicineRelation;
 
 class CategoryMedicineRelated extends Model
 {
+
+    use CategoryMedicineRelation;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,12 +29,4 @@ class CategoryMedicineRelated extends Model
      */
     public $timestamps = false;
 
-    public function getAllMedicines()
-    {
-        return $this->belongsTo(Medicine::class);
-    }
-    public function getAllCategories()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }

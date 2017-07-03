@@ -2,8 +2,12 @@
 
 namespace App\Eloquent;
 
+use App\Eloquent\Relations\DoctorRequestRelation;
+
 class RelatedDoctorRequest extends AbstractEloquent
 {
+
+    use DoctorRequestRelation;
 
     const STATUS_NEW = 0;
     const STATUS_WATCHECD = 1;
@@ -26,11 +30,6 @@ class RelatedDoctorRequest extends AbstractEloquent
             self::STATUS_WATCHECD => __('Watched'),
             self::STATUS_RESPONSE => __('Has responded'),
         ];
-    }
-
-    public function getDoctor()
-    {
-        return $this->belongsTo(User::class, 'doctor_id');
     }
 
     public function getRequestPrescription()

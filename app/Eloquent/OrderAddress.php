@@ -3,10 +3,13 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\Relations\BelongsToOrder;
 
 class OrderAddress extends Model
 {
     
+    use BelongsToOrder;
+
     const TYPE_BILLING = 'billing';
     const TYPE_SHIPPING = 'shipping';
 
@@ -32,9 +35,5 @@ class OrderAddress extends Model
     {
         return $query->where('order_id', $orderId)->where('address_type', self::TYPE_SHIPPING);
     }
-
-    public function getOrder()
-    {
-        return $this->belongsTo(Order::class, 'order_id');
-    }
+    
 }
