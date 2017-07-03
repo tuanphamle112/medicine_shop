@@ -942,7 +942,6 @@
     /*Rating*/
     .wrap-rating-info {
         border: 1px solid transparent;
-        margin-bottom: 20px;
         border-bottom: 1px solid #ccc;
     }
     .left-rating {
@@ -963,7 +962,6 @@
     }
     .rating-send-form {
         float: right;
-        margin-top:25px !important;
         border-radius: 0px !important;
         background-color: #e67e22 !important;
         opacity: 0.9;
@@ -996,10 +994,10 @@
     }
     .div-overlap-active {
         display: block;
-        background-color: hsla(0,0%,98%,.7);
+        background-color: hsla(0,0%,98%,.5);
         width: 100%;
         bottom: 0;
-        margin-top: 135px;
+        margin-top: 90px;
         top: 1px  ;
         z-index: 3;
     }
@@ -1104,8 +1102,6 @@
     }
     .wrap-form-rating-review {
         border: 1px solid transparent;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
     }
     /*End rating*/
     
@@ -1624,11 +1620,9 @@
 .prescrition-search-item {
     height: auto;
     z-index: 100;
-    background-color: #FFF;
     max-height: 200px;
     width: 100%;
     overflow: auto;
-    border: 1px #33b7b7 solid;
     border-radius: 5px;
     padding: 0px;
 }
@@ -1639,8 +1633,8 @@
 .prescrition-search-item ul li:hover{
     z-index: 2;
     color: #fff;
-    background-color: #33b7b7;
-    border-color: #33b7b7;
+    background-color: #bb34db;
+    border-color: #bb34db;
     cursor: pointer;
 }
 .prescrition-search-item .list-group-item{
@@ -1653,7 +1647,7 @@
     cursor: pointer;
 }
 .margin-bottom-0px {
-    margin-bottom: 0px;
+    margin-bottom: 0px!important;
 }
 .margin-bottom-30px {
     margin-bottom: 30px !important;

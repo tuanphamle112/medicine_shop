@@ -1,14 +1,14 @@
 @extends('frontend.layouts.master')
 @section('custom-css')
-<link rel="stylesheet" type="text/css" href="{{ asset('/css/template_medicio/cubeportfolio.min.css') }}">
-<link href="{{ asset('/css/template_medicio/animate.css') }}" rel="stylesheet" />
-<link href="{{ asset('/css/template_medicio/style.css') }}" rel="stylesheet">
-<link id="t-colors" href="{{ asset('/css/template_medicio/default.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/css/template_medicio/cubeportfolio.min.css') }}">
+    <link href="{{ asset('/css/template_medicio/animate.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/css/template_medicio/style.css') }}" rel="stylesheet">
+    <link id="t-colors" href="{{ asset('/css/template_medicio/default.css') }}" rel="stylesheet">
 @endsection
-@section('title', __('Homepage'))
+
+@section('title', $frontendInfoWebsite->title)
 
 @section('content')
-
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
     <div id="wrapper">
@@ -300,7 +300,7 @@
         </section>
         <!-- /Section: team -->
         <!-- Section: testimonial -->
-        <section id="testimonial" class="home-section paddingbot-60 parallax" data-stellar-background-ratio="0.5">
+        <section id="testimonial" class="home-section parallax" data-stellar-background-ratio="0.5">
 
             <div class="carousel-reviews broun-block">
                 <div class="container">
@@ -390,7 +390,6 @@
                                     </div>
                                 </div>
 
-
                             </div>
 
                             <a class="left carousel-control" href="#carousel-reviews" role="button" data-slide="prev">
@@ -417,14 +416,13 @@
 @include('frontend.layouts.library.footer-js')
 @stop
 @section('custom-javascript')
-<script src="/js/template_medicio/wow.min.js"></script>
-<script src="/js/template_medicio/jquery.appear.js"></script>
-<script src="/js/template_medicio/stellar.js"></script>
-<script src="/js/template_medicio/jquery.cubeportfolio.min.js"></script>
-<script src="/js/template_medicio/owl.carousel.min.js"></script>
-<script src="/js/template_medicio/nivo-lightbox.min.js"></script>
-<script src="/js/template_medicio/custom.js"></script>
-<script src="/js/template_medicio/jquery.easing.min.js"></script>
-<script src="/js/template_medicio/jquery.scrollTo.js"></script>
+    <script src="/js/template_medicio/wow.min.js"></script>
+    <script src="/js/template_medicio/jquery.appear.js"></script>
+    <script src="/js/template_medicio/stellar.js"></script>
+    <script src="/js/template_medicio/jquery.cubeportfolio.min.js"></script>
+    <script src="/js/template_medicio/owl.carousel.min.js"></script>
+    <script src="/js/template_medicio/nivo-lightbox.min.js"></script>
+    <script src="/js/template_medicio/custom.js"></script>
+    <script src="/js/template_medicio/jquery.easing.min.js"></script>
+    <script src="/js/template_medicio/jquery.scrollTo.js"></script>
 @endsection
-@section('title', $frontendInfoWebsite->title)

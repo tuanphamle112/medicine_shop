@@ -27,8 +27,7 @@ class DetailMedicinesController extends Controller
         $countStar = [];
         $avgMedicine = $collectionRate->avg('point_rate');
         $countTotalRate = count($collectionRate);
-        for ( $i=1; $i<6; $i++)
-        {
+        for ($i=1; $i<6; $i++) {
             $countStar[] = count(RateMedicine::StarNumber($id, $i)->get());
         }
 
@@ -37,11 +36,9 @@ class DetailMedicinesController extends Controller
             ->paginate(config('model.medicine.review_limit'));
 
         if ($request->ajax()) {
-            return view('frontend.components.reviews', array('reviewInformation' => $reviewInformation));
+            return view('frontend.components.reviews', compact(['reviewInformation', 'collectionRate', 'countStar', 'medicine']));
         }
         $option['allowedToBuy'] = $medicine->getOptionAllowedBuy();
-        // dd($medicine->id);
-        // dd($option['allowedToBuy'][0]);
         $check_marked = [];
         if (Auth::check()) {
             $user_id = Auth::user()->id;
@@ -58,14 +55,14 @@ class DetailMedicinesController extends Controller
             'option' => $option
             ]);
     }
-    public function avg(Request $request, $id) {
+    public function reviewMedicine(Request $request, $id) {
 
         $rate_medicines = new RateMedicine;
         $rate_medicines->user_id = Auth::check() ? Auth::user()->id : NULL;
         $rate_medicines->medicine_id = $id;
-        $rate_medicines->point_rate = $request->input('star-main');
-        $rate_medicines->title = $request->input('review-title');
-        $rate_medicines->content = $request->input('review-content');
+        $rate_medicines->point_rate = $request->input('star_main');
+        $rate_medicines->title = $request->input('review_title');
+        $rate_medicines->content = $request->input('review_content');
         $rate_medicines->save();
 
         $collectionRate = RateMedicine::where('medicine_id', $id)->get();
@@ -77,8 +74,18 @@ class DetailMedicinesController extends Controller
         $medicine->avg_rate = $avgMedicine;
         $medicine->total_rate = $countTotalRate;
         $medicine->save();
+        
+        $collectionRate = RateMedicine::where('medicine_id', $id)->get();
+        $countStar = [];
+        for ($i=1; $i<6; $i++) {
+            $countStar[] = count(RateMedicine::StarNumber($id, $i)->get());
+        }
 
-        return redirect()->route('detail', [$id, str_slug($medicine->name)]);
+        $reviewInformation = RateMedicine::GetRateId($id)
+            ->with('getUser')->orderBy('id', 'desc')
+            ->paginate(config('model.medicine.review_limit'));
+
+        return view('frontend.components.reviews', compact(['reviewInformation', 'collectionRate', 'countStar', 'medicine']));
     }
 
     public function addToBox(Request $request) {

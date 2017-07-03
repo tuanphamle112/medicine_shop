@@ -86,7 +86,7 @@
                             </td>
                             <td class="table-address-td" style="text-align: right;">
                                 @if (isset($address['shipping']))
-                                    <p class="page-header"><strong>{{ __('Billing Address') }}</strong></p>
+                                    <p class="page-header"><strong>{{ __('Shipping Address') }}</strong></p>
                                     <strong>{{ $address['shipping']->user_display_name }}</strong>
                                     <address>
                                         <span>{{ __('Tel:') }}{{ $address['shipping']->user_phone }}</span>,

@@ -196,7 +196,7 @@ class OrderController extends Controller
         }
 
         $user = Auth::user();
-        if ($user->id != $order->user_id || $user->permission != User::PERMISSION_ADMIN) {
+        if ($user->id != $order->user_id && $user->permission != User::PERMISSION_ADMIN) {
             $data['message'] = __('You do not have permission to this action!');
             return Response::json($data);
         }

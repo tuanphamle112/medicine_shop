@@ -17,22 +17,11 @@ $(document).ready(function(){
     $('#input-quality').on('rating.change', function(event, value, caption) {        // return $medicine_name->name
         $('#hidden-quality').val(value);
     });
-    $('#star-main2').on('rating.change', function(event, value, caption) {
-        $(".rating-star-hint").css({
-            display: 'none'
-        });
-        $("div").removeClass("div-overlap-active");
-    });
 
     $('#attachfile').click(function () {
         $("#edit_photo").trigger('click'); // or triggerHandler or click()
     });
     
-    // Show form review
-    $(".rating-button").click(function(){
-        $(".wrap-form-rating-review").show(300);
-        $(".rating-button").hide();
-    });
     //Show form contact
     $(".send-email-circle").click(function(){
         $(".contact-content").show().animate({
