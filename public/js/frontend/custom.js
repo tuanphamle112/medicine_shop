@@ -132,5 +132,8 @@ function resendEmailOrder(paramOrderId, element)
                 swal('Error!', data.message, 'error');
             }
         });
+        request.fail(function(jqXHR, textStatus){
+            swal('Error!', 'You can not resend email for this order!', 'error');
+        });
     });
 }

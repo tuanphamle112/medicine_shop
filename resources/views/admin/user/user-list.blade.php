@@ -73,12 +73,9 @@
                                             </a>
                                         </span>
                                         @if ($user->id != Auth::user()->id)
-                                            <button type="button" data-toggle="tooltip" class="btn btn-danger"
-                                                onclick="return confirm('{{ __('Are you delete?') }}') ? $(this).parent().submit(): false;"
-                                                data-original-title="{{ __('Delete') }}"
-                                            >
+                                            <a href="javascript:void(0)" data-text="{{ __('Do you want to delete?') }}" data-toggle="tooltip" class="btn btn-danger" onclick="confirmButtonBeforeSubmit(this)"data-original-title="{{ __('Delete') }}">
                                                 <i class="fa fa-trash-o"></i>
-                                            </button>
+                                            </a>
                                         @endif
                                     {!! Form::close() !!}
                                 </td>

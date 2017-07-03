@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-{{-- @section('title', $parentCategory->name) --}}
+@section('title', __('Contact Us'))
 
 @section('content')
 <!-- Media Container -->
