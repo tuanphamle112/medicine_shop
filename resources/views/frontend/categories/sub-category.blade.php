@@ -18,6 +18,10 @@
     <div class="row portfolio">
         <div class="container-fluid">
             @include('frontend.components.item')
+
+            <div class="text-center">
+                {{ $items->links() }}
+            </div>
         </div>
         
     </div>

@@ -3,33 +3,31 @@
 @section('title', __('Search Medicine'))
 
 @section('content')
- <div class="panel panel-success">
-    <div class="panel-heading">
-        <div class="row">
-            <div class="col-sm-12 text-center padding-15px">
-                <h3 class="panel-title">
-                    {{ __('Search results for keywords:') }}
-                    {{ ' "' . $keyword . '"' }}
-                </h3>
-            </div>
-        </div>
+<section class="site-section site-section-light site-section-top themed-background-dark">
+    <div class="container text-center">
+        <h1 class="animation-slideDown">
+            <p>
+                {{ __('Search results for keywords:') }}
+                {{ ' "' . $keyword . '"' }}
+            </p>
+        </h1>
     </div>
-    <div class="panel-body">
-        <div class="content">
-            <div class= "row">
+</section>
+<section class="site-content site-section padding-15px">
+    <div class="container">
+    
+        @include('frontend.components.item')
+                        
+        @if (count($items) == 0)
+            <div class="text-center v-x2-padding">
+                {{ __('No Item') }}
+            </div>
+        @endif
 
-                @include('frontend.components.item')
-                
-                @if (count($items) == 0)
-                    <div class="text-center v-x2-padding">
-                        {{ __('No Item') }}
-                    </div>
-                @endif
-            </div>
+        <div class="text-center">
+            {{ $items->appends(['keyword' => $keyword])->links() }}
         </div>
+        
     </div>
-    <div class="text-center">
-        {{ $items->appends(['keyword' => $keyword])->links() }}
-    </div>
-</div>
+</section>
 @endsection

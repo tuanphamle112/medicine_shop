@@ -80,9 +80,16 @@ $(document).on('click', '.detail-link', function(){
     });
 });
 $(document).on('click', '.user-change-password', function(){
+    var emptyNoti = function() {
+        $('.noti-old-password').text('');
+        $('.noti-new-password').text('');
+        $('.noti-confirm-password').text('');
+    }
+
     $('#change-password-indicator').removeClass('hide');
     $('.change-password-notification').text('');
     $('.change-password-notification').removeClass('alert alert-success alert-dismissible');
+    emptyNoti();
     
     var dataParam = {};
     dataParam.old_password = $('.data-old-password').val();
@@ -103,9 +110,7 @@ $(document).on('click', '.user-change-password', function(){
                 $('.noti-new-password').text(result.error.new_password);
                 $('.noti-confirm-password').text(result.error.confirm_password);
             } else {
-                $('.noti-old-password').text('');
-                $('.noti-new-password').text('');
-                $('.noti-confirm-password').text('');
+               emptyNoti();
                 $('.change-password-notification').addClass('alert alert-success alert-dismissible')
                 $('.change-password-notification').text(result.message);
             }

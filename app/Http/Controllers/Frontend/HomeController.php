@@ -44,8 +44,9 @@ class HomeController extends Controller
             ->orWhere('symptom', 'like', '%' . $keyword . '%')
             ->orderBy('id', 'desc')
             ->paginate(config('model.medicine.result_limit'));
+        $option['allowedToBuy'] = Medicine::getOptionAllowedBuy();
         
-        return view('frontend.search.result', compact(['items', 'keyword']));
+        return view('frontend.search.result', compact(['items', 'keyword', 'option']));
     }
 
     public function jsonSearch(Request $request)

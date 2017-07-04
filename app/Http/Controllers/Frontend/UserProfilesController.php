@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Eloquent\User;
+use App\Eloquent\Order;
+use App\Eloquent\RateMedicine;
+use App\Eloquent\Comment;
+use App\Eloquent\RequestMedicine;
+use App\Eloquent\RelatedDoctorRequest;
+use App\Eloquent\Prescription;
 use App\Helpers\Helper;
 use Hash;
 use Response;
@@ -24,24 +30,42 @@ class UserProfilesController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+
+        $orderCollection = Order::where('user_id', $user->id)->orderBy('id', 'desc')->get();
+        $data['orders']['list'] = $orderCollection;
+        $data['orders']['pending'] = $orderCollection->where('status', Order::STATUS_PENDING);
+        $data['orders']['complete'] = $orderCollection->where('status', Order::STATUS_COMPLETE);
+        $data['orders']['cancel'] = $orderCollection->where('status', Order::STATUS_CANCEL);
+        $data['orders']['refund'] = $orderCollection->where('status', Order::STATUS_REFUND);
+        $data['orders']['options'] = Order::getOptionStatus();
+
+        $data['review']['count'] = RateMedicine::select('id')->where('user_id', $user->id)->get()->count();
+        $data['comment']['question'] = Comment::select('id')->getQuestionByUserId($user->id)->get()->count();
+        $data['comment']['answer'] = Comment::select('id')->getAnswerByUserId($user->id)->get()->count();
+        $data['request']['medicine'] = RequestMedicine::select('id')->where('user_id', $user->id)->get()->count();
+
+        if ($user->permission == User::PERMISSION_DOCTER) {
+            $data['doctor']['request'] = RelatedDoctorRequest::where('doctor_id', $user->id)->get()->count();
+            $data['doctor']['prescription'] = Prescription::where('doctor_id', $user->id)->get()->count();
+        }
 
         $option['gender'] = $this->user->getGenderOption();
         $option['permission'] = $this->user->getPermissionOption();
 
-        return view('frontend.user.userProfile', compact(['option']));
+        return view('frontend.user.userProfile', compact(['option', 'data']));
     }
 
     public function editUserInformations(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'display_name' => 'required|min:4|max:30',
-            'address' => 'required',
+                'display_name' => 'required',
             ]);
 
         if ($validator->fails()) {
             return redirect()
-            ->route('frontend.user.profiles')
-            ->withErrors($validator);
+                ->route('frontend.user.profiles')
+                ->withErrors($validator);
         }
 
         $user = User::find(Auth::user()->id);
@@ -67,6 +91,7 @@ class UserProfilesController extends Controller
 
         return redirect()->route('frontend.user.profiles');
     }
+
     public function userChangePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -99,22 +124,26 @@ class UserProfilesController extends Controller
 
         return Response::json($data);
     }
+
     public function profileDiffUser($user_id)
     {
+        if (Auth::check() && $user_id == Auth::user()->id) {
+            return redirect()->route('frontend.user.profiles');
+        }
+
         $userProfiles = User::find($user_id);
         $option['gender'] = $this->user->getGenderOption();
         $option['permission'] = $this->user->getPermissionOption();
-        
-        if(Auth::check())
-        {
-            if($userProfiles->id == Auth::user()->id)
-            {
-                return redirect()->route('frontend.user.profiles');
-            }
+
+        $data['review']['count'] = RateMedicine::select('id')->where('user_id', $user_id)->get()->count();
+        $data['comment']['question'] = Comment::select('id')->getQuestionByUserId($user_id)->get()->count();
+        $data['comment']['answer'] = Comment::select('id')->getAnswerByUserId($user_id)->get()->count();
+
+        if ($userProfiles->permission == User::PERMISSION_DOCTER) {
+            $data['doctor']['request'] = RelatedDoctorRequest::where('doctor_id', $user_id)->get()->count();
+            $data['doctor']['prescription'] = Prescription::where('doctor_id', $user_id)->get()->count();
         }
-        return view('frontend.user.userProfile',compact([
-            'userProfiles',
-            'option'
-        ]));
+
+        return view('frontend.user.diff-user-profile', compact(['userProfiles', 'option', 'data']));
     }
 }

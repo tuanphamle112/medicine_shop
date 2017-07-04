@@ -56,7 +56,11 @@
                                     <span>{{ $rate->getMedicine->name }}</span>
                                 </td>
                                 <td>
-                                    <span>{{ $rate->getUser->display_name }}</span>
+                                    @if ($rate->user_id)
+                                        <span>{{ $rate->getUser->display_name }}</span>
+                                    @else
+                                        <span class="text-danger">{{ __('User not login') }}</span>
+                                    @endif
                                 </td>
                                 <td>{{ $rate->title }}</td>
                                 <td>
