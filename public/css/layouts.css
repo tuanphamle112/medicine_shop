@@ -1081,8 +1081,6 @@
     }
     .progress-bar {
         height: 13px;
-        
-        background-color: #faca51 !important;
     }
     .progress {
         height: 13px;
@@ -1846,4 +1844,45 @@
 .boder-1px {
     border: 1px solid #E5E5E5;
     border-radius: 5px;
+}
+.review-homepage-content {
+    height: 80px;
+    overflow: hidden;
+}
+.review-homepage-title {
+    margin-bottom: 0px!important;
+    height: 25px;
+    overflow: hidden;
+}
+.doctor-info-p {
+    height: 30px;
+    margin-bottom: 0px !important;
+    overflow: hidden;
+    line-height: 30px;
+}
+.doctor-wrap {
+    border-bottom: 1px solid #DCDCDC;
+    padding-bottom: 10px;
+    position: relative;
+    height: 180px;
+}
+.doctor-wrap .quick-view {
+    height: 30px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background-color: #69d7e2;
+    line-height: 30px;
+    color: #FFF;
+    display: none;
+    cursor: pointer;
+}
+.doctor-wrap img {
+    height: 100%;
+}
+.doctor-wrap .quick-view a{
+    color: #fff;
+}
+.doctor-wrap:hover .quick-view{
+    display: block;
 }

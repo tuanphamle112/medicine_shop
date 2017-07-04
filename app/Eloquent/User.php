@@ -6,10 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Eloquent\Relations\UserRelation;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes, UserRelation;
+    use Notifiable, SoftDeletes, UserRelation, Searchable;
 
     const PERMISSION_USER = 0;
     const PERMISSION_ADMIN = 1;
@@ -73,6 +74,17 @@ class User extends Authenticatable
             self::GENDER_FEMALE => __('Female'),
             self::GENDER_OTHER => __('Other'),
         ];
+    }
+
+    public function searchableAs()
+    {
+        return 'display_name';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+        return $array;
     }
     
     public function getAllDoctorOption()

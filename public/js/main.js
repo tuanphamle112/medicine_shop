@@ -45,6 +45,8 @@ $(document).ready(function(){
     $("#edit_photo").change(function(){
         readURL(this);
     });
+
+    $('.home-rating-star').rating({step: 1, stars: 5, showCaption:false, showClear:false});
 });
 
 $(document).on('click', '.add-to-box2', function(){

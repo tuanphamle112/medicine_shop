@@ -48,6 +48,17 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($category->parent_id != null)
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    {!! Form::label('parent_id', __('Parent Category'), ['class' => 'col-sm-3 control-label']) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::select('parent_id', $optionParentCategory, $category->parent_id, ['class' => 'form-control']) !!}
+                                        <span class="text-danger">{!! $errors->first('parent_id') !!}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group">
                             {!! Form::label('image', __('Image'), ['class' => 'col-sm-2 control-label']) !!}
                             @if ($category->image)
@@ -63,17 +74,7 @@
                                 <span class="text-danger">{!! $errors->first('image') !!}</span>
                             </div>
                         </div>
-                        @if ($category->parent_id != null)
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    {!! Form::label('parent_id', __('Parent Category'), ['class' => 'col-sm-3 control-label']) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::select('parent_id', optionParentCategory, $category->parent_id, ['class' => 'form-control']) !!}
-                                        <span class="text-danger">{!! $errors->first('parent_id') !!}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
+                        
                     {!! Form::close() !!}
                 </div><!-- /.box-body -->
             </div><!-- /.box -->

@@ -18,6 +18,21 @@
         <div class="store-item-info clearfix">
             <span class="store-item-price themed-color-dark pull-right">{{ App\Helpers\Helper::formatPrice($item->price) }}</span>
             <a href="{{ route('detail', [$item->id, str_slug($item->name)]) }}"><strong>{{ $item->name }}</strong></a><br>
+            <span>
+                @if($item->allowed_buy == App\Eloquent\Medicine::ALLOWED_BUY)
+                    <i class="text-success fa fa-check" aria-hidden="true"></i>
+                    <strong class="text-success">
+                        {{ $option['allowedToBuy'][App\Eloquent\Medicine::ALLOWED_BUY] }}
+                    </strong>
+                @else
+                    <i class="text-danger fa fa-times" aria-hidden="true"></i>
+                    <strong class="text-danger">
+                        {{ $option['allowedToBuy'][App\Eloquent\Medicine::NOT_ALLOWED_BUY] }}
+                    </strong>
+                @endif
+            </span><br/>
+            <strong>{{ __('Symptom') }}:</strong>
+            <span>{{ str_limit($item->symptom, 65) }}</span>
         </div>
     </div>
 </div>

@@ -39,13 +39,14 @@
                                     <span class="rating-number-text"> {{ $medicine->total_rate . __(' ratings and reviews') }}</span>
                                 </div>
                             </div>
+                            
                             <div class="col-sm-6 col-xs-6">
                                 <div class="bar-div-rating">
                                     <span class="rating-bar-label">
                                         {{ __(':num stars', ['num' => 5]) }}
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:
                                         {{ $starPercent[4] }}%"
                                         ></div>
                                     </div>
@@ -56,7 +57,7 @@
                                         {{ __(':num stars', ['num' => 4]) }}
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[3] }}%"></div>
+                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[3] }}%"></div>
                                     </div>
                                     <span class="rating-bar-count">{{ $countStar[3] }}</span>
                                 </div>
@@ -65,7 +66,7 @@
                                         {{ __(':num stars', ['num' => 3]) }}
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[2] }}%"></div>
+                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[2] }}%"></div>
                                     </div>
                                     <span class="rating-bar-count">{{ $countStar[2] }}</span>
                                 </div>
@@ -74,7 +75,7 @@
                                         {{ __(':num stars', ['num' => 2]) }}
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[1] }}%">
+                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[1] }}%">
                                         </div>
                                     </div>
                                     <span class="rating-bar-count">{{ $countStar[1] }}</span>
@@ -84,7 +85,7 @@
                                         {{ __(':num stars', ['num' => 1]) }}
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[0] }}%"></div>
+                                        <div class="progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="200" style="width:{{ $starPercent[0] }}%"></div>
                                     </div>
                                     <span class="rating-bar-count">{{ $countStar[0] }}</span>
                                 </div>

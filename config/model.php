@@ -2,10 +2,11 @@
 
 return [
     'medicine' => [
-        'items_limit' => 8,
+        'items_limit' => 12,
         'autocomple_limit' => 12,
         'result_limit' => 8,
         'review_limit' => 6,
+        'slider_limit' => 9,
     ],
 
     'prescription' => [
@@ -27,5 +28,9 @@ return [
 
     'comment' => [
         'items_limit' => 5,
+    ],
+
+    'user' => [
+        'doctor_limit' => 8,
     ],
 ];

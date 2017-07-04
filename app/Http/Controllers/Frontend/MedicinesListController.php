@@ -28,12 +28,14 @@ class MedicinesListController extends Controller
         }
 
         $items = Medicine::whereIn('id', $medicineIDs)
-        ->with('getAllImages')
-        ->orderBy('id', 'desc')->paginate(12);
+            ->with('getAllImages')->orderBy('id', 'desc')
+            ->paginate(config('model.medicine.items_limit'));
 
         $itemSlideInCategories = Medicine::with('getAllImages')
-        ->take(config('model.medicine.slider_limit'))
-        ->orderBy('id', 'desc')->get();
+            ->take(config('model.medicine.slider_limit'))
+            ->orderBy('id', 'desc')->get();
+
+        $option['allowedToBuy'] = Medicine::getOptionAllowedBuy();
 
         return view('frontend.categories.parent-category', compact([
             'parentCategory',
@@ -41,7 +43,8 @@ class MedicinesListController extends Controller
             'parentLink',
             'items',
             'itemSlideInCategories',
-            ]));
+            'option',
+        ]));
     }
     public function showSubCategory($parentLink, $subLink)
     {
@@ -50,16 +53,16 @@ class MedicinesListController extends Controller
         $subCategories = Category::getSubCategoryByParentId($parentCategory->id)->get();
 
         $selectSubCate = Category::getSubCaregoryByLink($subLink, $parentCategory->id)
-        ->with('getAllMedicines.getAllImages')
-        ->first();
-        $items = $selectSubCate->getAllMedicines()->paginate(12);
+            ->with('getAllMedicines.getAllImages')->first();
+        $items = $selectSubCate->getAllMedicines()->paginate(config('model.medicine.items_limit'));
 
         $itemSlideInCategories = Medicine::with('getAllImages')
-        ->take(config('model.medicine.slider_limit'))
-        ->orderBy('id', 'desc')->get();
+            ->take(config('model.medicine.slider_limit'))
+            ->orderBy('id', 'desc')->get();
 
+        $option['allowedToBuy'] = Medicine::getOptionAllowedBuy();
 
-        return view('frontend.categories.parent-category', compact([
+        return view('frontend.categories.sub-category', compact([
             'parentCategory',
             'subCategories',
             'selectSubCate',
@@ -67,6 +70,7 @@ class MedicinesListController extends Controller
             'subLink',
             'items',
             'itemSlideInCategories',
-            ]));
+            'option',
+        ]));
     }
 }
