@@ -110,7 +110,7 @@
                                 <a href="{{ route('frontend.prescription.index') }}" title="{{ trans('label.prescription') }}" class="top-link-checkout">{{ trans('label.prescription') }}</a>
                             </li>
                             <li>
-                                <a href="{{ route('frontend.user.profiles') }}" title="{{ trans('My profiles') }}">{{ trans('My profiles') }}</a>
+                                <a href="{{ route('frontend.user.profiles') }}" title="{{ __('My profiles') }}">{{ __('My profiles') }}</a>
                             </li>
                             <li>
                                 <a href="{{ route('frontend.order.list') }}" title="{{ __('Orders List') }}">{{ __('Orders List') }}</a>

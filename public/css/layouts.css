@@ -2132,3 +2132,24 @@ ul.twPc-Arrange {
     margin-left: 135px;
     padding: 10px 0;
 }
+
+.translate .active {
+    color: #ffffff;
+    transform: rotate(360deg) scale(1.5);
+    opacity: 1 !important;
+}
+.translate a{
+    opacity: 0.3;
+}
+.translate .vietnam {
+    background-image: url('/images/vietnam.png');
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+}
+.translate .english {
+    background-image: url('/images/english.png');
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+}

@@ -16,6 +16,32 @@ use App\Eloquent\Medicine;
 class Helper
 {
 
+    public static function getCurrentLanguage()
+    {
+        return Session::get('language', 'vn');
+    }
+
+    public static function setLanguage($lang = 'vn')
+    {
+        Session::put('language', $lang);
+    }
+
+    public static function changeLanguage()
+    {
+        $language = self::getCurrentLanguage();
+        switch ($language) {
+            case 'en':
+                $language = 'en';
+                break;
+            
+            default:
+                $language = 'vn';
+                break;
+        }
+        
+        config(['app.locale' => $language]);
+    }
+
     public static function addMessageFlashSession($title, $message, $type = 'success')
     {
         $messages = Session::get('flash_messages', []);
