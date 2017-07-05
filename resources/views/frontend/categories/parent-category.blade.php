@@ -20,6 +20,10 @@
 
     <div class="row portfolio">
         @include('frontend.components.item')
+
+        <div class="text-center">
+            {{ $items->links() }}
+        </div>
     </div>
 
     {{-- Slide --}}

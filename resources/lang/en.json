@@ -369,5 +369,10 @@
     "doctors": "doctors",
     "Search by name, specialty, place of work ...": "Search by name, specialty, place of work ...",
     "Quick view": "Quick view",
-    "No doctor": "No doctor"
+    "No doctor": "No doctor",
+    "Doctor Information": "Doctor Information",
+    "User not login": "User not login",
+    "Requests Prescription from User": "Requests Prescription from User",
+    "Make Prescription for User": "Make Prescription for User",
+    "Reviews": "Reviews"
 }

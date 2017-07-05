@@ -9,7 +9,7 @@
     <div class="container banner-title">
         <h1 class="text-center animation-slideDown"><strong>{{ __('Doctors List') }}</strong></h1>
         <h3 class="h3 animation-slideUp text-center">
-            <strong id="doctor-count-doctor">24</strong>
+            <strong id="doctor-count-doctor"></strong>
             {{ __('doctors') }}!
         </h3>
     </div>

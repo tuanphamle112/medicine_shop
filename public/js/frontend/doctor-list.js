@@ -14,6 +14,7 @@ var DoctorListViewModel = function()
     {
         self.currentPage(data.current_page);
         self.doctorDataArray(data.data);
+        $('#doctor-count-doctor').text(data.total);
         $('#doctor-list-indicator').addClass('hide');
     }
 
