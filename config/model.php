@@ -22,6 +22,10 @@ return [
         'items_limit' => 5,
     ],
 
+    'request_medicine' => [
+        'items_limit' => 8,
+    ],
+
     'order' => [
         'items_limit' => 10,
     ],

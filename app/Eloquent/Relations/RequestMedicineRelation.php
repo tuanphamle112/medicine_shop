@@ -13,11 +13,6 @@ trait RequestMedicineRelation
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getItemPrescription()
-    {
-        return $this->belongsTo(ItemPrescription::class, 'item_prescription_id');
-    }
-
     public function getAllImages()
     {
         return $this->hasMany(Image::class, 'request_medicines_id');

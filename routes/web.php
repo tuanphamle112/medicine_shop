@@ -92,6 +92,14 @@ Route::group(['middleware' => 'isLogin'], function(){
     Route::get('/request-prescription/json/detail', 'Frontend\RequestPrescriptionController@jsonDetail');
     Route::get('/request-prescription/json/doctorDetail', 'Frontend\RequestPrescriptionController@jsonDoctorDetail');
 
+    Route::get('/request-medicine', 'Frontend\RequestMedicineController@requestIndex')
+        ->name('frontend.request-medicine.index');
+    Route::get('/request-medicine/add-new', 'Frontend\RequestMedicineController@requestAddnew')
+        ->name('frontend.request-medicine.addnew');
+    Route::post('/request-medicine/add-new', 'Frontend\RequestMedicineController@requestStore')
+        ->name('frontend.request-medicine.store');
+    Route::get('/request-medicine/json/detail', 'Frontend\RequestMedicineController@jsonDetail');
+
     Route::get('/doctor-request-prescription', 'Frontend\RequestPrescriptionController@doctorRequestIndex')
         ->name('doctor-request-prescription.index');
     Route::get('/doctor/{id}/make-prescrition', 'Frontend\PrescriptionController@doctorMakePrescription')

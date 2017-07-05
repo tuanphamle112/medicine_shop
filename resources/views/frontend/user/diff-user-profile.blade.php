@@ -99,7 +99,6 @@
                           
                         </div>
 
-
                         <h3 class="mgbt-xs-15 mgtp-10 font-semibold text-info">
                             <i class="icon-user mgr-10 profile-icon"></i>
                             {{ __('Short Describe') }}
@@ -189,7 +188,7 @@
                                     <div class="col-xs-7 controls">
                                         {{ $userProfiles->birthday }}
                                     </div>
-                                    <!-- col-sm-10 --> 
+                                    <!-- col-sm-10 -->
                                 </div><hr/>
                             </div>
                             <div class="col-sm-6">
@@ -198,7 +197,7 @@
                                     <div class="col-xs-7 controls">
                                         {{ $userProfiles->address }}
                                     </div>
-                                    <!-- col-sm-10 --> 
+                                    <!-- col-sm-10 -->
                                 </div><hr/>
                             </div>
                         </div>

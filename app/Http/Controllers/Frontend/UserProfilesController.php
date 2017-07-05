@@ -128,6 +128,7 @@ class UserProfilesController extends Controller
     public function profileDiffUser($user_id)
     {
         if (Auth::check() && $user_id == Auth::user()->id) {
+
             return redirect()->route('frontend.user.profiles');
         }
 

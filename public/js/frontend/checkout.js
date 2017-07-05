@@ -59,6 +59,7 @@ var CheckoutViewModel = function(user)
         result &= self.checkElementInput('input[id="user_email"]');
         result &= self.checkElementInput('input[id="user_address"]');
         result &= self.checkElementInput('input[id="user_display_name"]');
+        result &= self.checkElementInput('input[id="user_phone"]');
 
         return result;
     }
@@ -70,9 +71,11 @@ var CheckoutViewModel = function(user)
         result &= self.checkElementInput('input[id="billing_email"]');
         result &= self.checkElementInput('input[id="billing_display_name"]');
         result &= self.checkElementInput('input[id="billing_address"]');
+        result &= self.checkElementInput('input[id="billing_phone"]');
         result &= self.checkElementInput('input[id="shipping_email"]');
         result &= self.checkElementInput('input[id="shipping_display_name"]');
         result &= self.checkElementInput('input[id="shipping_address"]');
+        result &= self.checkElementInput('input[id="shipping_phone"]');
 
         return result;
     }

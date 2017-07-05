@@ -13,6 +13,8 @@ class RequestMedicine extends AbstractEloquent
     const STATUS_WATCHED = 2;
     const STATUS_HAS_RESPONDED = 3;
 
+    const PATH_REQUEST = 'uploads/request-medicine/';
+
     /**
      * The attributes that are mass assignable.
      *
