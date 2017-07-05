@@ -23,8 +23,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <div class="col-md-10">
-                    </div>
+                    <div class="col-md-10"></div>
                     <div class="col-md-2 text-right">
                         {!! Form::button(__('Save'), ['type' => 'submit', 'form' => 'save-request-medicine', 'data-toggle' => 'tooltip', 'class' => 'btn btn-primary', 'data-original-title' => __('Save')]) !!}
                         <a href="{!! route('request.index') !!}" data-toggle="tooltip" class="btn btn-default" data-original-title="{{ __('Cancel') }}">
@@ -63,11 +62,20 @@
                     </div>
 
                     {!! Form::open(['route' => ['request.update', $requestMedicine->id], 'id' => 'save-request-medicine', 'class' => 'form-horizontal', 'method' => 'PUT']) !!}
+
+                        <div class="form-group">
+                            <div class="col-sm-1"></div>
+                            @foreach ($requestMedicine->getAllImages as $image)
+                                <div class="col-sm-2">
+                                    <img src="{{ url($image->path_origin) }}" class="img-thumbnail max-height-200px" alt="{{ $requestMedicine->medicine_name }}">
+                                </div>
+                            @endforeach
+                        </div>
                         
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                {!! Form::label('status', __('Status'), ['class' => 'col-sm-4 control-label']) !!}
-                                <div class="col-sm-8">
+                            <div class="col-sm-12">
+                                {!! Form::label('status', __('Status'), ['class' => 'col-sm-1 control-label']) !!}
+                                <div class="col-sm-11">
                                     {!! Form::select('status', $data['option'], $requestMedicine->status, ['class' => 'form-control']) !!}
                                     <span class="text-danger">{!! $errors->first('status') !!}</span>
                                 </div>
@@ -76,9 +84,9 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                {!! Form::label('respone_admin', __('Respone By Admin'), ['class' => 'col-sm-2 control-label']) !!}
+                                {!! Form::label('respone_admin', __('Respone By Admin'), ['class' => 'col-sm-1 control-label']) !!}
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-11">
                                     {!! Form::textarea('respone_admin', $requestMedicine->respone_admin, ['class' => 'form-control', 'placeholder' => __('Respone By Admin'), 'rows' => '6']) !!}
                                     <span class="text-danger">{!! $errors->first('respone_admin') !!}</span>
                                 </div>

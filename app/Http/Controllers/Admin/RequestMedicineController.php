@@ -74,8 +74,8 @@ class RequestMedicineController extends Controller
     public function edit($id)
     {
         $requestMedicine = $this->requestMedicine
-            ->with('getUser')
-            ->find($id);
+            ->with('getUser', 'getAllImages')->find($id);
+            
         if (!$requestMedicine) {
             $message = __('Request Medicine not found!');
             Helper::addMessageFlashSession(__('Error'), $message, 'danger');

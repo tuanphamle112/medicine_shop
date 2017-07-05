@@ -374,5 +374,11 @@
     "User not login": "User not login",
     "Requests Prescription from User": "Requests Prescription from User",
     "Make Prescription for User": "Make Prescription for User",
-    "Reviews": "Reviews"
+    "Reviews": "Reviews",
+    "Request Medicine": "Request Medicine",
+    "Request Medicine List": "Request Medicine List",
+    "Add New Request Medicine": "Add New Request Medicine",
+    "Add new request Medicine :name successfully!": "Add new request Medicine :name successfully!",
+    "No medicine required": "No medicine required",
+    "Detail Request Medicine": "Detail Request Medicine"
 }

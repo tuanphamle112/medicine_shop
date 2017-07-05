@@ -91,6 +91,9 @@
                                 <a href="{{ route('frontend.mark-medicine.index') }}" title="{{ trans('label.medical_box') }}">{{ trans('label.medical_box') }}</a>
                             </li>
                             <li>
+                                <a href="{{ route('frontend.request-medicine.index') }}" title="{{ __('Request Medicine') }}">{{ __('Request Medicine') }}</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('request-prescription.index') }}" title="{{ __('Request Presctiption') }}">{{ __('Make Request Presctiption') }}</a>
                             </li>
                             @if (Auth::user()->permission == App\Eloquent\User::PERMISSION_DOCTER)
