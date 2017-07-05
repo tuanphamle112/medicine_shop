@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="service-desc">
                                     <h5 class="h-light">{{ __('Get online medicines') }}</h5>
-                                    <p>{{ __('Some medicines that able to buy by make an order way') }}y</p>
+                                    <p>{{ __('Some medicines that able to buy by make an order way') }}</p>
                                 </div>
                             </div>
                         </div>

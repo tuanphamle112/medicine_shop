@@ -21,13 +21,23 @@ use DB;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function changeLanguage(Request $request)
     {
+        $lang = $request->language;
+
+        $language = 'vn';
+        if ($lang == 'en') {
+            $language = 'en';
+        }
+
+        Helper::setLanguage($language);
+
+        return redirect()->back();
+    }
+
+    public function index()
+    {   
         $queryRate = RateMedicine::with('getUser', 'getMedicine')->whereNotNull('user_id')
             ->orderBy('point_rate', 'desc')->orderBy('id', 'desc');
         for ($i = 0; $i < 3; $i++) {

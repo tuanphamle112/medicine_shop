@@ -562,7 +562,7 @@
                         </div>
                     </div>
                     <div class="wrap-upload-note">
-                        <span><b>{{ __('Note') }} : </b>{{ __("Image's size recomment: greater 350px width and height ") }} </span>
+                        <span><b>{{ __('Note') }} : </b>{{ __("Image's size recomment: greater 350px width and height") }} </span>
 
                     </div>
                     <div class="form-upload-avatar">
